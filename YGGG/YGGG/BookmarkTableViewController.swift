@@ -14,12 +14,6 @@ class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITa
         return tableView
     }()
     
-    lazy var infoButton: UIButton = {
-        let infoButton = UIButton()
-        infoButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
-        return infoButton
-    }()
-    
     var datas = UserInfoEntry.sampleDatas
     let search = UISearchController(searchResultsController: nil)
     let customSearchBar = CustomSearchBar()
@@ -36,8 +30,6 @@ class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITa
         
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(infoButton)
-        infoButton.translatesAutoresizingMaskIntoConstraints = false
         
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
@@ -79,7 +71,6 @@ class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITa
             return
         }
         
-        
         filteredTableData = datas.filter {
             $0.name.lowercased().contains(searchBarText.lowercased())
         }
@@ -96,8 +87,6 @@ class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITa
             }
         }
     }
-    
-    
     
     class CustomSearchBar: UISearchBar {
         
