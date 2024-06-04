@@ -1,6 +1,6 @@
 //
 //  BookmarkTableViewCell.swift
-//  Lab8-temp
+//  YGGG
 //
 //  Created by 김영훈 on 6/4/24.
 //
