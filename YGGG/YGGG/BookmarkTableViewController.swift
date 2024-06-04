@@ -7,21 +7,37 @@
 
 import UIKit
 
-class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        return tableView
+    }()
+    
+    lazy var infoButton: UIButton = {
+        let infoButton = UIButton()
+        infoButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
+        return infoButton
+    }()
+    
     var datas = UserInfoEntry.sampleDatas
+    let search = UISearchController(searchResultsController: nil)
+    let customSearchBar = CustomSearchBar()
+    var filteredTableData: [UserInfoEntry] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         
-        let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(BookmarkTableViewCell.self, forCellReuseIdentifier: "bookmarkCell")
         
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(infoButton)
+        infoButton.translatesAutoresizingMaskIntoConstraints = false
         
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
@@ -30,6 +46,16 @@ class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITa
             tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -24),
             tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
+        
+        search.setValue(customSearchBar, forKey: "searchBar")
+        search.searchResultsUpdater = self
+        search.obscuresBackgroundDuringPresentation = false
+        search.searchBar.placeholder = "계정 및 해시태그 검색"
+        search.searchBar.delegate = self
+        
+        navigationItem.searchController = search
+        navigationItem.hidesSearchBarWhenScrolling = false
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,6 +74,58 @@ class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITa
         87
     }
     
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchBarText = searchController.searchBar.text else {
+            return
+        }
+        filteredTableData.removeAll()
+        filteredTableData = datas.filter {
+            $0.name.lowercased().contains(searchBarText.lowercased())
+        }
+        self.tableView.reloadData()
+    }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        if let customSearchBar = searchBar as? CustomSearchBar {
+            print("begin")
+                   customSearchBar.infoButton.isHidden = true
+               }
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if let customSearchBar = searchBar as? CustomSearchBar {
+            print("end")
+                    customSearchBar.infoButton.isHidden = false
+                }
+    }
 }
 
+class CustomSearchBar: UISearchBar {
+    
+    var infoButton: UIButton = {
+        let infoButton = UIButton(type: .infoLight)
+        infoButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
+        return infoButton
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupInfoButton()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupInfoButton() {
+        infoButton.translatesAutoresizingMaskIntoConstraints = false
+        infoButton.addAction(UIAction(){_ in print("infobutton")}, for: .touchUpInside)
+        self.addSubview(infoButton)
+        
+        NSLayoutConstraint.activate([
+            infoButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            infoButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+            infoButton.widthAnchor.constraint(equalToConstant: 26),
+            infoButton.heightAnchor.constraint(equalToConstant: 26)
+        ])
+    }
+}
