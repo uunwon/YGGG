@@ -78,54 +78,55 @@ class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITa
         guard let searchBarText = searchController.searchBar.text else {
             return
         }
-        filteredTableData.removeAll()
+        
+        
         filteredTableData = datas.filter {
             $0.name.lowercased().contains(searchBarText.lowercased())
         }
+
         self.tableView.reloadData()
     }
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let customSearchBar = searchBar as? CustomSearchBar {
-            print("begin")
-                   customSearchBar.infoButton.isHidden = true
-               }
-    }
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        if let customSearchBar = searchBar as? CustomSearchBar {
-            print("end")
-                    customSearchBar.infoButton.isHidden = false
-                }
-    }
-}
-
-class CustomSearchBar: UISearchBar {
-    
-    var infoButton: UIButton = {
-        let infoButton = UIButton(type: .infoLight)
-        infoButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
-        return infoButton
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupInfoButton()
+            if searchText.isEmpty {
+                customSearchBar.infoButton.isHidden = false
+            } else {
+                customSearchBar.infoButton.isHidden = true
+            }
+        }
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
-    private func setupInfoButton() {
-        infoButton.translatesAutoresizingMaskIntoConstraints = false
-        infoButton.addAction(UIAction(){_ in print("infobutton")}, for: .touchUpInside)
-        self.addSubview(infoButton)
+    
+    class CustomSearchBar: UISearchBar {
         
-        NSLayoutConstraint.activate([
-            infoButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            infoButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
-            infoButton.widthAnchor.constraint(equalToConstant: 26),
-            infoButton.heightAnchor.constraint(equalToConstant: 26)
-        ])
+        var infoButton: UIButton = {
+            let infoButton = UIButton(type: .infoLight)
+            infoButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
+            return infoButton
+        }()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setupInfoButton()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setupInfoButton() {
+            infoButton.translatesAutoresizingMaskIntoConstraints = false
+            infoButton.addAction(UIAction(){_ in print("infobutton")}, for: .touchUpInside)
+            self.addSubview(infoButton)
+            
+            NSLayoutConstraint.activate([
+                infoButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+                infoButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+                infoButton.widthAnchor.constraint(equalToConstant: 26),
+                infoButton.heightAnchor.constraint(equalToConstant: 26)
+            ])
+        }
     }
 }
