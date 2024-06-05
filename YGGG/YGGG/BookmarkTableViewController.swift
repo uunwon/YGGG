@@ -139,7 +139,7 @@ class SearchInfoViewController: UIViewController {
         let label = UILabel()
         label.numberOfLines = 3
         label.text = "검색 \n관련 \n설명"
-        label.textColor = UIColor(red: 0.73, green: 0.73, blue: 0.73, alpha: 1)
+        label.textColor = .systemGray
         label.font = UIFont.systemFont(ofSize: 12)
         
         view.addSubview(label)
@@ -151,6 +151,8 @@ class SearchInfoViewController: UIViewController {
             label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10),
             label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 10),
         ])
+        
+        self.preferredContentSize = CGSize(width: 200, height: 200)
     }
 }
 
