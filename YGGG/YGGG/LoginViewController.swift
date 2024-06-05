@@ -24,7 +24,7 @@ class LoginViewController: UIViewController {
         return label
     }()
     
-    let googleLoginButton: UIButton = {
+    lazy var googleLoginButton: UIButton = {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .white
         let button = UIButton()
@@ -44,16 +44,18 @@ class LoginViewController: UIViewController {
         button.layer.masksToBounds = true // button rounding
         button.layer.cornerRadius = 7
         
-        button.addAction(UIAction { _ in
-            // TODO: - Google Login
+        let action = UIAction { [weak self] _ in
             print("Click Google Login")
-        }, for: .touchUpInside)
+            self?.moveToMain()
+        }
+        button.addAction(action, for: .touchUpInside)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
     
-    let appleLoginButton: UIButton = {
+    lazy var appleLoginButton: UIButton = {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .black
         let button = UIButton()
@@ -69,10 +71,12 @@ class LoginViewController: UIViewController {
         button.layer.masksToBounds = true // button rounding
         button.layer.cornerRadius = 7
         
-        button.addAction(UIAction { _ in
-            // TODO: - Apple Login
+        let action = UIAction { [weak self] _ in
             print("Click Apple Login")
-        }, for: .touchUpInside)
+            self?.moveToMain()
+        }
+        button.addAction(action, for: .touchUpInside)
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -133,4 +137,15 @@ class LoginViewController: UIViewController {
     func updateLayout() {
         NSLayoutConstraint.activate(titleLabelConstraints + descriptionLabelConstraints + googleLoginButtonConstraints + appleLoginButtonConstraints)
     }
+    
+    // 로그인 성공 시 메인 화면으로 전환
+    func moveToMain() {
+        let mainTabBarController = MainTabBarController()
+        
+        // SceneDelegate 에서 rootViewController 변경
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            sceneDelegate.window?.rootViewController = mainTabBarController
+        }
+    }
+    
 }
