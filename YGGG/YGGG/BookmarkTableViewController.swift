@@ -41,8 +41,8 @@ class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITa
             tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             
             customSearchBar.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 10),
-            customSearchBar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
-            customSearchBar.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
+            customSearchBar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 5),
+            customSearchBar.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -5),
             customSearchBar.heightAnchor.constraint(equalToConstant: 40)
         ])
         

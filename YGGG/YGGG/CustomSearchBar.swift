@@ -18,6 +18,7 @@ class CustomSearchBar: UISearchBar {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupInfoButton()
+        removeSearchBarBackground()
     }
     
     required init?(coder: NSCoder) {
@@ -30,9 +31,13 @@ class CustomSearchBar: UISearchBar {
         
         NSLayoutConstraint.activate([
             infoButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            infoButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+            infoButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             infoButton.widthAnchor.constraint(equalToConstant: 26),
             infoButton.heightAnchor.constraint(equalToConstant: 26)
         ])
+    }
+    
+    private func removeSearchBarBackground() {
+        setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
     }
 }
