@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		151AA1512C0EDD22000800DF /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AA1502C0EDD22000800DF /* BookmarkTableViewCell.swift */; };
+		151AA1532C0EDD6C000800DF /* UserInfoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AA1522C0EDD6C000800DF /* UserInfoEntry.swift */; };
+		151AA1552C0EDDCD000800DF /* BookmarkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AA1542C0EDDCD000800DF /* BookmarkTableViewController.swift */; };
+		15A01A3C2C10001700C4FC47 /* SearchInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A01A3B2C10001700C4FC47 /* SearchInfoViewController.swift */; };
+		15A01A3E2C10003F00C4FC47 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A01A3D2C10003F00C4FC47 /* CustomSearchBar.swift */; };
 		41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8652C0EC83300A09411 /* AppDelegate.swift */; };
 		41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8672C0EC83300A09411 /* SceneDelegate.swift */; };
 		41CCE86A2C0EC83300A09411 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8692C0EC83300A09411 /* ViewController.swift */; };
@@ -23,9 +28,19 @@
 		5330C2AC2C0EE54800136C4D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5330C2AB2C0EE54800136C4D /* Launch Screen.storyboard */; };
 		537263FF2C101922005E1922 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537263FE2C101922005E1922 /* MainTabBarController.swift */; };
 		5394C0AC2C0EF1DF00BB8764 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5394C0AB2C0EF1DF00BB8764 /* LoginViewController.swift */; };
+		5763B1C72C0EFC21007C0F57 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1C62C0EFC21007C0F57 /* MainViewController.swift */; };
+		5763B1C92C0F019F007C0F57 /* DoubleTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1C82C0F019F007C0F57 /* DoubleTitleView.swift */; };
+		5763B1CB2C0F0574007C0F57 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1CA2C0F0574007C0F57 /* CustomCollectionViewCell.swift */; };
+		5763B1CD2C0F057D007C0F57 /* StackViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1CC2C0F057D007C0F57 /* StackViewCollectionViewCell.swift */; };
+		5763B1D32C10302F007C0F57 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1D22C10302F007C0F57 /* ModalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		151AA1502C0EDD22000800DF /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
+		151AA1522C0EDD6C000800DF /* UserInfoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoEntry.swift; sourceTree = "<group>"; };
+		151AA1542C0EDDCD000800DF /* BookmarkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewController.swift; sourceTree = "<group>"; };
+		15A01A3B2C10001700C4FC47 /* SearchInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInfoViewController.swift; sourceTree = "<group>"; };
+		15A01A3D2C10003F00C4FC47 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		41CCE8622C0EC83300A09411 /* YGGG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YGGG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41CCE8652C0EC83300A09411 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41CCE8672C0EC83300A09411 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +51,11 @@
 		5330C2AB2C0EE54800136C4D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		537263FE2C101922005E1922 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		5394C0AB2C0EF1DF00BB8764 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5763B1C62C0EFC21007C0F57 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		5763B1C82C0F019F007C0F57 /* DoubleTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTitleView.swift; sourceTree = "<group>"; };
+		5763B1CA2C0F0574007C0F57 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		5763B1CC2C0F057D007C0F57 /* StackViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewCollectionViewCell.swift; sourceTree = "<group>"; };
+		5763B1D22C10302F007C0F57 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +96,7 @@
 		41CCE8642C0EC83300A09411 /* YGGG */ = {
 			isa = PBXGroup;
 			children = (
+				5763B1C52C0EFC00007C0F57 /* Main */,
 				41CCE8792C0EC9FD00A09411 /* GoogleService-Info.plist */,
 				41CCE8652C0EC83300A09411 /* AppDelegate.swift */,
 				41CCE8672C0EC83300A09411 /* SceneDelegate.swift */,
@@ -85,8 +106,25 @@
 				41CCE86E2C0EC83400A09411 /* Assets.xcassets */,
 				5330C2AB2C0EE54800136C4D /* Launch Screen.storyboard */,
 				41CCE8732C0EC83400A09411 /* Info.plist */,
+				151AA1502C0EDD22000800DF /* BookmarkTableViewCell.swift */,
+				151AA1522C0EDD6C000800DF /* UserInfoEntry.swift */,
+				151AA1542C0EDDCD000800DF /* BookmarkTableViewController.swift */,
+				15A01A3B2C10001700C4FC47 /* SearchInfoViewController.swift */,
+				15A01A3D2C10003F00C4FC47 /* CustomSearchBar.swift */,
 			);
 			path = YGGG;
+			sourceTree = "<group>";
+		};
+		5763B1C52C0EFC00007C0F57 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				5763B1C62C0EFC21007C0F57 /* MainViewController.swift */,
+				5763B1C82C0F019F007C0F57 /* DoubleTitleView.swift */,
+				5763B1CA2C0F0574007C0F57 /* CustomCollectionViewCell.swift */,
+				5763B1CC2C0F057D007C0F57 /* StackViewCollectionViewCell.swift */,
+				5763B1D22C10302F007C0F57 /* ModalViewController.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,8 +214,18 @@
 				5394C0AC2C0EF1DF00BB8764 /* LoginViewController.swift in Sources */,
 				41CCE86A2C0EC83300A09411 /* ViewController.swift in Sources */,
 				537263FF2C101922005E1922 /* MainTabBarController.swift in Sources */,
+				5763B1C92C0F019F007C0F57 /* DoubleTitleView.swift in Sources */,
+				5763B1D32C10302F007C0F57 /* ModalViewController.swift in Sources */,
+				151AA1532C0EDD6C000800DF /* UserInfoEntry.swift in Sources */,
 				41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */,
+				151AA1552C0EDDCD000800DF /* BookmarkTableViewController.swift in Sources */,
 				41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */,
+				5763B1C72C0EFC21007C0F57 /* MainViewController.swift in Sources */,
+				5763B1CB2C0F0574007C0F57 /* CustomCollectionViewCell.swift in Sources */,
+				5763B1CD2C0F057D007C0F57 /* StackViewCollectionViewCell.swift in Sources */,
+				15A01A3C2C10001700C4FC47 /* SearchInfoViewController.swift in Sources */,
+				15A01A3E2C10003F00C4FC47 /* CustomSearchBar.swift in Sources */,
+				151AA1512C0EDD22000800DF /* BookmarkTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
