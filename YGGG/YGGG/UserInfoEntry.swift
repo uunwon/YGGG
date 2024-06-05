@@ -9,36 +9,25 @@ import UIKit
 
 class UserInfoEntry {
     let name: String
+    let email: String
     var hashTags: [String]
-    var items: [Date]
+    var items: [[String : String]]
     
-    init(name: String, hashTags: [String], items: [Date]) {
+    init(name: String, email: String, hashTags: [String], items: [[String : String]]) {
         self.name = name
+        self.email = email
         self.hashTags = hashTags
         self.items = items
     }
     
     static var sampleDatas: [UserInfoEntry] = [
-        UserInfoEntry(name: "yunwon", hashTags: ["#건조","#수부지","#민감성","#홍조"], items: [Calendar.current.date(byAdding: .day,  value: 2, to: Date())!,
-                                                                                Calendar.current.date(byAdding: .day,  value: 5, to: Date())!,
-                                                                                Calendar.current.date(byAdding: .day,  value: -1, to: Date())!,
-                                                                                Calendar.current.date(byAdding: .day,  value: -3, to: Date())!,
-                                                                               ]),
-        UserInfoEntry(name: "song", hashTags: ["#건조","#수부지","#민감성","#홍조"], items: [Calendar.current.date(byAdding: .day,  value: 2, to: Date())!,
-                                                                                Calendar.current.date(byAdding: .day,  value: 5, to: Date())!,
-                                                                                Calendar.current.date(byAdding: .day,  value: -1, to: Date())!,
-                                                                                Calendar.current.date(byAdding: .day,  value: -3, to: Date())!,
-                                                                               ]),
-        UserInfoEntry(name: "yeonghun", hashTags: ["#건조","#수부지","#민감성","#홍조"], items: [Calendar.current.date(byAdding: .day,  value: 2, to: Date())!,
-                                                                                Calendar.current.date(byAdding: .day,  value: 5, to: Date())!,
-                                                                                Calendar.current.date(byAdding: .day,  value: -1, to: Date())!,
-                                                                                Calendar.current.date(byAdding: .day,  value: -3, to: Date())!,
-                                                                               ]),
-        UserInfoEntry(name: "chungheon", hashTags: ["#건조","#수부지","#민감성","#홍조"], items: [Calendar.current.date(byAdding: .day,  value: 2, to: Date())!,
-                                                                                Calendar.current.date(byAdding: .day,  value: 5, to: Date())!,
-                                                                                Calendar.current.date(byAdding: .day,  value: -1, to: Date())!,
-                                                                                Calendar.current.date(byAdding: .day,  value: -3, to: Date())!,
-                                                                               ])
+        UserInfoEntry(name: "yunwon", email: "email@email.com", hashTags: ["#건조","#수부지","#민감성","#홍조"], items: [
+            ["itemName" : "로션","expirationDate" : "20250605"],
+            ["itemName" : "선크림","expirationDate" : "20240604"]
+        ]),
+        UserInfoEntry(name: "song", email: "email2@email.com", hashTags: ["#건조","#수부지","#민감성","#홍조"], items:[
+            ["itemName" : "로션","expirationDate" : "20250605"],
+        ])
     ]
 }
 
