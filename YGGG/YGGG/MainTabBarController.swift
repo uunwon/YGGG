@@ -36,6 +36,8 @@ class MainTabBarController: UITabBarController {
             selectedImage: UIImage(systemName: "person.fill")
         )
         
+        tabBar.tintColor = UIColor.appGreen // 선택한 탭 아이템 색상 설정
+        
         let tabBarList = [followViewController, homeViewController, myViewController]
         viewControllers = tabBarList
     }
