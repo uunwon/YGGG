@@ -1,5 +1,5 @@
 //
-//  TombViewController.swift
+//  StackViewCollectionViewCell.swift
 //  YGGG
 //
 //  Created by Song Kim on 6/4/24.

@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  CustomCollectionViewCell.swift
 //  YGGG
 //
 //  Created by Song Kim on 6/4/24.

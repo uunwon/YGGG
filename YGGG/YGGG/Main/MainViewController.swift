@@ -124,6 +124,9 @@ extension MainViewController {
     }
     
     @objc func plusButtonTapped() {
-        print("plus")
+        let vc = ModalViewController()
+        vc.modalPresentationStyle = UIModalPresentationStyle.automatic
+
+            self.present(vc, animated: true, completion: nil)
     }
 }

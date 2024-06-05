@@ -25,6 +25,7 @@
 		5763B1C92C0F019F007C0F57 /* DoubleTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1C82C0F019F007C0F57 /* DoubleTitleView.swift */; };
 		5763B1CB2C0F0574007C0F57 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1CA2C0F0574007C0F57 /* CustomCollectionViewCell.swift */; };
 		5763B1CD2C0F057D007C0F57 /* StackViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1CC2C0F057D007C0F57 /* StackViewCollectionViewCell.swift */; };
+		5763B1D32C10302F007C0F57 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1D22C10302F007C0F57 /* ModalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		5763B1C82C0F019F007C0F57 /* DoubleTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTitleView.swift; sourceTree = "<group>"; };
 		5763B1CA2C0F0574007C0F57 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		5763B1CC2C0F057D007C0F57 /* StackViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewCollectionViewCell.swift; sourceTree = "<group>"; };
+		5763B1D22C10302F007C0F57 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				5763B1C82C0F019F007C0F57 /* DoubleTitleView.swift */,
 				5763B1CA2C0F0574007C0F57 /* CustomCollectionViewCell.swift */,
 				5763B1CC2C0F057D007C0F57 /* StackViewCollectionViewCell.swift */,
+				5763B1D22C10302F007C0F57 /* ModalViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 			files = (
 				41CCE86A2C0EC83300A09411 /* ViewController.swift in Sources */,
 				5763B1C92C0F019F007C0F57 /* DoubleTitleView.swift in Sources */,
+				5763B1D32C10302F007C0F57 /* ModalViewController.swift in Sources */,
 				41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */,
 				41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */,
 				5763B1C72C0EFC21007C0F57 /* MainViewController.swift in Sources */,
