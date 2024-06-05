@@ -88,32 +88,23 @@ class BookmarkTableViewCell: UITableViewCell {
     
     // MARK: - configureCell
     func configureCell(userInfoEntry: UserInfoEntry) {
+        var refrigeratorItems: [[String: String]] = []
+        var graveItems: [[String: String]] = []
+        
         usernameLabel.text = userInfoEntry.name
         userHashTagLabel.text = userInfoEntry.hashTags.reduce("") {
             $0 + " " + $1
         }
-        userItemCountLabel.text = "냉장고 \(userInfoEntry.items.count)"
+        
+        for item in userInfoEntry.items {
+            if let expirationDateString = item["expirationDate"] {
+                if expirationDateString > "20240605" {
+                    refrigeratorItems.append(item)
+                } else {
+                    graveItems.append(item)
+                }
+            }
+        }
+        userItemCountLabel.text = "냉장고 \(refrigeratorItems.count) 무덤 \(graveItems.count)"
     }
 }
-
-//var view = UIView()
-//view.frame = CGRect(x: 0, y: 0, width: 65, height: 65)
-//let image0 = UIImage(named: "user-10.png")?.cgImage
-//let layer0 = CALayer()
-//layer0.contents = image0
-//layer0.bounds = view.bounds
-//layer0.position = view.center
-//view.layer.addSublayer(layer0)
-//
-//view.layer.cornerRadius = 40
-//view.layer.borderWidth = 0.5
-//view.layer.borderColor = UIColor(red: 0.875, green: 0.875, blue: 0.875, alpha: 1).cgColor
-//
-//var parent = self.view!
-//parent.addSubview(view)
-//view.translatesAutoresizingMaskIntoConstraints = false
-//view.widthAnchor.constraint(equalToConstant: 65).isActive = true
-//view.heightAnchor.constraint(equalToConstant: 65).isActive = true
-//view.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 24).isActive = true
-//view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 121).isActive = true
-
