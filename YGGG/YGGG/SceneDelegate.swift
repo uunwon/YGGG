@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let navi = UINavigationController(rootViewController: ViewController())
+        let navi = UINavigationController(rootViewController: LoginViewController())
         
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = navi
