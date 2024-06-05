@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -46,6 +46,20 @@ class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITa
             customSearchBar.heightAnchor.constraint(equalToConstant: 40)
         ])
         
+        customSearchBar.infoButton.addAction(UIAction(){[weak self] _ in
+            guard let self = self else { return }
+            let searchInfoViewController = SearchInfoViewController()
+            searchInfoViewController.modalPresentationStyle = .popover
+            
+            if let popoverController = searchInfoViewController.popoverPresentationController {
+                popoverController.sourceView = self.customSearchBar.infoButton
+                popoverController.sourceRect = self.customSearchBar.infoButton.bounds
+                popoverController.permittedArrowDirections = .any
+                popoverController.delegate = self
+            }
+            
+            self.present(searchInfoViewController, animated: true, completion: nil)
+        }, for: .touchUpInside)
         search.setValue(customSearchBar, forKey: "searchBar")
         search.obscuresBackgroundDuringPresentation = false
         search.searchBar.placeholder = "계정 및 해시태그 검색"
@@ -81,34 +95,62 @@ class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
-    class CustomSearchBar: UISearchBar {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+
+}
+
+class CustomSearchBar: UISearchBar {
+    
+    var infoButton: UIButton = {
+        let infoButton = UIButton(type: .infoLight)
+        infoButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
+        return infoButton
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupInfoButton()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupInfoButton() {
+        infoButton.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(infoButton)
         
-        var infoButton: UIButton = {
-            let infoButton = UIButton(type: .infoLight)
-            infoButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
-            return infoButton
-        }()
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            setupInfoButton()
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        private func setupInfoButton() {
-            infoButton.translatesAutoresizingMaskIntoConstraints = false
-            infoButton.addAction(UIAction(){_ in print("infobutton")}, for: .touchUpInside)
-            self.addSubview(infoButton)
-            
-            NSLayoutConstraint.activate([
-                infoButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-                infoButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
-                infoButton.widthAnchor.constraint(equalToConstant: 26),
-                infoButton.heightAnchor.constraint(equalToConstant: 26)
-            ])
-        }
+        NSLayoutConstraint.activate([
+            infoButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            infoButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+            infoButton.widthAnchor.constraint(equalToConstant: 26),
+            infoButton.heightAnchor.constraint(equalToConstant: 26)
+        ])
     }
 }
+
+class SearchInfoViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .white
+        let label = UILabel()
+        label.numberOfLines = 3
+        label.text = "검색 \n관련 \n설명"
+        label.textColor = UIColor(red: 0.73, green: 0.73, blue: 0.73, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 12)
+        
+        view.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10),
+            label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 10),
+        ])
+    }
+}
+
