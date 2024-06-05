@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating, UISearchBarDelegate {
+class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -30,23 +30,28 @@ class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITa
         
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(customSearchBar)
+        customSearchBar.translatesAutoresizingMaskIntoConstraints = false
         
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            tableView.topAnchor.constraint(equalTo: customSearchBar.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 24),
             tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -24),
-            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            
+            customSearchBar.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 10),
+            customSearchBar.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
+            customSearchBar.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -10),
+            customSearchBar.heightAnchor.constraint(equalToConstant: 40)
         ])
         
         search.setValue(customSearchBar, forKey: "searchBar")
-        search.searchResultsUpdater = self
         search.obscuresBackgroundDuringPresentation = false
         search.searchBar.placeholder = "계정 및 해시태그 검색"
         search.searchBar.delegate = self
         
-        navigationItem.searchController = search
-        navigationItem.hidesSearchBarWhenScrolling = false
+        self.navigationController?.isNavigationBarHidden = true
         
     }
     
@@ -64,18 +69,6 @@ class BookmarkTableViewController: UIViewController, UITableViewDataSource, UITa
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         87
-    }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let searchBarText = searchController.searchBar.text else {
-            return
-        }
-        
-        filteredTableData = datas.filter {
-            $0.name.lowercased().contains(searchBarText.lowercased())
-        }
-
-        self.tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
