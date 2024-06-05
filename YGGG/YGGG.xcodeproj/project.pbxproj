@@ -10,6 +10,8 @@
 		151AA1512C0EDD22000800DF /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AA1502C0EDD22000800DF /* BookmarkTableViewCell.swift */; };
 		151AA1532C0EDD6C000800DF /* UserInfoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AA1522C0EDD6C000800DF /* UserInfoEntry.swift */; };
 		151AA1552C0EDDCD000800DF /* BookmarkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AA1542C0EDDCD000800DF /* BookmarkTableViewController.swift */; };
+		15A01A3C2C10001700C4FC47 /* SearchInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A01A3B2C10001700C4FC47 /* SearchInfoViewController.swift */; };
+		15A01A3E2C10003F00C4FC47 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A01A3D2C10003F00C4FC47 /* CustomSearchBar.swift */; };
 		41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8652C0EC83300A09411 /* AppDelegate.swift */; };
 		41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8672C0EC83300A09411 /* SceneDelegate.swift */; };
 		41CCE86A2C0EC83300A09411 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8692C0EC83300A09411 /* ViewController.swift */; };
@@ -30,6 +32,8 @@
 		151AA1502C0EDD22000800DF /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
 		151AA1522C0EDD6C000800DF /* UserInfoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoEntry.swift; sourceTree = "<group>"; };
 		151AA1542C0EDDCD000800DF /* BookmarkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewController.swift; sourceTree = "<group>"; };
+		15A01A3B2C10001700C4FC47 /* SearchInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInfoViewController.swift; sourceTree = "<group>"; };
+		15A01A3D2C10003F00C4FC47 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		41CCE8622C0EC83300A09411 /* YGGG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YGGG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41CCE8652C0EC83300A09411 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41CCE8672C0EC83300A09411 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 				151AA1502C0EDD22000800DF /* BookmarkTableViewCell.swift */,
 				151AA1522C0EDD6C000800DF /* UserInfoEntry.swift */,
 				151AA1542C0EDDCD000800DF /* BookmarkTableViewController.swift */,
+				15A01A3B2C10001700C4FC47 /* SearchInfoViewController.swift */,
+				15A01A3D2C10003F00C4FC47 /* CustomSearchBar.swift */,
 			);
 			path = YGGG;
 			sourceTree = "<group>";
@@ -181,6 +187,8 @@
 				41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */,
 				151AA1552C0EDDCD000800DF /* BookmarkTableViewController.swift in Sources */,
 				41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */,
+				15A01A3C2C10001700C4FC47 /* SearchInfoViewController.swift in Sources */,
+				15A01A3E2C10003F00C4FC47 /* CustomSearchBar.swift in Sources */,
 				151AA1512C0EDD22000800DF /* BookmarkTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
