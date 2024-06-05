@@ -16,7 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let navi = UINavigationController(rootViewController: MainViewController())
+
+        let navi = UINavigationController(rootViewController: BookmarkTableViewController())
+
         
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = navi
