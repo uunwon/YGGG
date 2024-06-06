@@ -12,6 +12,11 @@
 		151AA1552C0EDDCD000800DF /* BookmarkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AA1542C0EDDCD000800DF /* BookmarkTableViewController.swift */; };
 		15A01A3C2C10001700C4FC47 /* SearchInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A01A3B2C10001700C4FC47 /* SearchInfoViewController.swift */; };
 		15A01A3E2C10003F00C4FC47 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A01A3D2C10003F00C4FC47 /* CustomSearchBar.swift */; };
+		413C0F092C11E23F00BBFBD7 /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F072C11E23F00BBFBD7 /* Extension+UIColor.swift */; };
+		413C0F0E2C11E25300BBFBD7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */; };
+		413C0F0F2C11E25300BBFBD7 /* CategoryCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F0B2C11E25300BBFBD7 /* CategoryCVCell.swift */; };
+		413C0F102C11E25300BBFBD7 /* CosmeticsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F0C2C11E25300BBFBD7 /* CosmeticsTVCell.swift */; };
+		413C0F112C11E25300BBFBD7 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F0D2C11E25300BBFBD7 /* ProfileViewModel.swift */; };
 		41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8652C0EC83300A09411 /* AppDelegate.swift */; };
 		41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8672C0EC83300A09411 /* SceneDelegate.swift */; };
 		41CCE86A2C0EC83300A09411 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8692C0EC83300A09411 /* ViewController.swift */; };
@@ -41,6 +46,11 @@
 		151AA1542C0EDDCD000800DF /* BookmarkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewController.swift; sourceTree = "<group>"; };
 		15A01A3B2C10001700C4FC47 /* SearchInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInfoViewController.swift; sourceTree = "<group>"; };
 		15A01A3D2C10003F00C4FC47 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
+		413C0F072C11E23F00BBFBD7 /* Extension+UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
+		413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		413C0F0B2C11E25300BBFBD7 /* CategoryCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCVCell.swift; sourceTree = "<group>"; };
+		413C0F0C2C11E25300BBFBD7 /* CosmeticsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmeticsTVCell.swift; sourceTree = "<group>"; };
+		413C0F0D2C11E25300BBFBD7 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		41CCE8622C0EC83300A09411 /* YGGG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YGGG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41CCE8652C0EC83300A09411 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41CCE8672C0EC83300A09411 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +87,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		413C0F062C11E22100BBFBD7 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				413C0F0B2C11E25300BBFBD7 /* CategoryCVCell.swift */,
+				413C0F0C2C11E25300BBFBD7 /* CosmeticsTVCell.swift */,
+				413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */,
+				413C0F0D2C11E25300BBFBD7 /* ProfileViewModel.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		413C0F082C11E23F00BBFBD7 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				413C0F072C11E23F00BBFBD7 /* Extension+UIColor.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		41CCE8592C0EC83300A09411 = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +125,8 @@
 		41CCE8642C0EC83300A09411 /* YGGG */ = {
 			isa = PBXGroup;
 			children = (
+				413C0F082C11E23F00BBFBD7 /* Extension */,
+				413C0F062C11E22100BBFBD7 /* Profile */,
 				5763B1C52C0EFC00007C0F57 /* Main */,
 				41CCE8792C0EC9FD00A09411 /* GoogleService-Info.plist */,
 				41CCE8652C0EC83300A09411 /* AppDelegate.swift */,
@@ -211,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				413C0F0F2C11E25300BBFBD7 /* CategoryCVCell.swift in Sources */,
 				5394C0AC2C0EF1DF00BB8764 /* LoginViewController.swift in Sources */,
 				41CCE86A2C0EC83300A09411 /* ViewController.swift in Sources */,
 				537263FF2C101922005E1922 /* MainTabBarController.swift in Sources */,
@@ -218,9 +250,13 @@
 				5763B1D32C10302F007C0F57 /* ModalViewController.swift in Sources */,
 				151AA1532C0EDD6C000800DF /* UserInfoEntry.swift in Sources */,
 				41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */,
+				413C0F0E2C11E25300BBFBD7 /* ProfileViewController.swift in Sources */,
+				413C0F092C11E23F00BBFBD7 /* Extension+UIColor.swift in Sources */,
 				151AA1552C0EDDCD000800DF /* BookmarkTableViewController.swift in Sources */,
 				41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */,
 				5763B1C72C0EFC21007C0F57 /* MainViewController.swift in Sources */,
+				413C0F102C11E25300BBFBD7 /* CosmeticsTVCell.swift in Sources */,
+				413C0F112C11E25300BBFBD7 /* ProfileViewModel.swift in Sources */,
 				5763B1CB2C0F0574007C0F57 /* CustomCollectionViewCell.swift in Sources */,
 				5763B1CD2C0F057D007C0F57 /* StackViewCollectionViewCell.swift in Sources */,
 				15A01A3C2C10001700C4FC47 /* SearchInfoViewController.swift in Sources */,
