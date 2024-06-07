@@ -25,6 +25,11 @@
 		41EB8EE32C109CB7001DBF2A /* CosmeticsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EB8EE22C109CB7001DBF2A /* CosmeticsTVCell.swift */; };
 		41EB8EE52C10A217001DBF2A /* CategoryCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EB8EE42C10A217001DBF2A /* CategoryCVCell.swift */; };
 		41EB8EF62C10BBBF001DBF2A /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41EB8EF52C10BBBF001DBF2A /* Extension+UIColor.swift */; };
+		5763B1D62C12CFA3007C0F57 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1D52C12CFA3007C0F57 /* CustomCollectionViewCell.swift */; };
+		5763B1D82C12CFC7007C0F57 /* DoubleTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1D72C12CFC7007C0F57 /* DoubleTitleView.swift */; };
+		5763B1DA2C12CFE8007C0F57 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1D92C12CFE8007C0F57 /* MainViewController.swift */; };
+		5763B1DC2C12CFFE007C0F57 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1DB2C12CFFE007C0F57 /* ModalViewController.swift */; };
+		5763B1DE2C12D014007C0F57 /* StackViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1DD2C12D014007C0F57 /* StackViewCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +45,11 @@
 		41EB8EE22C109CB7001DBF2A /* CosmeticsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmeticsTVCell.swift; sourceTree = "<group>"; };
 		41EB8EE42C10A217001DBF2A /* CategoryCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCVCell.swift; sourceTree = "<group>"; };
 		41EB8EF52C10BBBF001DBF2A /* Extension+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
+		5763B1D52C12CFA3007C0F57 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		5763B1D72C12CFC7007C0F57 /* DoubleTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTitleView.swift; sourceTree = "<group>"; };
+		5763B1D92C12CFE8007C0F57 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		5763B1DB2C12CFFE007C0F57 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		5763B1DD2C12D014007C0F57 /* StackViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +90,7 @@
 		41CCE8642C0EC83300A09411 /* YGGG */ = {
 			isa = PBXGroup;
 			children = (
+				5763B1D42C12CF75007C0F57 /* Main */,
 				41EB8EF42C10BBAF001DBF2A /* Extension */,
 				41EB8EDF2C108AE5001DBF2A /* Profile */,
 				41CCE8792C0EC9FD00A09411 /* GoogleService-Info.plist */,
@@ -109,6 +120,18 @@
 				41EB8EF52C10BBBF001DBF2A /* Extension+UIColor.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		5763B1D42C12CF75007C0F57 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				5763B1D52C12CFA3007C0F57 /* CustomCollectionViewCell.swift */,
+				5763B1D72C12CFC7007C0F57 /* DoubleTitleView.swift */,
+				5763B1D92C12CFE8007C0F57 /* MainViewController.swift */,
+				5763B1DB2C12CFFE007C0F57 /* ModalViewController.swift */,
+				5763B1DD2C12D014007C0F57 /* StackViewCollectionViewCell.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,13 +218,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5763B1D82C12CFC7007C0F57 /* DoubleTitleView.swift in Sources */,
 				41EB8EE52C10A217001DBF2A /* CategoryCVCell.swift in Sources */,
 				41CCE86A2C0EC83300A09411 /* ViewController.swift in Sources */,
+				5763B1DC2C12CFFE007C0F57 /* ModalViewController.swift in Sources */,
+				5763B1DE2C12D014007C0F57 /* StackViewCollectionViewCell.swift in Sources */,
 				41EB8EF62C10BBBF001DBF2A /* Extension+UIColor.swift in Sources */,
+				5763B1D62C12CFA3007C0F57 /* CustomCollectionViewCell.swift in Sources */,
 				41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */,
 				41EB8EE12C108B05001DBF2A /* ProfileViewController.swift in Sources */,
 				41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */,
 				41EB8EE32C109CB7001DBF2A /* CosmeticsTVCell.swift in Sources */,
+				5763B1DA2C12CFE8007C0F57 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
