@@ -1,16 +1,16 @@
 //
-//  ModalView.swift
+//  ModalViewController2.swift
 //  YGGG
 //
-//  Created by Song Kim on 6/5/24.
+//  Created by Song Kim on 6/7/24.
 //
 
 import UIKit
 
-class ModalViewController: UIViewController, UITextFieldDelegate {
+class ModalViewController2: UIViewController {
     
     let imageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "name"))
+        let imageView = UIImageView(image: UIImage(named: "modal2"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -19,21 +19,10 @@ class ModalViewController: UIViewController, UITextFieldDelegate {
     let label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "화장품 이름"
+        label.text = "화장품 종류 선택"
         label.font = UIFont.boldSystemFont(ofSize: 30)
         label.textColor = .black
         return label
-    }()
-    
-    lazy var textField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "화장품 이름을 입력하세요"
-        textField.delegate = self
-        textField.borderStyle = .roundedRect
-        textField.clearButtonMode = .whileEditing
-        textField.addTarget(self, action: #selector(updateButtonColor), for: .editingChanged)
-        return textField
     }()
     
     let buttonNext: UIButton = {
@@ -55,13 +44,12 @@ class ModalViewController: UIViewController, UITextFieldDelegate {
         
         view.addSubview(imageView)
         view.addSubview(label)
-        view.addSubview(textField)
         
         buttonNext.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
         view.addSubview(buttonNext)
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.widthAnchor.constraint(equalToConstant: 100),
             imageView.heightAnchor.constraint(equalToConstant: 100),
@@ -69,10 +57,6 @@ class ModalViewController: UIViewController, UITextFieldDelegate {
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
             
-            textField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
-            textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             
             buttonNext.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             buttonNext.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -82,34 +66,13 @@ class ModalViewController: UIViewController, UITextFieldDelegate {
         updateButtonColor()
     }
     
-    // UITextFieldDelegate methods
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // Hide the keyboard when the return key is pressed
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        // Optional: Handle any logic when the text field begins editing
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        // Optional: Handle any logic when the text field ends editing
-    }
-    
     @objc func ButtonTapped() {
         
     }
     
     @objc func updateButtonColor() {
-        if let text = textField.text, !text.isEmpty {
-            buttonNext.isEnabled = true
-            buttonNext.backgroundColor = .setorange
-        } else {
-            buttonNext.isEnabled = false
-            buttonNext.backgroundColor = .setlightgray
-        }
          
     }
     
 }
+

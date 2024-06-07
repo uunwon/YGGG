@@ -11,7 +11,7 @@ class DoubleTitleView: UIView {
     let leftButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 25)
         button.setTitle("홈", for: .normal)
         button.setTitleColor(.label, for: .normal)
         return button
@@ -20,9 +20,10 @@ class DoubleTitleView: UIView {
     let rightButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 25)
         button.setTitle("무덤", for: .normal)
         button.setTitleColor(.label, for: .normal)
+        button.setTitleColor(.gray, for: .normal)
         return button
     }()
     
@@ -40,7 +41,7 @@ class DoubleTitleView: UIView {
         addSubview(rightButton)
         
         NSLayoutConstraint.activate([
-            leftButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
+            leftButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             leftButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             rightButton.leadingAnchor.constraint(equalTo: leftButton.trailingAnchor, constant: 15),
             rightButton.topAnchor.constraint(equalTo: leftButton.topAnchor)

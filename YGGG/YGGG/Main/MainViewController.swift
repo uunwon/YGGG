@@ -15,7 +15,32 @@ class MainViewController: UIViewController {
     var tab = Tab.home
     let cellHeight: CGFloat = 150
     
-    let stackViewCell = StackViewCollectionViewCell()
+//    let stackViewCell = StackViewCollectionViewCell()
+    
+    lazy var stackView: UIStackView = {
+        let titles = ["전체", "냉동", "냉장", "실온"]
+        
+        let buttons = titles.compactMap {
+            let button = UIButton()
+            button.setTitle($0, for: .normal)
+            button.setTitleColor(.label, for: .normal)
+            button.backgroundColor = .white
+            button.layer.borderWidth = 0.5
+            button.layer.borderColor = UIColor.lightGray.cgColor
+            button.layer.cornerRadius = 10
+            button.clipsToBounds = true
+            return button
+        }
+        
+        let stackView = UIStackView(arrangedSubviews: buttons)
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.spacing = 8
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
+    }()
     
     let doubleTitleView = DoubleTitleView()
     let plusButton: UIButton = {
@@ -39,7 +64,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .white
         setupNavigationBar()
         setupCollectionView()
@@ -59,21 +84,22 @@ class MainViewController: UIViewController {
         plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusButton)
+        
     }
     
     func setupCollectionView() {
-        view.addSubview(stackViewCell)
+        view.addSubview(stackView)
         view.addSubview(collectionView)
         
-        stackViewCell.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            stackViewCell.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            stackViewCell.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stackViewCell.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
-            collectionView.topAnchor.constraint(equalTo: stackViewCell.bottomAnchor, constant: 8),
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            
+            collectionView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -87,16 +113,16 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.name, for: indexPath) as! CustomCollectionViewCell
-            
-            switch tab {
-            case .home:
-                cell.configureHome()
-            case .grave:
-                cell.configureGrave()
-            }
-            
-            return cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.name, for: indexPath) as! CustomCollectionViewCell
+        
+        switch tab {
+        case .home:
+            cell.configureHome()
+        case .grave:
+            cell.configureGrave()
+        }
+        
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -110,8 +136,10 @@ extension MainViewController {
         
         collectionView.reloadData()
         
-        doubleTitleView.leftButton.titleLabel?.font = .boldSystemFont(ofSize: 30)
-        doubleTitleView.rightButton.titleLabel?.font = .systemFont(ofSize: 30)
+        doubleTitleView.leftButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
+        doubleTitleView.rightButton.titleLabel?.font = .systemFont(ofSize: 25)
+        doubleTitleView.rightButton.setTitleColor(.gray, for: .normal)
+        doubleTitleView.leftButton.setTitleColor(.black, for: .normal)
     }
     
     @objc func rightButtonTapped() {
@@ -119,14 +147,16 @@ extension MainViewController {
         
         collectionView.reloadData()
         
-        doubleTitleView.leftButton.titleLabel?.font = .systemFont(ofSize: 30)
-        doubleTitleView.rightButton.titleLabel?.font = .boldSystemFont(ofSize: 30)
+        doubleTitleView.leftButton.titleLabel?.font = .systemFont(ofSize: 25)
+        doubleTitleView.rightButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
+        doubleTitleView.leftButton.setTitleColor(.gray, for: .normal)
+        doubleTitleView.rightButton.setTitleColor(.black, for: .normal)
     }
     
     @objc func plusButtonTapped() {
-        let vc = ModalViewController()
-        vc.modalPresentationStyle = UIModalPresentationStyle.automatic
-
-            self.present(vc, animated: true, completion: nil)
+        let vc = ModalViewController1()
+        let nav = UINavigationController(rootViewController: vc)
+        vc.modalPresentationStyle = .automatic
+        self.present(nav, animated: true, completion: nil)
     }
 }
