@@ -154,7 +154,7 @@ extension MainViewController {
     }
     
     @objc func plusButtonTapped() {
-        let vc = ModalViewController1()
+        let vc = NameModalViewController()
         let nav = UINavigationController(rootViewController: vc)
         vc.modalPresentationStyle = .automatic
         self.present(nav, animated: true, completion: nil)

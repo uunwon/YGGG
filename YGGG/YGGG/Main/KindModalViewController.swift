@@ -7,10 +7,10 @@
 
 import UIKit
 
-class ModalViewController2: UIViewController {
+class KindModalViewController: UIViewController {
     
     let imageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "modal2"))
+        let imageView = UIImageView(image: UIImage(named: "kind_modal"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -29,12 +29,12 @@ class ModalViewController2: UIViewController {
         let button = UIButton(type: .roundedRect)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.setTitle("다 음", for: .normal)
+        button.setTitle("다음", for: .normal)
         button.backgroundColor = .orange
         button.tintColor = .black
         button.setTitleColor(.label, for: .normal)
         button.layer.cornerRadius = 10
-        button.isEnabled = false
+    //    button.isEnabled = false
         return button
     }()
     
@@ -57,7 +57,6 @@ class ModalViewController2: UIViewController {
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
             
-            
             buttonNext.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             buttonNext.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonNext.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
@@ -67,7 +66,8 @@ class ModalViewController2: UIViewController {
     }
     
     @objc func ButtonTapped() {
-        
+        let nextView = DateModalViewController()
+        self.navigationController?.pushViewController(nextView, animated: true)
     }
     
     @objc func updateButtonColor() {

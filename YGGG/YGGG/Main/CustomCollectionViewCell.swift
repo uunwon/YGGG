@@ -74,7 +74,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
     }
     
     func configureHome() {
-        productImageView.image = UIImage(resource: .lotion)
+        productImageView.image = UIImage(resource: .llotion)
         titleLabel.text = "로션"
         purchaseDateLabel.text = "구매날짜: "
         expirationDateLabel.text = "유통기한: "
