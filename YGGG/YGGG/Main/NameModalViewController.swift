@@ -32,6 +32,7 @@ class NameModalViewController: UIViewController, UITextFieldDelegate {
         textField.delegate = self
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
+        textField.backgroundColor = .setlightgray2
         textField.addTarget(self, action: #selector(updateButtonColor), for: .editingChanged)
         return textField
     }()

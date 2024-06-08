@@ -151,11 +151,12 @@ class KindModalViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = categories[indexPath.section].cosmetics[indexPath.row].name
+        cell.backgroundColor = .setlightgray2
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cosmetic = categories[indexPath.section].cosmetics[indexPath.row].name
+        _ = categories[indexPath.section].cosmetics[indexPath.row].name
         buttonNext.isEnabled = true
         updateButtonState()
     }
