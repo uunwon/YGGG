@@ -51,7 +51,6 @@ class NameModalViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        
         view.addSubview(imageView)
         view.addSubview(label)
         view.addSubview(textField)
@@ -60,7 +59,7 @@ class NameModalViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(buttonNext)
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.widthAnchor.constraint(equalToConstant: 100),
             imageView.heightAnchor.constraint(equalToConstant: 100),
@@ -99,6 +98,10 @@ class NameModalViewController: UIViewController, UITextFieldDelegate {
     @objc func ButtonTapped() {
         let nextView = KindModalViewController()
         self.navigationController?.pushViewController(nextView, animated: true)
+        
+        let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = .black  // 색상 변경
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     @objc func updateButtonColor() {

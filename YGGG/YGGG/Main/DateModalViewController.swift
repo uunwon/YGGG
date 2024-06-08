@@ -49,7 +49,7 @@ class DateModalViewController: UIViewController {
         view.addSubview(buttonNext)
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.widthAnchor.constraint(equalToConstant: 100),
             imageView.heightAnchor.constraint(equalToConstant: 100),
@@ -68,6 +68,10 @@ class DateModalViewController: UIViewController {
     @objc func ButtonTapped() {
         let nextView = IconModalViewController()
         self.navigationController?.pushViewController(nextView, animated: true)
+        
+        let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = .black  // 색상 변경
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     @objc func updateButtonColor() {
