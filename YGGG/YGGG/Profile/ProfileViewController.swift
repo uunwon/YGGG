@@ -116,12 +116,18 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-        configureDataSetup()
+//        configureUI()
+//        configureDataSetup()
         
         
         categorySelectedIndex = IndexPath(row: 0, section: 0)
         categoryCV.selectItem(at: categorySelectedIndex, animated: false, scrollPosition: .left)
+        
+        viewModel.loadData {
+            self.configureUI()
+            self.configureDataSetup()
+        }
+//        ProfileService.shared.getData(completion: <#T##(User) -> Void#>)
     }
     
     private func configureUI() {

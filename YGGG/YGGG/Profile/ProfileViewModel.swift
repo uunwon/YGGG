@@ -6,66 +6,102 @@
 //
 
 import Foundation
+import Firebase
 
 
-struct User {
+struct User: Codable {
     let userImage: String
     let userName: String
     let userHashTag: String
     var refrigeratorCount: Int {
-        return userCosmetics.filter { $0.expirationDate > Date() }.count
+//        return userCosmetics.filter { $0.expirationDate > Date() }.count
+        return userCosmetics.filter { $0.expirationDateAsDate > Date() }.count
     }
     var tombCount: Int {
-        return userCosmetics.filter { $0.expirationDate < Date() }.count
+//        return userCosmetics.filter { $0.expirationDate < Date() }.count
+        return userCosmetics.filter { $0.expirationDateAsDate < Date() }.count
     }
     var isFavorite: Bool
     
     let userCosmetics: [Cosmetics]
 }
 
-struct TopCategory {
+struct TopCategory: Codable {
     let imageName: String
     let title: String
 }
 
 
-struct Cosmetics {
+struct Cosmetics: Codable {
     let imageName: String
     let title: String
-    let purchaseDate: Date
-    let expirationDate: Date
+    let purchaseDate: String
+    let expirationDate: String
+//    let purchaseDate: Date
+//    let expirationDate: Date
     let kind: Int // 0: 냉동, 1: 냉장, 2: 실온
     
-    var isExpired: Bool {
-        return expirationDate < Date()
-    }
     
-    var purchaseString: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: purchaseDate)
-    }
+//    var isExpired: Bool {
+//        return expirationDate < Date()
+//    }
+//    
+//    var purchaseString: String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        return dateFormatter.string(from: purchaseDate)
+//    }
+//    
+//    var expirationString: String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        return dateFormatter.string(from: expirationDate)
+//    }
+    private var dateFormatter: DateFormatter {
+         let formatter = DateFormatter()
+         formatter.dateFormat = "yyyy.MM.dd"
+         return formatter
+     }
+     
+     var isExpired: Bool {
+         guard let expirationDate = dateFormatter.date(from: expirationDate) else { return false }
+         return expirationDate < Date()
+     }
+     
+     var purchaseString: String {
+         guard let purchaseDate = dateFormatter.date(from: purchaseDate) else { return "Invalid date" }
+         return dateFormatter.string(from: purchaseDate)
+     }
+     
+     var expirationString: String {
+         guard let expirationDate = dateFormatter.date(from: expirationDate) else { return "Invalid date" }
+         return dateFormatter.string(from: expirationDate)
+     }
     
-    var expirationString: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: expirationDate)
+    var expirationDateAsDate: Date {
+        return dateFormatter.date(from: expirationDate) ?? Date()
     }
     
 }
 
 class ProfileViewModel {
     
-    private lazy var user: User = User(userImage: "user", userName: "Ruel",
-                                       userHashTag: "#건조 #수분 #민감성 #홍조", isFavorite: false,
-                                       userCosmetics: [Cosmetics(imageName: "waterbottle", title: "로션",
-                                                                 purchaseDate: minusDate(minus: 10), expirationDate: addDate(add:5), kind: 0),
-                                                       Cosmetics(imageName: "waterbottle", title: "핸드크림",
-                                                                 purchaseDate: minusDate(minus: 10), expirationDate: minusDate(minus: 1), kind: 1),
-                                                       Cosmetics(imageName: "waterbottle", title: "립밤",
-                                                                 purchaseDate: minusDate(minus: 3), expirationDate: addDate(add:5), kind: 2),
-                                                       Cosmetics(imageName: "waterbottle", title: "선크림",
-                                                                 purchaseDate: minusDate(minus: 10), expirationDate: minusDate(minus: 2), kind: 0)])
+    let service: ProfileService = ProfileService()
+    
+    
+    
+//    private lazy var user: User = User(userImage: "user", userName: "Ruel",
+//                                       userHashTag: "#건조 #수분 #민감성 #홍조", isFavorite: false,
+//                                       userCosmetics: [Cosmetics(imageName: "waterbottle", title: "로션",
+//                                                                 purchaseDate: "20240601", expirationDate: "20240607", kind: 0),
+//                                                       Cosmetics(imageName: "waterbottle", title: "핸드크림",
+//                                                                 purchaseDate: "20240501", expirationDate: "20240601", kind: 1),
+//                                                       Cosmetics(imageName: "waterbottle", title: "립밤",
+//                                                                 purchaseDate: "20240601", expirationDate: "20240618", kind: 2),
+//                                                       Cosmetics(imageName: "waterbottle", title: "선크림",
+//                                                                 purchaseDate: "20240101", expirationDate: "20240801", kind: 0)])
+    
+    private var user: User?
     
     ///MockUp Data
     private var topCategorys: [TopCategory] = [
@@ -85,9 +121,18 @@ class ProfileViewModel {
     }
 
 //    init(user: User) {
-    init() {
-        self.selectedCosmeticList = user.userCosmetics
-    }
+//    init() {
+//        self.loadData()
+//    }
+    
+    func loadData(completion: @escaping() -> Void) {
+           self.service.getData { [weak self] user in
+               guard let self = self else { return }
+               self.user = user
+               self.selectedCosmeticList = user.userCosmetics
+               completion()
+           }
+       }
     
     
     private lazy var selectedCosmeticList: [Cosmetics] = []
@@ -114,45 +159,45 @@ class ProfileViewModel {
     func getSectionCosmetic(caseType: Int, completion: @escaping() -> Void ) {
         switch caseType {
             case 1:
-                selectedCosmeticList = user.userCosmetics.filter { $0.kind == 0 }
+            selectedCosmeticList = user?.userCosmetics.filter { $0.kind == 0 } ?? []
             case 2:
-                selectedCosmeticList = user.userCosmetics.filter { $0.kind == 1 }
+                selectedCosmeticList = user?.userCosmetics.filter { $0.kind == 1 } ?? []
             case 3:
-                selectedCosmeticList = user.userCosmetics.filter { $0.kind == 2 }
+                selectedCosmeticList = user?.userCosmetics.filter { $0.kind == 2 } ?? []
             default:
-                selectedCosmeticList = user.userCosmetics
+                selectedCosmeticList = user?.userCosmetics ?? []
         }
         completion()
     }
     
     
     func getUserTombCount() -> Int {
-        return user.tombCount
+        return user?.tombCount ?? 0
     }
     
     func getUserRefrigeratorCount() -> Int {
-        return user.refrigeratorCount
+        return user?.refrigeratorCount ?? 0
     }
     
     func getUserName() -> String {
-        return user.userName
+        return user?.userName ?? ""
     }
     
 //    func getUserHashTag() -> [String] {
     func getUserHashTag() -> String {
-        return user.userHashTag
+        return user?.userHashTag ?? ""
     }
     
     func getUserImage() -> String {
-        return user.userImage
+        return user?.userImage ?? ""
     }
     
     func userIsFavorite() -> Bool {
-        return user.isFavorite
+        return user?.isFavorite ?? false
     }
     
     func changeFavorite(completion: @escaping() -> Void) {
-        user.isFavorite = !user.isFavorite
+        user?.isFavorite = !(user?.isFavorite ?? false)
         completion()
     }
     

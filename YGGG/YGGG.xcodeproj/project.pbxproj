@@ -12,6 +12,7 @@
 		151AA1552C0EDDCD000800DF /* BookmarkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AA1542C0EDDCD000800DF /* BookmarkTableViewController.swift */; };
 		15A01A3C2C10001700C4FC47 /* SearchInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A01A3B2C10001700C4FC47 /* SearchInfoViewController.swift */; };
 		15A01A3E2C10003F00C4FC47 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A01A3D2C10003F00C4FC47 /* CustomSearchBar.swift */; };
+		4122721D2C1422DB00E7ED9C /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4122721C2C1422DB00E7ED9C /* ProfileService.swift */; };
 		413C0F092C11E23F00BBFBD7 /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F072C11E23F00BBFBD7 /* Extension+UIColor.swift */; };
 		413C0F0E2C11E25300BBFBD7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */; };
 		413C0F0F2C11E25300BBFBD7 /* CategoryCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F0B2C11E25300BBFBD7 /* CategoryCVCell.swift */; };
@@ -46,6 +47,7 @@
 		151AA1542C0EDDCD000800DF /* BookmarkTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewController.swift; sourceTree = "<group>"; };
 		15A01A3B2C10001700C4FC47 /* SearchInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInfoViewController.swift; sourceTree = "<group>"; };
 		15A01A3D2C10003F00C4FC47 /* CustomSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
+		4122721C2C1422DB00E7ED9C /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		413C0F072C11E23F00BBFBD7 /* Extension+UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
 		413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		413C0F0B2C11E25300BBFBD7 /* CategoryCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCVCell.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				413C0F0C2C11E25300BBFBD7 /* CosmeticsTVCell.swift */,
 				413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */,
 				413C0F0D2C11E25300BBFBD7 /* ProfileViewModel.swift */,
+				4122721C2C1422DB00E7ED9C /* ProfileService.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				15A01A3C2C10001700C4FC47 /* SearchInfoViewController.swift in Sources */,
 				15A01A3E2C10003F00C4FC47 /* CustomSearchBar.swift in Sources */,
 				151AA1512C0EDD22000800DF /* BookmarkTableViewCell.swift in Sources */,
+				4122721D2C1422DB00E7ED9C /* ProfileService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
