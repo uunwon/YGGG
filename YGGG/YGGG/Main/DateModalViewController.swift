@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol ModalDelegate: AnyObject {
+    func onDismissReload(selection: String)
+}
+
+// MARK: - main
+
 class DateModalViewController: UIViewController {
+    let viewModel = ModalViewModel()
     
     let imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "date_modal"))
@@ -30,12 +37,37 @@ class DateModalViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.setTitle("다음", for: .normal)
-        button.backgroundColor = .lightGray  // 초기 색상 설정
+        button.backgroundColor = .setlightgray
         button.tintColor = .black
         button.setTitleColor(.label, for: .normal)
         button.layer.cornerRadius = 10
-        button.isEnabled = false  // 초기 상태 설정
+        button.isEnabled = false  
         return button
+    }()
+    
+    let saveButton: UIButton = {
+        let button = UIButton(type: .roundedRect)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .setlightgray2
+        button.layer.cornerRadius = 10
+        return button
+    }()
+    
+    let saveLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "보관"
+        label.font = .systemFont(ofSize: 17)
+        return label
+    }()
+    
+    let selectionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "선택"
+        label.font = .systemFont(ofSize: 17)
+        label.textColor = .orange
+        return label
     }()
     
     override func viewDidLoad() {
@@ -45,9 +77,13 @@ class DateModalViewController: UIViewController {
         view.addSubview(imageView)
         view.addSubview(label)
         view.addSubview(buttonNext)
+        view.addSubview(saveButton)
+        
+        saveButton.addSubview(saveLabel)
+        saveButton.addSubview(selectionLabel)
         
         buttonNext.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -61,10 +97,26 @@ class DateModalViewController: UIViewController {
             buttonNext.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             buttonNext.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonNext.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            buttonNext.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            buttonNext.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            saveButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
+            saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            saveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            saveButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            saveLabel.leadingAnchor.constraint(equalTo: saveButton.leadingAnchor, constant: 20),
+            saveLabel.centerYAnchor.constraint(equalTo: saveButton.centerYAnchor),
+            
+            selectionLabel.trailingAnchor.constraint(equalTo: saveButton.trailingAnchor, constant: -20),
+            selectionLabel.centerYAnchor.constraint(equalTo: saveButton.centerYAnchor)
         ])
     }
-    
+}
+
+// MARK: - button actions
+
+extension DateModalViewController {
     @objc func buttonTapped() {
         let nextView = IconModalViewController()
         self.navigationController?.pushViewController(nextView, animated: true)
@@ -74,7 +126,26 @@ class DateModalViewController: UIViewController {
         self.navigationItem.backBarButtonItem = backBarButtonItem
     }
     
+    @objc func saveButtonTapped() {
+        let vc = OptionTableViewController(viewModel: viewModel)
+        vc.delegate = self
+
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+        }
+        
+        self.present(vc, animated: true)
+    }
+    
     func updateButtonColor() {
         
+    }
+}
+
+// MARK: - modal delegate
+
+extension DateModalViewController: ModalDelegate {
+    func onDismissReload(selection: String) {
+        self.selectionLabel.text = selection
     }
 }

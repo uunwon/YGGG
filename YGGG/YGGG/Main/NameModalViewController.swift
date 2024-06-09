@@ -8,7 +8,6 @@
 import UIKit
 
 class NameModalViewController: UIViewController, UITextFieldDelegate {
-    
     let imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "name_modal"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,7 +68,7 @@ class NameModalViewController: UIViewController, UITextFieldDelegate {
             label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
             
             textField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
-            textField.widthAnchor.constraint(equalToConstant: 30),
+            textField.heightAnchor.constraint(equalToConstant: 40),
             textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
@@ -80,19 +79,19 @@ class NameModalViewController: UIViewController, UITextFieldDelegate {
         ])
         updateButtonColor()
     }
-    
-    // UITextFieldDelegate methods
+}
+
+
+extension NameModalViewController {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        // Optional: Handle any logic when the text field begins editing
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        // Optional: Handle any logic when the text field ends editing
     }
     
     @objc func ButtonTapped() {

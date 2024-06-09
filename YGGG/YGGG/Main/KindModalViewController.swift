@@ -126,7 +126,9 @@ class KindModalViewController: UIViewController, UITableViewDelegate, UITableVie
         
         updateButtonState()
     }
-    
+}
+
+extension KindModalViewController {
     // '다음' 버튼 탭 시 동작
     @objc func ButtonTapped() {
         let nextView = DateModalViewController()

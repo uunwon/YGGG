@@ -68,7 +68,9 @@ class MainViewController: UIViewController {
         setupNavigationBar()
         setupCollectionView()
     }
-    
+}
+
+extension MainViewController {
     func setupNavigationBar() {
         self.navigationItem.largeTitleDisplayMode = .never
         

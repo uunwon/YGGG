@@ -30,6 +30,7 @@
 		574DAD612C149932006C224B /* IconModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574DAD602C149932006C224B /* IconModalViewController.swift */; };
 		574DAD632C155498006C224B /* UserCosmetics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574DAD622C155498006C224B /* UserCosmetics.swift */; };
 		574DAD652C15F214006C224B /* OptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574DAD642C15F213006C224B /* OptionTableViewController.swift */; };
+		574DAD672C16195A006C224B /* ModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574DAD662C16195A006C224B /* ModalViewModel.swift */; };
 		5763B1D62C12CFA3007C0F57 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1D52C12CFA3007C0F57 /* CustomCollectionViewCell.swift */; };
 		5763B1D82C12CFC7007C0F57 /* DoubleTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1D72C12CFC7007C0F57 /* DoubleTitleView.swift */; };
 		5763B1DA2C12CFE8007C0F57 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5763B1D92C12CFE8007C0F57 /* MainViewController.swift */; };
@@ -54,6 +55,7 @@
 		574DAD602C149932006C224B /* IconModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconModalViewController.swift; sourceTree = "<group>"; };
 		574DAD622C155498006C224B /* UserCosmetics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCosmetics.swift; sourceTree = "<group>"; };
 		574DAD642C15F213006C224B /* OptionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionTableViewController.swift; sourceTree = "<group>"; };
+		574DAD662C16195A006C224B /* ModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewModel.swift; sourceTree = "<group>"; };
 		5763B1D52C12CFA3007C0F57 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		5763B1D72C12CFC7007C0F57 /* DoubleTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTitleView.swift; sourceTree = "<group>"; };
 		5763B1D92C12CFE8007C0F57 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				574DAD602C149932006C224B /* IconModalViewController.swift */,
 				574DAD622C155498006C224B /* UserCosmetics.swift */,
 				574DAD642C15F213006C224B /* OptionTableViewController.swift */,
+				574DAD662C16195A006C224B /* ModalViewModel.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				41EB8EE32C109CB7001DBF2A /* CosmeticsTVCell.swift in Sources */,
 				5763B1DA2C12CFE8007C0F57 /* MainViewController.swift in Sources */,
 				574DAD632C155498006C224B /* UserCosmetics.swift in Sources */,
+				574DAD672C16195A006C224B /* ModalViewModel.swift in Sources */,
 				574DAD5D2C12D7E7006C224B /* KindModalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
