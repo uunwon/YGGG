@@ -132,19 +132,27 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		5763B1D42C12CF75007C0F57 /* Main */ = {
+		574DAD682C161D07006C224B /* Modal */ = {
 			isa = PBXGroup;
 			children = (
-				5763B1D52C12CFA3007C0F57 /* CustomCollectionViewCell.swift */,
-				5763B1D72C12CFC7007C0F57 /* DoubleTitleView.swift */,
-				5763B1D92C12CFE8007C0F57 /* MainViewController.swift */,
+				574DAD642C15F213006C224B /* OptionTableViewController.swift */,
+				574DAD662C16195A006C224B /* ModalViewModel.swift */,
 				5763B1DB2C12CFFE007C0F57 /* NameModalViewController.swift */,
 				574DAD5C2C12D7E7006C224B /* KindModalViewController.swift */,
 				574DAD5E2C149909006C224B /* DateModalViewController.swift */,
 				574DAD602C149932006C224B /* IconModalViewController.swift */,
+			);
+			path = Modal;
+			sourceTree = "<group>";
+		};
+		5763B1D42C12CF75007C0F57 /* Main */ = {
+			isa = PBXGroup;
+			children = (
 				574DAD622C155498006C224B /* UserCosmetics.swift */,
-				574DAD642C15F213006C224B /* OptionTableViewController.swift */,
-				574DAD662C16195A006C224B /* ModalViewModel.swift */,
+				5763B1D52C12CFA3007C0F57 /* CustomCollectionViewCell.swift */,
+				5763B1D72C12CFC7007C0F57 /* DoubleTitleView.swift */,
+				5763B1D92C12CFE8007C0F57 /* MainViewController.swift */,
+				574DAD682C161D07006C224B /* Modal */,
 			);
 			path = Main;
 			sourceTree = "<group>";

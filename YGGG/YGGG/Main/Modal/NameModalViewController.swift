@@ -7,6 +7,9 @@
 
 import UIKit
 
+
+// MARK: main
+
 class NameModalViewController: UIViewController, UITextFieldDelegate {
     let imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "name_modal"))
@@ -81,6 +84,7 @@ class NameModalViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
+// MARK: - textfield & button actions
 
 extension NameModalViewController {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

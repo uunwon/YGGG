@@ -16,6 +16,8 @@ struct CosmeticCategory {
     let cosmetics: [Cosmetic]
 }
 
+// MARK: main
+
 class KindModalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let categories: [CosmeticCategory] = [
@@ -127,6 +129,8 @@ class KindModalViewController: UIViewController, UITableViewDelegate, UITableVie
         updateButtonState()
     }
 }
+
+// MARK: - button actions & tableview
 
 extension KindModalViewController {
     // '다음' 버튼 탭 시 동작

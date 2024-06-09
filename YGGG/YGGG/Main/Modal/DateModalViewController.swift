@@ -11,7 +11,7 @@ protocol ModalDelegate: AnyObject {
     func onDismissReload(selection: String)
 }
 
-// MARK: - main
+// MARK: main
 
 class DateModalViewController: UIViewController {
     let viewModel = ModalViewModel()
