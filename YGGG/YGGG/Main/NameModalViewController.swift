@@ -69,21 +69,20 @@ class NameModalViewController: UIViewController, UITextFieldDelegate {
             label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
             
             textField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
-            textField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            textField.widthAnchor.constraint(equalToConstant: 30),
+            textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
             buttonNext.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             buttonNext.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonNext.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            buttonNext.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
+            buttonNext.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            buttonNext.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
         updateButtonColor()
     }
     
     // UITextFieldDelegate methods
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // Hide the keyboard when the return key is pressed
         textField.resignFirstResponder()
         return true
     }

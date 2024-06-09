@@ -30,13 +30,15 @@ class DateModalViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.setTitle("다음", for: .normal)
-        button.backgroundColor = .orange
+        button.backgroundColor = .lightGray  // 초기 색상 설정
         button.tintColor = .black
         button.setTitleColor(.label, for: .normal)
         button.layer.cornerRadius = 10
- //       button.isEnabled = false
+        button.isEnabled = false  // 초기 상태 설정
         return button
     }()
+    
+    let options = ["냉장", "냉동", "실온"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,9 +46,9 @@ class DateModalViewController: UIViewController {
         
         view.addSubview(imageView)
         view.addSubview(label)
-        
-        buttonNext.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
         view.addSubview(buttonNext)
+        
+        buttonNext.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -59,13 +61,12 @@ class DateModalViewController: UIViewController {
             
             buttonNext.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             buttonNext.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonNext.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            buttonNext.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
+            buttonNext.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            buttonNext.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
-        updateButtonColor()
     }
     
-    @objc func ButtonTapped() {
+    @objc func buttonTapped() {
         let nextView = IconModalViewController()
         self.navigationController?.pushViewController(nextView, animated: true)
         
@@ -74,7 +75,7 @@ class DateModalViewController: UIViewController {
         self.navigationItem.backBarButtonItem = backBarButtonItem
     }
     
-    @objc func updateButtonColor() {
-         
+    func updateButtonColor(selectedOption: String) {
+        
     }
 }

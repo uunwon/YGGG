@@ -76,7 +76,6 @@ class KindModalViewController: UIViewController, UITableViewDelegate, UITableVie
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.setTitle("다음", for: .normal)
-        button.tintColor = .black
         button.setTitleColor(.label, for: .normal)
         button.layer.cornerRadius = 10
         button.isEnabled = false
@@ -84,9 +83,10 @@ class KindModalViewController: UIViewController, UITableViewDelegate, UITableVie
     }()
     
     let tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.backgroundColor = .white
         return tableView
     }()
     
@@ -114,14 +114,14 @@ class KindModalViewController: UIViewController, UITableViewDelegate, UITableVie
             label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
             
             tableView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: buttonNext.topAnchor, constant: -20),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             buttonNext.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             buttonNext.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonNext.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            buttonNext.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
+            buttonNext.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            buttonNext.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
         
         updateButtonState()
