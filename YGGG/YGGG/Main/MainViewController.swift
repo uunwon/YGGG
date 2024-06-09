@@ -15,8 +15,6 @@ class MainViewController: UIViewController {
     var tab = Tab.home
     let cellHeight: CGFloat = 150
     
-//    let stackViewCell = StackViewCollectionViewCell()
-    
     lazy var stackView: UIStackView = {
         let titles = ["전체", "냉동", "냉장", "실온"]
         
@@ -43,6 +41,7 @@ class MainViewController: UIViewController {
     }()
     
     let doubleTitleView = DoubleTitleView()
+    
     let plusButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)

@@ -8,7 +8,7 @@
 import UIKit
 
 class DateModalViewController: UIViewController {
-
+    
     let imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "date_modal"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -38,8 +38,6 @@ class DateModalViewController: UIViewController {
         return button
     }()
     
-    let options = ["냉장", "냉동", "실온"]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -49,6 +47,7 @@ class DateModalViewController: UIViewController {
         view.addSubview(buttonNext)
         
         buttonNext.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -75,7 +74,7 @@ class DateModalViewController: UIViewController {
         self.navigationItem.backBarButtonItem = backBarButtonItem
     }
     
-    func updateButtonColor(selectedOption: String) {
+    func updateButtonColor() {
         
     }
 }
