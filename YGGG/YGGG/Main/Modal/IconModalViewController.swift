@@ -99,11 +99,22 @@ class IconModalViewController: UIViewController, UICollectionViewDelegate, UICol
             buttonNext.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             buttonNext.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
+        updateNextButtonState()
     }
     
     @objc func buttonTapped() {
         dismiss(animated: true, completion: nil)
     }
+    
+    func updateNextButtonState() {
+            if imageView.image == UIImage(named: "icon_modal") {
+                buttonNext.isEnabled = false
+                buttonNext.backgroundColor = .systemGray6
+            } else {
+                buttonNext.isEnabled = true
+                buttonNext.backgroundColor = .setorange
+            }
+        }
     
     // MARK: - UICollectionViewDataSource
     
@@ -152,6 +163,8 @@ class IconModalViewController: UIViewController, UICollectionViewDelegate, UICol
         
         guard let image = cell.iconImageView.image else { return }
         imageView.image = image
+        
+        updateNextButtonState()
     }
     
     // 이미지 선택 알림을 받아 imageView를 업데이트하는 메서드

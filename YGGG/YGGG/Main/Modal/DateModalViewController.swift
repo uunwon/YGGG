@@ -136,6 +136,8 @@ class DateModalViewController: UIViewController {
             buttonNext.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             buttonNext.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
+        
+        updateNextButtonState()
     }
 }
 
@@ -160,6 +162,16 @@ extension DateModalViewController {
         }
         self.present(vc, animated: true)
     }
+    
+    func updateNextButtonState() {
+        if selectionLabel.text == "선택" {
+            buttonNext.isEnabled = false
+            buttonNext.backgroundColor = .systemGray6
+        } else {
+            buttonNext.isEnabled = true
+            buttonNext.backgroundColor = .setorange 
+        }
+    }
 }
 
 // MARK: - modal delegate
@@ -167,5 +179,6 @@ extension DateModalViewController {
 extension DateModalViewController: ModalDelegate {
     func onDismissReload(selection: String) {
         self.selectionLabel.text = selection
+        updateNextButtonState()
     }
 }
