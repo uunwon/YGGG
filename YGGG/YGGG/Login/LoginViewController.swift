@@ -6,6 +6,12 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseAuth
+import FirebaseFirestore
+import GoogleSignIn
+
+let COLLECTION_USERS = Firestore.firestore().collection("users")
 
 class LoginViewController: UIViewController {
     let loginLabel: UILabel = {
@@ -33,50 +39,21 @@ class LoginViewController: UIViewController {
         button.layer.borderColor = UIColor.black.cgColor
         
         config.title = "Google로 시작하기"
-        
-        config.image = UIImage(systemName: "heart.fill")
-        config.imagePadding = 6
-        config.imagePlacement = .leading
-        config.baseForegroundColor = .black // image in button color
-        
-        button.configuration = config
-        
-        button.layer.masksToBounds = true // button rounding
-        button.layer.cornerRadius = 7
-        
-        let action = UIAction { [weak self] _ in
-            print("Click Google Login")
-            self?.moveToMain()
-        }
-        button.addAction(action, for: .touchUpInside)
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
-    }()
-    
-    lazy var appleLoginButton: UIButton = {
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = .black
-        let button = UIButton()
-        
-        button.setTitle("Apple로 시작하기", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        
-        config.image = UIImage(systemName: "apple.logo")
+        config.image = UIImage(named: "Google Logo")
         config.imagePadding = 10
         config.imagePlacement = .leading
+        config.baseForegroundColor = .black
+        
         button.configuration = config
         
         button.layer.masksToBounds = true // button rounding
         button.layer.cornerRadius = 7
         
         let action = UIAction { [weak self] _ in
-            print("Click Apple Login")
-            self?.moveToMain()
+            self?.handleSignInButton()
         }
+
         button.addAction(action, for: .touchUpInside)
-        
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -85,7 +62,7 @@ class LoginViewController: UIViewController {
     private lazy var titleLabelConstraints: [NSLayoutConstraint] = {
         let safeArea = view.safeAreaLayoutGuide
         return [
-            loginLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30),
+            loginLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 40),
             loginLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 30)
         ]
     }()
@@ -107,16 +84,6 @@ class LoginViewController: UIViewController {
             googleLoginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ]
     }()
-    
-    private lazy var appleLoginButtonConstraints: [NSLayoutConstraint] = {
-        return [
-            appleLoginButton.topAnchor.constraint(equalTo: googleLoginButton.bottomAnchor, constant: 15),
-            appleLoginButton.heightAnchor.constraint(equalToConstant: 53),
-            appleLoginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            appleLoginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            appleLoginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ]
-    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,7 +92,6 @@ class LoginViewController: UIViewController {
         view.addSubview(loginLabel)
         view.addSubview(descriptionLabel)
         view.addSubview(googleLoginButton)
-        view.addSubview(appleLoginButton)
     }
     
     override func viewIsAppearing(_ animated: Bool) {
@@ -135,7 +101,7 @@ class LoginViewController: UIViewController {
     
     // MARK: - Methods
     func updateLayout() {
-        NSLayoutConstraint.activate(titleLabelConstraints + descriptionLabelConstraints + googleLoginButtonConstraints + appleLoginButtonConstraints)
+        NSLayoutConstraint.activate(titleLabelConstraints + descriptionLabelConstraints + googleLoginButtonConstraints)
     }
     
     // 로그인 성공 시 메인 화면으로 전환
@@ -146,6 +112,46 @@ class LoginViewController: UIViewController {
         if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
             sceneDelegate.window?.rootViewController = mainTabBarController
         }
+    }
+    
+    func handleSignInButton() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        
+        // Create Google Sign In configuration Object
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        
+        // Start the Sign In Flow!
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
+            guard error == nil else {
+                print("Press the cancel Button")
+                return
+            }
+            
+            guard let user = result?.user,
+                  let idToken = user.idToken?.tokenString
+            else { return }
+            
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: user.accessToken.tokenString)
+            
+            Auth.auth().signIn(with: credential) { result, error in
+                // At this point, our user is signed in
+                guard let user = result?.user else { return }
+                
+                let data: [String: Any] = ["email": user.email as Any,
+                                           "uid": user.uid,
+                                           "userName": user.displayName as Any,
+                                           "userImage": user.photoURL?.absoluteString ?? "",
+                                           "userHashTag": "",
+                                           "userCosmetics": []]
+                
+                COLLECTION_USERS.document(user.uid).setData(data)
+                
+                print("Success to Login")
+                self.moveToMain()
+            }
+        }
+        
     }
     
 }
