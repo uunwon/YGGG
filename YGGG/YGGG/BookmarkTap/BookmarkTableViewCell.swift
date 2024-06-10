@@ -7,7 +7,7 @@
 
 import UIKit
 protocol BookmarkTableViewControllerDelegate {
-    func toggleBookmark(index: Int)
+    func toggleBookmark(uid: String, completion: @escaping (Bool) -> Void) async
 }
 
 class BookmarkTableViewCell: UITableViewCell {
@@ -18,7 +18,7 @@ class BookmarkTableViewCell: UITableViewCell {
         let userPhotoView = UIImageView()
         userPhotoView.image = UIImage(named: "userPhoto")
         userPhotoView.layer.cornerRadius = 32.5
-        userPhotoView.layer.borderWidth = 0.5
+        userPhotoView.layer.borderWidth = 2.0
         userPhotoView.layer.borderColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1.0).cgColor
         userPhotoView.clipsToBounds = true
         userPhotoView.translatesAutoresizingMaskIntoConstraints = false
@@ -26,7 +26,7 @@ class BookmarkTableViewCell: UITableViewCell {
     }()
     
     private lazy var usernameLabel: UILabel = {
-       let usernameLabel = UILabel()
+        let usernameLabel = UILabel()
         usernameLabel.font = UIFont.systemFont(ofSize: 19, weight: .bold)
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
         return usernameLabel
@@ -41,7 +41,7 @@ class BookmarkTableViewCell: UITableViewCell {
     }()
     
     private lazy var userItemCountLabel: UILabel = {
-       let userItemCountLabel = UILabel()
+        let userItemCountLabel = UILabel()
         userItemCountLabel.font = UIFont.systemFont(ofSize: 12)
         userItemCountLabel.translatesAutoresizingMaskIntoConstraints = false
         return userItemCountLabel
@@ -49,7 +49,6 @@ class BookmarkTableViewCell: UITableViewCell {
     
     private lazy var bookmarkToggleButton: UIButton = {
         let bookmarkToggleButton = UIButton()
-        bookmarkToggleButton.setImage(UIImage(systemName: "heart"), for: .normal)
         bookmarkToggleButton.tintColor = UIColor(red: 135/255, green: 200/255, blue: 188/255, alpha: 1)
         bookmarkToggleButton.contentHorizontalAlignment = .fill
         bookmarkToggleButton.contentVerticalAlignment = .fill
@@ -101,7 +100,7 @@ class BookmarkTableViewCell: UITableViewCell {
         ])
     }
     
-    func configureCell(user: User, index: Int) {
+    func configureCell(user: User, bookmarkList: [String]) {
         var refrigeratorItems: [UserCosmetics] = []
         var graveItems: [UserCosmetics] = []
         
@@ -123,10 +122,18 @@ class BookmarkTableViewCell: UITableViewCell {
         }
         userItemCountLabel.text = "냉장고 \(refrigeratorItems.count) 무덤 \(graveItems.count)"
         
+        let isBookmarked = bookmarkList.contains(user.uid)
+        bookmarkToggleButton.setImage(UIImage(systemName: isBookmarked ? "heart.fill" : "heart"), for: .normal)
         bookmarkToggleButton.removeTarget(nil, action: nil, for: .allEvents)
         bookmarkToggleButton.addAction(UIAction { [weak self] _ in
-            if let delegate = self?.delegate {
-                delegate.toggleBookmark(index: index)
+            Task {
+                if let delegate = self?.delegate {
+                    await delegate.toggleBookmark(uid: user.uid) { newState in
+                        DispatchQueue.main.async {
+                            self?.bookmarkToggleButton.setImage(UIImage(systemName: newState ? "heart.fill" : "heart"), for: .normal)
+                        }
+                    }
+                }
             }
         }, for: .touchUpInside)
     }

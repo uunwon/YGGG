@@ -28,9 +28,11 @@ class BookmarkTableViewController: UIViewController {
     }()
     
     var datas: [User] = []
+    var bookmarkList: [String] = []
     var filteredTableData: [User] = []
     //task: 로그인된 계정의 id 가져오기
     var myID = "67p8Fleq5wgDNnkEG2yB"
+//    var myID = "KUopIURXK9e7k9t8vnSxzzDaGYy1"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,14 +54,13 @@ class BookmarkTableViewController: UIViewController {
     
     private func loadBookmarkList() async {
         do {
-            var loadedDatas: [User] = []
-            var bookmarkList: [String]
             let db = Firestore.firestore()
             let activeUserDocRef = db.collection("users").document(myID)
+            let activeUserData = try await activeUserDocRef.getDocument(as: User.self)
             
-            let data = try await activeUserDocRef.getDocument(as: User.self)
-            bookmarkList = data.bookmarkList
+            bookmarkList = activeUserData.bookmarkList
             
+            var loadedDatas: [User] = []
             let snapshot = try await db.collection("users").whereField("uid", in: bookmarkList).getDocuments()
             for document in snapshot.documents {
                 if let data = try? document.data(as: User.self) {
@@ -67,8 +68,10 @@ class BookmarkTableViewController: UIViewController {
                 }
             }
             
-            datas = loadedDatas
-            tableView.reloadData()
+            self.datas = loadedDatas
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         } catch {
             print("Error getting documents: \(error)")
         }
@@ -162,7 +165,7 @@ extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegat
         cell.selectionStyle = .none
         cell.delegate = self
         let userEntry = datas[indexPath.row]
-        cell.configureCell(user: userEntry, index: indexPath.row)
+        cell.configureCell(user: userEntry, bookmarkList: bookmarkList)
         return cell
     }
     
@@ -175,9 +178,31 @@ extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegat
         print("이동")
     }
     
-    func toggleBookmark(index: Int) {
+    func toggleBookmark(uid: String, completion: @escaping (Bool) -> Void) async {
         //북마크 토글
         print("toggle")
+        do {
+            let isBookmarked: Bool
+            if bookmarkList.contains(uid) {
+                bookmarkList = bookmarkList.filter { $0 != uid }
+                isBookmarked = false
+            } else {
+                bookmarkList.append(uid)
+                isBookmarked = true
+            }
+            
+            let db = Firestore.firestore()
+            let activeUserDocRef = db.collection("users").document(myID)
+            try await activeUserDocRef.updateData(["bookmarkList" : bookmarkList])
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+            completion(isBookmarked)
+        } catch {
+            print("Error toggling documents: \(error)")
+        }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
