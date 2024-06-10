@@ -113,7 +113,7 @@ class CosmeticsTVCell: UITableViewCell {
     
     
     func configureCell(cosmetic: Cosmetics) {
-        
+        print(cosmetic)
         let image: UIImage?
         if cosmetic.isExpired {
             image = UIImage(systemName: cosmetic.imageName)?.withRenderingMode(.alwaysTemplate)

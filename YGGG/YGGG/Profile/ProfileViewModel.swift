@@ -33,39 +33,81 @@ struct TopCategory: Codable {
 }
 
 
+//struct Cosmetics: Codable {
+//    let imageName: String
+//    let title: String
+//    let purchaseDate: String
+//    let expirationDate: String
+//    let kind: Int // 0: 냉동, 1: 냉장, 2: 실온
+//    
+//
+//    private var dateFormatter: DateFormatter {
+//         let formatter = DateFormatter()
+//         formatter.dateFormat = "yyyy.MM.dd"
+//         return formatter
+//     }
+//     
+//     var isExpired: Bool {
+//         guard let expirationDate = dateFormatter.date(from: expirationDate) else { return false }
+//         return expirationDate < Date()
+//     }
+//     
+//     var purchaseString: String {
+//         guard let purchaseDate = dateFormatter.date(from: purchaseDate) else { return "Invalid date" }
+//         return dateFormatter.string(from: purchaseDate)
+//     }
+//     
+//     var expirationString: String {
+//         guard let expirationDate = dateFormatter.date(from: expirationDate) else { return "Invalid date" }
+//         return dateFormatter.string(from: expirationDate)
+//     }
+//    
+//    var expirationDateAsDate: Date {
+//        return dateFormatter.date(from: expirationDate) ?? Date()
+//    }
+//    
+//}
+
 struct Cosmetics: Codable {
     let imageName: String
     let title: String
     let purchaseDate: String
     let expirationDate: String
     let kind: Int // 0: 냉동, 1: 냉장, 2: 실온
-    
 
     private var dateFormatter: DateFormatter {
-         let formatter = DateFormatter()
-         formatter.dateFormat = "yyyy.MM.dd"
-         return formatter
-     }
-     
-     var isExpired: Bool {
-         guard let expirationDate = dateFormatter.date(from: expirationDate) else { return false }
-         return expirationDate < Date()
-     }
-     
-     var purchaseString: String {
-         guard let purchaseDate = dateFormatter.date(from: purchaseDate) else { return "Invalid date" }
-         return dateFormatter.string(from: purchaseDate)
-     }
-     
-     var expirationString: String {
-         guard let expirationDate = dateFormatter.date(from: expirationDate) else { return "Invalid date" }
-         return dateFormatter.string(from: expirationDate)
-     }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        return formatter
+    }
     
+
+    private var inputDateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        
+        return formatter
+    }
+    
+    
+    var isExpired: Bool {
+        guard let expirationDate = dateFormatter.date(from: expirationDate) else { return false }
+        return expirationDate < Date()
+    }
+
+    var purchaseString: String {
+        guard let purchaseDate = inputDateFormatter.date(from: purchaseDate) else { return "Invalid date" }
+        return dateFormatter.string(from: purchaseDate)
+    }
+
+    var expirationString: String {
+        guard let expirationDate = inputDateFormatter.date(from: expirationDate) else { return "Invalid date" }
+        return dateFormatter.string(from: expirationDate)
+    }
+
     var expirationDateAsDate: Date {
         return dateFormatter.date(from: expirationDate) ?? Date()
     }
-    
 }
 
 class ProfileViewModel {
