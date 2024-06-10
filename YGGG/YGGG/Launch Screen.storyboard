@@ -23,11 +23,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Splash Image" translatesAutoresizingMaskIntoConstraints="NO" id="zGD-pl-tGe">
-                                <rect key="frame" x="111.33333333333331" y="340.66666666666669" width="170.66666666666669" height="170.66666666666669"/>
+                                <rect key="frame" x="111.33333333333333" y="340.66666666666669" width="170.66666666666669" height="170.66666666666669"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
-                        <color key="backgroundColor" name="App Primary Color"/>
+                        <color key="backgroundColor" name="App Primary"/>
                         <constraints>
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="centerX" secondItem="obG-Y5-kRd" secondAttribute="centerX" id="5cz-MP-9tL"/>
                             <constraint firstItem="zGD-pl-tGe" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="P0m-Xp-VxS"/>
@@ -44,8 +44,8 @@
     </scenes>
     <resources>
         <image name="Splash Image" width="170.66667175292969" height="170.66667175292969"/>
-        <namedColor name="App Primary Color">
-            <color red="1" green="0.83137254901960789" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="App Primary">
+            <color red="0.99999994039535522" green="0.83137254901960789" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

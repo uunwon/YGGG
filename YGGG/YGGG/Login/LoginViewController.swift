@@ -8,8 +8,10 @@
 import UIKit
 import FirebaseCore
 import FirebaseAuth
+import FirebaseFirestore
 import GoogleSignIn
-import GoogleSignInSwift
+
+let COLLECTION_USERS = Firestore.firestore().collection("users")
 
 class LoginViewController: UIViewController {
     let loginLabel: UILabel = {
@@ -28,13 +30,22 @@ class LoginViewController: UIViewController {
         return label
     }()
     
-    lazy var googleLoginButton: GIDSignInButton = {
+    lazy var googleLoginButton: UIButton = {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .white
-        let button = GIDSignInButton()
+        let button = UIButton()
         
         button.layer.borderWidth = 0.5
         button.layer.borderColor = UIColor.black.cgColor
+        
+        config.title = "Google로 시작하기"
+        config.image = UIImage(named: "Google Logo")
+        config.imagePadding = 10
+        config.imagePlacement = .leading
+        config.baseForegroundColor = .black
+        
+        button.configuration = config
+        
         button.layer.masksToBounds = true // button rounding
         button.layer.cornerRadius = 7
         
@@ -113,21 +124,29 @@ class LoginViewController: UIViewController {
         // Start the Sign In Flow!
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
             guard error == nil else {
-                print("몰?루 그냥 로그인 안 돼 ㅋ")
+                print("몰?루 사용자가 취소 버튼 눌렀어")
                 return
             }
             
             guard let user = result?.user,
                   let idToken = user.idToken?.tokenString
-            else {
-                print("사용자 정보 안 들어옴")
-                return
-            }
+            else { return }
             
             let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: user.accessToken.tokenString)
             
             Auth.auth().signIn(with: credential) { result, error in
                 // At this point, our user is signed in
+                guard let user = result?.user else { return }
+                
+                let data: [String: Any] = ["email": user.email as Any,
+                                           "uid": user.uid,
+                                           "userName": user.displayName as Any,
+                                           "userImage": user.photoURL?.absoluteString ?? "",
+                                           "userHashTag": "",
+                                           "userCosmetics": []]
+                
+                COLLECTION_USERS.document(user.uid).setData(data)
+                
                 print("로그인 성공 !")
                 self.moveToMain()
             }

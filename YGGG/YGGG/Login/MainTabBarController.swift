@@ -12,7 +12,6 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // 각 탭에 들어갈 뷰 컨트롤러 설정
         // TODO: - 각 탭에 맞는 ViewController 대입하기
         let followViewController = ViewController()
         let homeViewController = HomeViewController()
@@ -36,7 +35,7 @@ class MainTabBarController: UITabBarController {
             selectedImage: UIImage(systemName: "person.fill")
         )
         
-        tabBar.tintColor = UIColor.appGreen // 선택한 탭 아이템 색상 설정
+        tabBar.tintColor = UIColor.yggg_green // 선택한 탭 아이템 색상 설정
         
         let tabBarList = [followViewController, homeViewController, myViewController]
         viewControllers = tabBarList
