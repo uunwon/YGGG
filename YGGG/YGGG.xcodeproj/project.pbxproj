@@ -23,11 +23,13 @@
 		414104012C1693AC00381B7A /* MyProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414104002C1693AC00381B7A /* MyProfileTableViewCell.swift */; };
 		414104032C16BC9700381B7A /* MyProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414104022C16BC9700381B7A /* MyProfileEditViewController.swift */; };
 		414104052C16EA6E00381B7A /* HashTagCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414104042C16EA6E00381B7A /* HashTagCVCell.swift */; };
+
 		4157B6D72C176ACF00B2CF2D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4157B6D32C176ACF00B2CF2D /* LoginViewController.swift */; };
 		4157B6D82C176ACF00B2CF2D /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4157B6D42C176ACF00B2CF2D /* MainTabBarController.swift */; };
 		4157B6D92C176ACF00B2CF2D /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4157B6D52C176ACF00B2CF2D /* SplashViewController.swift */; };
 		4157B6DC2C176AF500B2CF2D /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 4157B6DB2C176AF500B2CF2D /* GoogleSignIn */; };
 		4157B6DE2C176AF500B2CF2D /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4157B6DD2C176AF500B2CF2D /* GoogleSignInSwift */; };
+
 		41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8652C0EC83300A09411 /* AppDelegate.swift */; };
 		41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8672C0EC83300A09411 /* SceneDelegate.swift */; };
 		41CCE86A2C0EC83300A09411 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8692C0EC83300A09411 /* ViewController.swift */; };
@@ -66,9 +68,11 @@
 		414104002C1693AC00381B7A /* MyProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileTableViewCell.swift; sourceTree = "<group>"; };
 		414104022C16BC9700381B7A /* MyProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileEditViewController.swift; sourceTree = "<group>"; };
 		414104042C16EA6E00381B7A /* HashTagCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCVCell.swift; sourceTree = "<group>"; };
+
 		4157B6D32C176ACF00B2CF2D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4157B6D42C176ACF00B2CF2D /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		4157B6D52C176ACF00B2CF2D /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+
 		41CCE8622C0EC83300A09411 /* YGGG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YGGG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41CCE8652C0EC83300A09411 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41CCE8672C0EC83300A09411 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 			path = MYProfile;
 			sourceTree = "<group>";
 		};
+
 		4157B6D62C176ACF00B2CF2D /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,7 +171,9 @@
 			isa = PBXGroup;
 			children = (
 				414103FE2C1688D000381B7A /* ProfileMainView.swift */,
+
 				4157B6D62C176ACF00B2CF2D /* Login */,
+
 				414103FB2C16870A00381B7A /* MYProfile */,
 				413C0F082C11E23F00BBFBD7 /* Extension */,
 				413C0F062C11E22100BBFBD7 /* Profile */,
@@ -286,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+
 				4157B6D92C176ACF00B2CF2D /* SplashViewController.swift in Sources */,
 				4157B6D72C176ACF00B2CF2D /* LoginViewController.swift in Sources */,
 				413C0F0F2C11E25300BBFBD7 /* CategoryCVCell.swift in Sources */,

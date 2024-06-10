@@ -17,7 +17,7 @@ class MainTabBarController: UITabBarController {
         // TODO: - 각 탭에 맞는 ViewController 대입하기
         let followViewController = ViewController()
         let homeViewController = ViewController()
-        let myViewController = ProfileViewController()
+        let myViewController = MyProfileVIewController()
                 
         followViewController.tabBarItem = UITabBarItem(
             title: "Follow",

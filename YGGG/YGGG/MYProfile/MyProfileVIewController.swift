@@ -34,6 +34,10 @@ class MyProfileVIewController: UIViewController{
         configureDataSetup()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
     
     private func configureUI() {
         view.backgroundColor = .white
@@ -139,12 +143,9 @@ extension MyProfileVIewController: UITableViewDelegate, UITableViewDataSource {
 
 extension MyProfileVIewController: ProfileMainViewDelegate {
     func profileImageTapped() {
-//        let imagePickerController = UIImagePickerController()
-//        imagePickerController.delegate = self
-//        imagePickerController.sourceType = .photoLibrary
-//        present(imagePickerController, animated: true)
-        
+        print("profileImageTapped")
         let vc = MyProfileEditViewController()
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     

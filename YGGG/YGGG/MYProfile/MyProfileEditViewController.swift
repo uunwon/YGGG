@@ -150,6 +150,11 @@ class MyProfileEditViewController: UIViewController {
         setupUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     func setupUI() {
         view.backgroundColor = .white
         navigationItem.title = "프로필"

@@ -59,7 +59,7 @@ class SplashViewController: UIViewController {
         
         // SceneDelegate 에서 rootViewController 변경
         if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-            sceneDelegate.window?.rootViewController = mainTabBarController
+            sceneDelegate.window?.rootViewController = UINavigationController(rootViewController: mainTabBarController)
         }
     }
     
