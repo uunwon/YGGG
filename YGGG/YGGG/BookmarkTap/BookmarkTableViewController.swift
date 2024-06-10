@@ -91,6 +91,7 @@ class BookmarkTableViewController: UIViewController {
     
     private func setupTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
     
@@ -118,7 +119,7 @@ class BookmarkTableViewController: UIViewController {
     }
 }
 
-extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate {
+extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegate, BookmarkTableViewControllerDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         datas.count
@@ -127,13 +128,24 @@ extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as! BookmarkTableViewCell
         cell.selectionStyle = .none
+        cell.delegate = self
         let userInfoEntry = datas[indexPath.row]
-        cell.configureCell(userInfoEntry: userInfoEntry)
+        cell.configureCell(userInfoEntry: userInfoEntry, index: indexPath.row)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         87
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //이동
+        print("이동")
+    }
+    
+    func toggleBookmark(index: Int) {
+        //북마크 토글
+        print("toggle")
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

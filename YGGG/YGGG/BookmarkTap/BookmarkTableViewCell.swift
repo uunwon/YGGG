@@ -6,8 +6,13 @@
 //
 
 import UIKit
+protocol BookmarkTableViewControllerDelegate {
+    func toggleBookmark(index: Int)
+}
 
 class BookmarkTableViewCell: UITableViewCell {
+    
+    var delegate: BookmarkTableViewControllerDelegate?
     
     private lazy var userPhotoView: UIImageView = {
         let userPhotoView = UIImageView()
@@ -38,12 +43,15 @@ class BookmarkTableViewCell: UITableViewCell {
         return userItemCountLabel
     }()
     
-    private lazy var bookmarkHeartView: UIImageView = {
-        let bookmarkHeartView = UIImageView()
-        bookmarkHeartView.image = UIImage(systemName: "heart")!
-        bookmarkHeartView.tintColor = UIColor(red: 135/255, green: 200/255, blue: 188/255, alpha: 1)
-        bookmarkHeartView.translatesAutoresizingMaskIntoConstraints = false
-        return bookmarkHeartView
+    private lazy var bookmarkToggleButton: UIButton = {
+        let bookmarkToggleButton = UIButton()
+        bookmarkToggleButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        bookmarkToggleButton.tintColor = UIColor(red: 135/255, green: 200/255, blue: 188/255, alpha: 1)
+        bookmarkToggleButton.contentHorizontalAlignment = .fill
+        bookmarkToggleButton.contentVerticalAlignment = .fill
+        bookmarkToggleButton.imageView?.contentMode = .scaleAspectFit
+        bookmarkToggleButton.translatesAutoresizingMaskIntoConstraints = false
+        return bookmarkToggleButton
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -56,11 +64,11 @@ class BookmarkTableViewCell: UITableViewCell {
     }
     
     func setupCell() {
-        addSubview(userPhotoView)
-        addSubview(usernameLabel)
-        addSubview(userHashTagLabel)
-        addSubview(userItemCountLabel)
-        addSubview(bookmarkHeartView)
+        contentView.addSubview(userPhotoView)
+        contentView.addSubview(usernameLabel)
+        contentView.addSubview(userHashTagLabel)
+        contentView.addSubview(userItemCountLabel)
+        contentView.addSubview(bookmarkToggleButton)
         
         let safeArea = safeAreaLayoutGuide
         
@@ -70,26 +78,26 @@ class BookmarkTableViewCell: UITableViewCell {
             userPhotoView.widthAnchor.constraint(equalToConstant: 65),
             userPhotoView.heightAnchor.constraint(equalToConstant: 65),
             
-            bookmarkHeartView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 29),
-            bookmarkHeartView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            bookmarkHeartView.widthAnchor.constraint(equalToConstant: 23),
-            bookmarkHeartView.heightAnchor.constraint(equalToConstant: 23),
+            bookmarkToggleButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 29),
+            bookmarkToggleButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            bookmarkToggleButton.widthAnchor.constraint(equalToConstant: 23),
+            bookmarkToggleButton.heightAnchor.constraint(equalToConstant: 23),
             
             usernameLabel.topAnchor.constraint(equalTo: userPhotoView.topAnchor),
             usernameLabel.leadingAnchor.constraint(equalTo: userPhotoView.trailingAnchor, constant: 15),
-            usernameLabel.trailingAnchor.constraint(equalTo: bookmarkHeartView.leadingAnchor, constant: -3),
+            usernameLabel.trailingAnchor.constraint(equalTo: bookmarkToggleButton.leadingAnchor, constant: -3),
             
             userHashTagLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 3),
             userHashTagLabel.leadingAnchor.constraint(equalTo: usernameLabel.leadingAnchor),
-            userHashTagLabel.trailingAnchor.constraint(equalTo: bookmarkHeartView.leadingAnchor, constant: -3),
+            userHashTagLabel.trailingAnchor.constraint(equalTo: bookmarkToggleButton.leadingAnchor, constant: -3),
             
             userItemCountLabel.topAnchor.constraint(equalTo: userHashTagLabel.bottomAnchor, constant: 3),
             userItemCountLabel.leadingAnchor.constraint(equalTo: usernameLabel.leadingAnchor),
-            userItemCountLabel.trailingAnchor.constraint(equalTo: bookmarkHeartView.leadingAnchor, constant: -3)
+            userItemCountLabel.trailingAnchor.constraint(equalTo: bookmarkToggleButton.leadingAnchor, constant: -3)
         ])
     }
     
-    func configureCell(userInfoEntry: UserInfoEntry) {
+    func configureCell(userInfoEntry: UserInfoEntry, index: Int) {
         var refrigeratorItems: [[String: String]] = []
         var graveItems: [[String: String]] = []
         
@@ -108,5 +116,12 @@ class BookmarkTableViewCell: UITableViewCell {
             }
         }
         userItemCountLabel.text = "냉장고 \(refrigeratorItems.count) 무덤 \(graveItems.count)"
+        
+        bookmarkToggleButton.removeTarget(nil, action: nil, for: .allEvents)
+        bookmarkToggleButton.addAction(UIAction { [weak self] _ in
+            if let delegate = self?.delegate {
+                delegate.toggleBookmark(index: index)
+            }
+        }, for: .touchUpInside)
     }
 }
