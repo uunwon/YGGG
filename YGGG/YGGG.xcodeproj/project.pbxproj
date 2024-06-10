@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15A01A412C1688C500C4FC47 /* UserInfoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A01A402C1688C500C4FC47 /* UserInfoEntry.swift */; };
+		15A01A412C1688C500C4FC47 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A01A402C1688C500C4FC47 /* User.swift */; };
 		15A01A472C1688D400C4FC47 /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A01A422C1688D400C4FC47 /* BookmarkTableViewCell.swift */; };
 		15A01A482C1688D400C4FC47 /* BookmarkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A01A432C1688D400C4FC47 /* BookmarkTableViewController.swift */; };
 		15A01A492C1688D400C4FC47 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A01A442C1688D400C4FC47 /* CustomSearchBar.swift */; };
@@ -33,7 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		15A01A402C1688C500C4FC47 /* UserInfoEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoEntry.swift; sourceTree = "<group>"; };
+		15A01A402C1688C500C4FC47 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		15A01A422C1688D400C4FC47 /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
 		15A01A432C1688D400C4FC47 /* BookmarkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewController.swift; sourceTree = "<group>"; };
 		15A01A442C1688D400C4FC47 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
@@ -111,7 +111,7 @@
 				15A01A4B2C168D3100C4FC47 /* GoogleService-Info.plist */,
 				41CCE8702C0EC83400A09411 /* LaunchScreen.storyboard */,
 				41CCE8732C0EC83400A09411 /* Info.plist */,
-				15A01A402C1688C500C4FC47 /* UserInfoEntry.swift */,
+				15A01A402C1688C500C4FC47 /* User.swift */,
 			);
 			path = YGGG;
 			sourceTree = "<group>";
@@ -223,7 +223,7 @@
 				15A01A4A2C1688D400C4FC47 /* SearchInfoViewController.swift in Sources */,
 				15A01A472C1688D400C4FC47 /* BookmarkTableViewCell.swift in Sources */,
 				41EB8EF62C10BBBF001DBF2A /* Extension+UIColor.swift in Sources */,
-				15A01A412C1688C500C4FC47 /* UserInfoEntry.swift in Sources */,
+				15A01A412C1688C500C4FC47 /* User.swift in Sources */,
 				41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */,
 				41EB8EE12C108B05001DBF2A /* ProfileViewController.swift in Sources */,
 				15A01A482C1688D400C4FC47 /* BookmarkTableViewController.swift in Sources */,

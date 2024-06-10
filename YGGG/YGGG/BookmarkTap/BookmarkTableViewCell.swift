@@ -17,6 +17,10 @@ class BookmarkTableViewCell: UITableViewCell {
     private lazy var userPhotoView: UIImageView = {
         let userPhotoView = UIImageView()
         userPhotoView.image = UIImage(named: "userPhoto")
+        userPhotoView.layer.cornerRadius = 32.5
+        userPhotoView.layer.borderWidth = 0.5
+        userPhotoView.layer.borderColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1.0).cgColor
+        userPhotoView.clipsToBounds = true
         userPhotoView.translatesAutoresizingMaskIntoConstraints = false
         return userPhotoView
     }()
@@ -97,22 +101,24 @@ class BookmarkTableViewCell: UITableViewCell {
         ])
     }
     
-    func configureCell(userInfoEntry: UserInfoEntry, index: Int) {
-        var refrigeratorItems: [[String: String]] = []
-        var graveItems: [[String: String]] = []
+    func configureCell(user: User, index: Int) {
+        var refrigeratorItems: [UserCosmetics] = []
+        var graveItems: [UserCosmetics] = []
         
-        usernameLabel.text = userInfoEntry.name
-        userHashTagLabel.text = userInfoEntry.hashTags.reduce("") {
-            $0 + " " + $1
+        if let photoURL = user.userImage {
+            if photoURL != "" {
+                loadImage(from: photoURL)
+            }
         }
         
-        for item in userInfoEntry.items {
-            if let expirationDateString = item["expirationDate"] {
-                if expirationDateString > "20240605" {
-                    refrigeratorItems.append(item)
-                } else {
-                    graveItems.append(item)
-                }
+        usernameLabel.text = user.userName
+        userHashTagLabel.text = user.userHashTag
+        
+        for cosmetic in user.userCosmetics {
+            if cosmetic.expirationDate.dateValue() < Date() {
+                graveItems.append(cosmetic)
+            } else {
+                refrigeratorItems.append(cosmetic)
             }
         }
         userItemCountLabel.text = "냉장고 \(refrigeratorItems.count) 무덤 \(graveItems.count)"
@@ -123,5 +129,30 @@ class BookmarkTableViewCell: UITableViewCell {
                 delegate.toggleBookmark(index: index)
             }
         }, for: .touchUpInside)
+    }
+    //예시코드
+    func loadImage(from urlString: String) {
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+        
+        // 비동기적으로 URL에서 이미지를 다운로드
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error loading image: \(error)")
+                return
+            }
+            
+            guard let data = data, let image = UIImage(data: data) else {
+                print("No data or failed to create image")
+                return
+            }
+            
+            // 메인 스레드에서 UIImageView에 이미지를 설정
+            DispatchQueue.main.async {
+                self.userPhotoView.image = image
+            }
+        }.resume()
     }
 }

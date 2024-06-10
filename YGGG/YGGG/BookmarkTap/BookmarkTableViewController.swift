@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class BookmarkTableViewController: UIViewController {
     
@@ -26,13 +27,19 @@ class BookmarkTableViewController: UIViewController {
         return customSearchBar
     }()
     
-    let datas = UserInfoEntry.sampleDatas
-    var filteredTableData: [UserInfoEntry] = []
+    var datas: [User] = []
+    var filteredTableData: [User] = []
+    //task: 로그인된 계정의 id 가져오기
+    var myID = "67p8Fleq5wgDNnkEG2yB"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+        Task {
+            await loadBookmarkList()
+        }
         
         setupCustomSearchBar()
         setupTableView()
@@ -40,6 +47,31 @@ class BookmarkTableViewController: UIViewController {
         setupObserver()
         
         self.navigationController?.isNavigationBarHidden = true
+        
+    }
+    
+    private func loadBookmarkList() async {
+        do {
+            var loadedDatas: [User] = []
+            var bookmarkList: [String]
+            let db = Firestore.firestore()
+            let activeUserDocRef = db.collection("users").document(myID)
+            
+            let data = try await activeUserDocRef.getDocument(as: User.self)
+            bookmarkList = data.bookmarkList
+            
+            let snapshot = try await db.collection("users").whereField("uid", in: bookmarkList).getDocuments()
+            for document in snapshot.documents {
+                if let data = try? document.data(as: User.self) {
+                    loadedDatas.append(data)
+                }
+            }
+            
+            datas = loadedDatas
+            tableView.reloadData()
+        } catch {
+            print("Error getting documents: \(error)")
+        }
     }
     
     private func setupCustomSearchBar() {
@@ -129,8 +161,8 @@ extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegat
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as! BookmarkTableViewCell
         cell.selectionStyle = .none
         cell.delegate = self
-        let userInfoEntry = datas[indexPath.row]
-        cell.configureCell(userInfoEntry: userInfoEntry, index: indexPath.row)
+        let userEntry = datas[indexPath.row]
+        cell.configureCell(user: userEntry, index: indexPath.row)
         return cell
     }
     

@@ -10,8 +10,8 @@ import UIKit
 class CustomSearchBar: UISearchBar {
     
     lazy var infoButton: UIButton = {
-        let infoButton = UIButton(type: .infoLight)
-        infoButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
+        let infoButton = UIButton()
+        infoButton.setImage(UIImage(named: "information-button"), for: .normal)
         return infoButton
     }()
     
@@ -29,10 +29,10 @@ class CustomSearchBar: UISearchBar {
         self.addSubview(infoButton)
         
         NSLayoutConstraint.activate([
-            infoButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            infoButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
             infoButton.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            infoButton.widthAnchor.constraint(equalToConstant: 26),
-            infoButton.heightAnchor.constraint(equalToConstant: 26)
+            infoButton.widthAnchor.constraint(equalToConstant: 20),
+            infoButton.heightAnchor.constraint(equalToConstant: 20)
         ])
         
         setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
