@@ -10,7 +10,7 @@ import Firebase
 
 
 let DB_RED = Firestore.firestore()
-let RED_USERS = DB_RED.collection("userInfo")
+let RED_USERS = DB_RED.collection("users")
 
 
 
@@ -19,9 +19,8 @@ struct ProfileService {
     static let shared = ProfileService()
     
         func getData(completion: @escaping(User) -> Void) {
-//    func getData() {
-        
-        RED_USERS.document("QrJ0p3g9yb6wMrEiqs17").getDocument { (document, error) in
+
+        RED_USERS.document("NuAyZbv5uPYZYCTJb6kqYHziFRq2").getDocument { (document, error) in
             
             if let document = document, document.exists {
                 

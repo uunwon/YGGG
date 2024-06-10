@@ -12,16 +12,16 @@ import Firebase
 struct User: Codable {
     let userImage: String
     let userName: String
+    let uid: String
     let userHashTag: String
+    
     var refrigeratorCount: Int {
-//        return userCosmetics.filter { $0.expirationDate > Date() }.count
         return userCosmetics.filter { $0.expirationDateAsDate > Date() }.count
     }
     var tombCount: Int {
-//        return userCosmetics.filter { $0.expirationDate < Date() }.count
         return userCosmetics.filter { $0.expirationDateAsDate < Date() }.count
     }
-    var isFavorite: Bool
+//    var isFavorite: Bool = false
     
     let userCosmetics: [Cosmetics]
 }
@@ -37,26 +37,9 @@ struct Cosmetics: Codable {
     let title: String
     let purchaseDate: String
     let expirationDate: String
-//    let purchaseDate: Date
-//    let expirationDate: Date
     let kind: Int // 0: 냉동, 1: 냉장, 2: 실온
     
-    
-//    var isExpired: Bool {
-//        return expirationDate < Date()
-//    }
-//    
-//    var purchaseString: String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        return dateFormatter.string(from: purchaseDate)
-//    }
-//    
-//    var expirationString: String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        return dateFormatter.string(from: expirationDate)
-//    }
+
     private var dateFormatter: DateFormatter {
          let formatter = DateFormatter()
          formatter.dateFormat = "yyyy.MM.dd"
@@ -192,14 +175,14 @@ class ProfileViewModel {
         return user?.userImage ?? ""
     }
     
-    func userIsFavorite() -> Bool {
-        return user?.isFavorite ?? false
-    }
-    
-    func changeFavorite(completion: @escaping() -> Void) {
-        user?.isFavorite = !(user?.isFavorite ?? false)
-        completion()
-    }
+//    func userIsFavorite() -> Bool {
+//        return user?.isFavorite ?? false
+//    }
+//    
+//    func changeFavorite(completion: @escaping() -> Void) {
+//        user?.isFavorite = !(user?.isFavorite ?? false)
+//        completion()
+//    }
     
     
 }
