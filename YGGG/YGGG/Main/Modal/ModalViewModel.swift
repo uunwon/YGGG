@@ -8,7 +8,7 @@
 import Foundation
 
 class ModalViewModel {
-    let options = ["냉동", "냉장", "실온"]
+    let options = cosmeticOptions
     var selectedIndex: Int? = nil
     
     var selectedOption: String {

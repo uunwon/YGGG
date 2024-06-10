@@ -7,53 +7,9 @@
 
 import UIKit
 
-struct Cosmetic {
-    let name: String
-}
-
-struct CosmeticCategory {
-    let category: String
-    let cosmetics: [Cosmetic]
-}
-
 // MARK: main
 
 class KindModalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    let categories: [CosmeticCategory] = [
-        CosmeticCategory(category: "기초", cosmetics: [
-            Cosmetic(name: "스킨"),
-            Cosmetic(name: "토너"),
-            Cosmetic(name: "에센스"),
-            Cosmetic(name: "앰플"),
-            Cosmetic(name: "세럼"),
-            Cosmetic(name: "로션"),
-            Cosmetic(name: "크림"),
-            Cosmetic(name: "마스크팩"),
-            Cosmetic(name: "토너패드")
-        ]),
-        CosmeticCategory(category: "색조", cosmetics: [
-            Cosmetic(name: "립스틱"),
-            Cosmetic(name: "틴트"),
-            Cosmetic(name: "립밤"),
-            Cosmetic(name: "블러셔"),
-            Cosmetic(name: "섀도우"),
-            Cosmetic(name: "라이너"),
-            Cosmetic(name: "마스카라"),
-            Cosmetic(name: "브로우")
-        ]),
-        CosmeticCategory(category: "피부", cosmetics: [
-            Cosmetic(name: "파운데이션"),
-            Cosmetic(name: "쿠션"),
-            Cosmetic(name: "선크림"),
-            Cosmetic(name: "컨실러")
-        ]),
-        CosmeticCategory(category: "씻을 때", cosmetics: [
-            Cosmetic(name: "클렌징 오일"),
-            Cosmetic(name: "클렌징 폼"),
-            Cosmetic(name: "면도크림")
-        ])
-    ]
     
     var selectedKind: String?
     
@@ -121,7 +77,7 @@ class KindModalViewController: UIViewController, UITableViewDelegate, UITableVie
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             buttonNext.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
-            buttonNext.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonNext.heightAnchor.constraint(equalToConstant: 40),
             buttonNext.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             buttonNext.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
@@ -162,7 +118,7 @@ extension KindModalViewController {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = categories[indexPath.section].cosmetics[indexPath.row].name
-        cell.backgroundColor = .setlightgray2
+        cell.backgroundColor = .systemGray6
         return cell
     }
     
@@ -178,7 +134,7 @@ extension KindModalViewController {
         if buttonNext.isEnabled {
             buttonNext.backgroundColor = .setorange
         } else {
-            buttonNext.backgroundColor = .setlightgray
+            buttonNext.backgroundColor = .systemGray5
         }
     }
 }

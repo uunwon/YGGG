@@ -1,34 +1,52 @@
-//
-//  MainViewController.swift
-//  YGGG
-//
-//  Created by Song Kim on 6/4/24.
-//
-
 import UIKit
 
 enum Tab {
     case home, grave
 }
 
+var userCosmetics = [
+    userCosmetic(expirationDate: Date(timeIntervalSinceNow: 60*60*24*365), purchaseDate: Date(), title: "녹두", category: "세럼",  imageName: "serum", kind: 0),
+    userCosmetic(expirationDate: Date(timeIntervalSinceNow: 60*60*24*365), purchaseDate: Date(), title: "안넝", category: "세럼",  imageName: "sunscreen", kind: 0),
+    userCosmetic(expirationDate: Date(timeIntervalSinceNow: 60*60*24*365), purchaseDate: Date(), title: "우히히", category: "세럼",  imageName: "eye-liner", kind: 1),
+    userCosmetic(expirationDate: Date(timeIntervalSinceNow: 60*60*24*365), purchaseDate: Date(), title: "녹두", category: "세럼",  imageName: "serum", kind: 1),
+    userCosmetic(expirationDate: Date(timeIntervalSinceNow: 60*60*24*365), purchaseDate: Date(), title: "안넝", category: "세럼",  imageName: "sunscreen", kind: 2),
+    userCosmetic(expirationDate: Date(timeIntervalSinceNow: 60*60*24*365), purchaseDate: Date(), title: "우히히", category: "세럼",  imageName: "eye-liner", kind: 1),
+    userCosmetic(expirationDate: Date(timeIntervalSinceNow: -60*60*24*365), purchaseDate: Date(), title: "크림", category: "크림",  imageName: "lotion", kind: 2)
+]
+
 class MainViewController: UIViewController {
     var tab = Tab.home
     let cellHeight: CGFloat = 150
+    var selectedButton: UIButton?
+    var filterCategory: String = "전체"
+    
+    var topCategorys: [TopCategory] = [
+        TopCategory(imageName: "AllMenu", title: "전체"),
+        TopCategory(imageName: "snowflake", title: "냉동"),
+        TopCategory(imageName: "fridge", title: "냉장"),
+        TopCategory(imageName: "body", title: "실온")
+    ]
     
     lazy var stackView: UIStackView = {
-        let titles = ["전체", "냉동", "냉장", "실온"]
-        
-        let buttons = titles.compactMap {
-            let button = UIButton()
-            button.setTitle($0, for: .normal)
-            button.setTitleColor(.label, for: .normal)
+        let buttons = topCategorys.map { category -> UIButton in
+            var configuration = UIButton.Configuration.plain()
+            configuration.image = UIImage(named: category.imageName)
+            configuration.title = category.title
+            configuration.imagePadding = 8
+            configuration.imagePlacement = .leading
+            configuration.baseForegroundColor = .label
+            
+            let button = UIButton(configuration: configuration, primaryAction: nil)
             button.backgroundColor = .white
             button.layer.borderWidth = 0.5
             button.layer.borderColor = UIColor.lightGray.cgColor
             button.layer.cornerRadius = 10
             button.clipsToBounds = true
+            button.addTarget(self, action: #selector(filterButtonTapped(_:)), for: .touchUpInside)
+            
             return button
         }
+
         
         let stackView = UIStackView(arrangedSubviews: buttons)
         stackView.axis = .horizontal
@@ -67,6 +85,33 @@ class MainViewController: UIViewController {
         view.backgroundColor = .white
         setupNavigationBar()
         setupCollectionView()
+        if let firstButton = stackView.arrangedSubviews.first as? UIButton {
+            filterButtonTapped(firstButton)
+        }
+    }
+    
+    private func getFilteredCosmetics() -> [userCosmetic] {
+        let filteredCosmetics: [userCosmetic]
+        
+        switch filterCategory {
+        case "전체":
+            filteredCosmetics = userCosmetics
+        case "냉동":
+            filteredCosmetics = userCosmetics.filter { $0.kind == 0 }
+        case "냉장":
+            filteredCosmetics = userCosmetics.filter { $0.kind == 1 }
+        case "실온":
+            filteredCosmetics = userCosmetics.filter { $0.kind == 2 }
+        default:
+            filteredCosmetics = userCosmetics
+        }
+        
+        switch tab {
+        case .home:
+            return filteredCosmetics.filter { $0.expirationDate >= Date() }
+        case .grave:
+            return filteredCosmetics.filter { $0.expirationDate < Date() }
+        }
     }
 }
 
@@ -85,7 +130,6 @@ extension MainViewController {
         plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusButton)
-        
     }
     
     func setupCollectionView() {
@@ -97,8 +141,8 @@ extension MainViewController {
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             
             collectionView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -110,19 +154,14 @@ extension MainViewController {
 
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return getFilteredCosmetics().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomCollectionViewCell.name, for: indexPath) as! CustomCollectionViewCell
-        
-        switch tab {
-        case .home:
-            cell.configureHome()
-        case .grave:
-            cell.configureGrave()
-        }
-        
+        let cosmetics = getFilteredCosmetics()
+        let cosmetic = cosmetics[indexPath.item]
+        cell.configure(with: cosmetic, isHomeTab: (tab == .home))
         return cell
     }
     
@@ -159,8 +198,21 @@ extension MainViewController {
         let nav = UINavigationController(rootViewController: vc)
         vc.modalPresentationStyle = .automatic
         self.present(nav, animated: true, completion: nil)
-        
-        
     }
     
+    @objc func filterButtonTapped(_ sender: UIButton) {
+        selectedButton?.backgroundColor = .white
+        sender.backgroundColor = .setorange
+        selectedButton = sender
+        
+        guard let index = stackView.arrangedSubviews.firstIndex(of: sender) else {
+            return
+        }
+        
+        let topCategory = topCategorys[index]
+        filterCategory = topCategory.title
+        
+        collectionView.reloadData()
+    }
+
 }

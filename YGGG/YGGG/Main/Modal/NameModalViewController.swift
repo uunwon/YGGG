@@ -34,7 +34,7 @@ class NameModalViewController: UIViewController, UITextFieldDelegate {
         textField.delegate = self
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
-        textField.backgroundColor = .setlightgray2
+        textField.backgroundColor = .systemGray6
         textField.addTarget(self, action: #selector(updateButtonColor), for: .editingChanged)
         return textField
     }()
@@ -76,7 +76,7 @@ class NameModalViewController: UIViewController, UITextFieldDelegate {
             textField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
             buttonNext.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
-            buttonNext.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonNext.heightAnchor.constraint(equalToConstant: 40),
             buttonNext.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             buttonNext.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
@@ -113,7 +113,7 @@ extension NameModalViewController {
             buttonNext.backgroundColor = .setorange
         } else {
             buttonNext.isEnabled = false
-            buttonNext.backgroundColor = .setlightgray
+            buttonNext.backgroundColor = .systemGray5
         }
          
     }

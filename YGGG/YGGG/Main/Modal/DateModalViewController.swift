@@ -37,18 +37,17 @@ class DateModalViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.setTitle("다음", for: .normal)
-        button.backgroundColor = .setlightgray
+        button.backgroundColor = .setorange
         button.tintColor = .black
         button.setTitleColor(.label, for: .normal)
         button.layer.cornerRadius = 10
-        button.isEnabled = false  
         return button
     }()
     
     let saveButton: UIButton = {
         let button = UIButton(type: .roundedRect)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .setlightgray2
+        button.backgroundColor = .systemGray6
         button.layer.cornerRadius = 10
         return button
     }()
@@ -70,17 +69,36 @@ class DateModalViewController: UIViewController {
         return label
     }()
     
+    let dateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "유통기한"
+        label.font = .systemFont(ofSize: 13)
+        return label
+    }()
+    
+    let datePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.datePickerMode = .date
+        picker.preferredDatePickerStyle = .wheels
+        return picker
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
         view.addSubview(imageView)
         view.addSubview(label)
-        view.addSubview(buttonNext)
         view.addSubview(saveButton)
         
         saveButton.addSubview(saveLabel)
         saveButton.addSubview(selectionLabel)
+        
+        view.addSubview(dateLabel)
+        view.addSubview(datePicker)
+        view.addSubview(buttonNext)
         
         buttonNext.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
@@ -94,11 +112,6 @@ class DateModalViewController: UIViewController {
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
             
-            buttonNext.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
-            buttonNext.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonNext.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            buttonNext.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
             saveButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             saveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -107,9 +120,21 @@ class DateModalViewController: UIViewController {
             
             saveLabel.leadingAnchor.constraint(equalTo: saveButton.leadingAnchor, constant: 20),
             saveLabel.centerYAnchor.constraint(equalTo: saveButton.centerYAnchor),
-            
             selectionLabel.trailingAnchor.constraint(equalTo: saveButton.trailingAnchor, constant: -20),
-            selectionLabel.centerYAnchor.constraint(equalTo: saveButton.centerYAnchor)
+            selectionLabel.centerYAnchor.constraint(equalTo: saveButton.centerYAnchor),
+            
+            dateLabel.topAnchor.constraint(equalTo: saveButton.bottomAnchor, constant: 30),
+            dateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            
+            datePicker.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 20),
+            datePicker.heightAnchor.constraint(equalToConstant: 80),
+            datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            
+            buttonNext.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            buttonNext.heightAnchor.constraint(equalToConstant: 40),
+            buttonNext.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            buttonNext.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
     }
 }
@@ -133,12 +158,7 @@ extension DateModalViewController {
         if let sheet = vc.sheetPresentationController {
             sheet.detents = [.medium(), .large()]
         }
-        
         self.present(vc, animated: true)
-    }
-    
-    func updateButtonColor() {
-        
     }
 }
 
