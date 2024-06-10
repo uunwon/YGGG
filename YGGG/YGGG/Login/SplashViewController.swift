@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class SplashViewController: UIViewController {
     let splashImageVIew: UIImageView = {
@@ -21,12 +22,17 @@ class SplashViewController: UIViewController {
         
         view.addSubview(splashImageVIew)
         
-        // TODO: - 로그인 여부 체크하기
-        let isLogin = false
-        if isLogin {
-            // moveToMain()
-        } else if !isLogin {
-            moveToLogin()
+        // 로그인 여부 체크하기
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+            if error != nil || user == nil {
+                // Show the app's signed-out state
+                print("로그인 안 됐다")
+                self.moveToLogin()
+            } else {
+                // Show the app's signed-in state
+                print("로그인 됐다")
+                self.moveToMain()
+            }
         }
     }
     

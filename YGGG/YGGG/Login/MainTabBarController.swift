@@ -15,7 +15,7 @@ class MainTabBarController: UITabBarController {
         // 각 탭에 들어갈 뷰 컨트롤러 설정
         // TODO: - 각 탭에 맞는 ViewController 대입하기
         let followViewController = ViewController()
-        let homeViewController = ViewController()
+        let homeViewController = HomeViewController()
         let myViewController = ViewController()
                 
         followViewController.tabBarItem = UITabBarItem(
