@@ -28,6 +28,7 @@ class ProfileMainView: UIView {
         iv.layer.cornerRadius = 38
         iv.layer.masksToBounds = true
         iv.isUserInteractionEnabled = true
+        iv.image = UIImage(named: "user")
         return iv
     }()
     
@@ -161,7 +162,8 @@ class ProfileMainView: UIView {
     
     
     func setupUI(userImage: String, userName: String, tombCount: Int, refrigeratorCount: Int, hashTag: String, isMyProfile: Bool = false) {
-        profileImageView.image = UIImage(named: userImage)
+        print(userImage)
+        profileImageView.loadImage(from: userImage)
         nickNameLabel.text = userName
         
         tombButton.setAttributedTitle(self.attributeButtonText(title: "무덤: ", count: tombCount), for: .normal)
@@ -173,14 +175,15 @@ class ProfileMainView: UIView {
         if isMyProfile {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
             profileImageView.addGestureRecognizer(tapGestureRecognizer)
-        } 
-        
+        }
     }
     
     @objc private func imageTapped(_ sender: UITapGestureRecognizer) {
-        print("Image tapped!")
-        
+        delegate?.profileImageTapped()
     }
+    
+    
+  
     
     private func attributeButtonText(title: String, count: Int) -> NSAttributedString{
         let normalAttributes: [NSAttributedString.Key: Any] = [
@@ -197,4 +200,33 @@ class ProfileMainView: UIView {
         return attributedString
     }
     
+}
+
+
+
+extension UIImageView {
+    func loadImage(from urlString: String) {
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+        
+        // 비동기적으로 URL에서 이미지를 다운로드
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error loading image: \(error)")
+                return
+            }
+            
+            guard let data = data, let image = UIImage(data: data) else {
+                print("No data or failed to create image")
+                return
+            }
+            
+            // 메인 스레드에서 UIImageView에 이미지를 설정
+            DispatchQueue.main.async {
+                self.image = image
+            }
+        }.resume()
+    }
 }

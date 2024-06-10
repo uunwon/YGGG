@@ -21,6 +21,8 @@
 		414103FD2C16872200381B7A /* MyProfileVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414103FC2C16872200381B7A /* MyProfileVIewController.swift */; };
 		414103FF2C1688D000381B7A /* ProfileMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414103FE2C1688D000381B7A /* ProfileMainView.swift */; };
 		414104012C1693AC00381B7A /* MyProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414104002C1693AC00381B7A /* MyProfileTableViewCell.swift */; };
+		414104032C16BC9700381B7A /* MyProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414104022C16BC9700381B7A /* MyProfileEditViewController.swift */; };
+		414104052C16EA6E00381B7A /* HashTagCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414104042C16EA6E00381B7A /* HashTagCVCell.swift */; };
 		41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8652C0EC83300A09411 /* AppDelegate.swift */; };
 		41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8672C0EC83300A09411 /* SceneDelegate.swift */; };
 		41CCE86A2C0EC83300A09411 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8692C0EC83300A09411 /* ViewController.swift */; };
@@ -59,6 +61,8 @@
 		414103FC2C16872200381B7A /* MyProfileVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVIewController.swift; sourceTree = "<group>"; };
 		414103FE2C1688D000381B7A /* ProfileMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMainView.swift; sourceTree = "<group>"; };
 		414104002C1693AC00381B7A /* MyProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileTableViewCell.swift; sourceTree = "<group>"; };
+		414104022C16BC9700381B7A /* MyProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileEditViewController.swift; sourceTree = "<group>"; };
+		414104042C16EA6E00381B7A /* HashTagCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCVCell.swift; sourceTree = "<group>"; };
 		41CCE8622C0EC83300A09411 /* YGGG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YGGG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41CCE8652C0EC83300A09411 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41CCE8672C0EC83300A09411 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +124,8 @@
 			children = (
 				414103FC2C16872200381B7A /* MyProfileVIewController.swift */,
 				414104002C1693AC00381B7A /* MyProfileTableViewCell.swift */,
+				414104022C16BC9700381B7A /* MyProfileEditViewController.swift */,
+				414104042C16EA6E00381B7A /* HashTagCVCell.swift */,
 			);
 			path = MYProfile;
 			sourceTree = "<group>";
@@ -143,6 +149,7 @@
 		41CCE8642C0EC83300A09411 /* YGGG */ = {
 			isa = PBXGroup;
 			children = (
+				414103FE2C1688D000381B7A /* ProfileMainView.swift */,
 				414103FB2C16870A00381B7A /* MYProfile */,
 				413C0F082C11E23F00BBFBD7 /* Extension */,
 				413C0F062C11E22100BBFBD7 /* Profile */,
@@ -161,7 +168,6 @@
 				151AA1542C0EDDCD000800DF /* BookmarkTableViewController.swift */,
 				15A01A3B2C10001700C4FC47 /* SearchInfoViewController.swift */,
 				15A01A3D2C10003F00C4FC47 /* CustomSearchBar.swift */,
-				414103FE2C1688D000381B7A /* ProfileMainView.swift */,
 			);
 			path = YGGG;
 			sourceTree = "<group>";
@@ -265,6 +271,7 @@
 				413C0F0F2C11E25300BBFBD7 /* CategoryCVCell.swift in Sources */,
 				414104012C1693AC00381B7A /* MyProfileTableViewCell.swift in Sources */,
 				5394C0AC2C0EF1DF00BB8764 /* LoginViewController.swift in Sources */,
+				414104032C16BC9700381B7A /* MyProfileEditViewController.swift in Sources */,
 				41CCE86A2C0EC83300A09411 /* ViewController.swift in Sources */,
 				537263FF2C101922005E1922 /* MainTabBarController.swift in Sources */,
 				5763B1C92C0F019F007C0F57 /* DoubleTitleView.swift in Sources */,
@@ -278,6 +285,7 @@
 				41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */,
 				5763B1C72C0EFC21007C0F57 /* MainViewController.swift in Sources */,
 				413C0F102C11E25300BBFBD7 /* CosmeticsTVCell.swift in Sources */,
+				414104052C16EA6E00381B7A /* HashTagCVCell.swift in Sources */,
 				413C0F112C11E25300BBFBD7 /* ProfileViewModel.swift in Sources */,
 				5763B1CB2C0F0574007C0F57 /* CustomCollectionViewCell.swift in Sources */,
 				5763B1CD2C0F057D007C0F57 /* StackViewCollectionViewCell.swift in Sources */,

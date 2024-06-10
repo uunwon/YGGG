@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import Firebase
 
-class MyProfileVIewController: UIViewController {
+class MyProfileVIewController: UIViewController{
+
     
     private let mainProfileView = ProfileMainView()
     
@@ -37,6 +39,8 @@ class MyProfileVIewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(mainProfileView)
         
+        mainProfileView.delegate = self
+        
         mainProfileView.translatesAutoresizingMaskIntoConstraints = false
        
         [mainProfileView, settingTableView].forEach {
@@ -64,11 +68,6 @@ class MyProfileVIewController: UIViewController {
         
     }
     
-    @objc private func favoriteTapped() {
-        //        viewModel.changeFavorite { [weak self] in
-        //            self?.favoriteButtonSetup()
-        //        }
-    }
     
     private func attributeButtonText(title: String, count: Int) -> NSAttributedString{
         let normalAttributes: [NSAttributedString.Key: Any] = [
@@ -118,6 +117,58 @@ extension MyProfileVIewController: UITableViewDelegate, UITableViewDataSource {
         
         return UITableViewCell()
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 5:
+            print("logout")
+//            do {
+//                try Auth.auth().signOut()
+//                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+//                sceneDelegate.goToSplash()
+//            } catch {
+//                print("logout error")
+//            }
+        default:
+            break
+        }
+    }
     
     
 }
+
+extension MyProfileVIewController: ProfileMainViewDelegate {
+    func profileImageTapped() {
+//        let imagePickerController = UIImagePickerController()
+//        imagePickerController.delegate = self
+//        imagePickerController.sourceType = .photoLibrary
+//        present(imagePickerController, animated: true)
+        
+        let vc = MyProfileEditViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func favoriteTapped() {
+        //        viewModel.changeFavorite { [weak self] in
+        //            self?.favoriteButtonSetup()
+        //        }
+    }
+    
+}
+//
+//extension MyProfileVIewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+//    
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//    
+//        if let selectedImage = info[.originalImage] as? UIImage {
+//            mainProfileView.changeImageView(image: selectedImage)
+////            profileImageView.image = selectedImage
+////            uploadImageToFirebase(selectedImage)
+//        }
+//        picker.dismiss(animated: true, completion: nil)
+//    }
+//    
+//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//        picker.dismiss(animated: true, completion: nil)
+//    }
+//}
