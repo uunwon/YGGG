@@ -11,7 +11,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        ProfileService.shared.getData { user in
+            print(user)
+        }
     }
 
 

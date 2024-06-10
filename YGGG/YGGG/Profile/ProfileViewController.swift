@@ -7,97 +7,13 @@
 
 import UIKit
 
-struct TopCategory {
-    let imageName: String
-    let title: String
-}
-//User, User Item List, Favorite, items Count
+
 class ProfileViewController: UIViewController {
     
-    var topCategorys: [TopCategory] = [
-        TopCategory(imageName: "allmenu", title: "전체"),
-        TopCategory(imageName: "snowflake", title: "냉동"),
-        TopCategory(imageName: "fridge", title: "냉장"),
-        TopCategory(imageName: "body", title: "실온")
-    ]
+    private var viewModel = ProfileViewModel()
     
     var categorySelectedIndex: IndexPath?
-    
-    private let profileView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private let profileImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.layer.cornerRadius = 38
-        iv.layer.masksToBounds = true
-        iv.image = UIImage(systemName: "person.circle")
-        return iv
-    }()
-    
-    private let favoriteButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        return button
-    }()
-    
-    private let profileStackView: UIStackView = {
-        let sv = UIStackView()
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.spacing = 2
-        sv.axis = .vertical
-        return sv
-    }()
-    
-    private let nickNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Ruel"
-        label.font = .boldSystemFont(ofSize: 19)
-        return label
-    }()
-    
-    private let tagLabel: UILabel = {
-       let label = UILabel()
-        label.text = "#건조 #수부지 #민감성 #홍조"
-        label.textColor = .lightGray
-        label.font = .systemFont(ofSize: 10)
-        return label
-    }()
-    
-    private let cosmeticsStackView: UIStackView = {
-       let sv = UIStackView()
-        sv.axis = .horizontal
-        sv.alignment = .leading
-        sv.spacing = 10
-        sv.distribution = .fill
-        return sv
-    }()
-    
-    private let refrigeratorButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("냉장고 0", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 10)
-        button.setTitleColor(.black, for: .normal)
-        return button
-    }()
-    
-    private let tombButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("무덤 0", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 10)
-        button.setTitleColor(.black, for: .normal)
-        return button
-    }()
-    
-    private let emptyView: UIView = {
-       let view = UIView()
-        return view
-    }()
-    
+    private let mainProfileView = ProfileMainView()
     
     private lazy var categoryCV: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -115,7 +31,7 @@ class ProfileViewController: UIViewController {
     }()
     
     private lazy var cosmeticsTV: UITableView = {
-       let tv = UITableView()
+        let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.dataSource = self
         tv.delegate = self
@@ -128,65 +44,41 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
+//        configureUI()
+//        configureDataSetup()
+        
         
         categorySelectedIndex = IndexPath(row: 0, section: 0)
         categoryCV.selectItem(at: categorySelectedIndex, animated: false, scrollPosition: .left)
+        
+        viewModel.loadData {
+            self.configureUI()
+            self.configureDataSetup()
+        }
+//        ProfileService.shared.getData(completion: <#T##(User) -> Void#>)
     }
     
     private func configureUI() {
         view.backgroundColor = .white
-        view.addSubview(profileView)
+//        view.addSubview(mainProfileView)
+        mainProfileView.translatesAutoresizingMaskIntoConstraints = false
+        [mainProfileView, categoryCV, cosmeticsTV].forEach {
+            view.addSubview($0)
+        }
+        NSLayoutConstraint.activate([
+            mainProfileView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mainProfileView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainProfileView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mainProfileView.heightAnchor.constraint(equalToConstant: 130)
+        ])
+        
+//        view.addSubview(profileView)
         
         navigationController?.navigationBar.backgroundColor = .blue
         
-        [profileImageView, profileStackView, favoriteButton, categoryCV, cosmeticsTV].forEach {
-            view.addSubview($0)
-        }
-        
-        [nickNameLabel, tagLabel, cosmeticsStackView].forEach {
-            profileStackView.addArrangedSubview($0)
-        }
-        
-        [refrigeratorButton, tombButton, emptyView].forEach {
-            cosmeticsStackView.addArrangedSubview($0)
-        }
-        
-        //profileView Constraint Setting
-        NSLayoutConstraint.activate([
-            profileView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            profileView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            profileView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            profileView.heightAnchor.constraint(equalToConstant: 130)
-        ])
-        
-        //profileImageView Constraint Setting
-        NSLayoutConstraint.activate([
-            profileImageView.widthAnchor.constraint(equalToConstant: 76),
-            profileImageView.heightAnchor.constraint(equalToConstant: 76),
-            profileImageView.topAnchor.constraint(equalTo: profileView.topAnchor, constant: 33),
-            profileImageView.leadingAnchor.constraint(equalTo: profileView.leadingAnchor, constant: 32)
-        ])
-        
-        //profileStackView Constraint Setting
-        NSLayoutConstraint.activate([
-            profileStackView.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
-            profileStackView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
-            profileStackView.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -20)
-            
-        ])
-        
-        //favoriteButton Constraint Setting
-        NSLayoutConstraint.activate([
-            favoriteButton.widthAnchor.constraint(equalToConstant: 23),
-            favoriteButton.heightAnchor.constraint(equalToConstant: 23),
-            favoriteButton.topAnchor.constraint(equalTo: profileView.topAnchor, constant: 65),
-            favoriteButton.trailingAnchor.constraint(equalTo: profileView.trailingAnchor, constant: -42)
-        ])
-        
         //categoryCV Constraint Setting
         NSLayoutConstraint.activate([
-            categoryCV.topAnchor.constraint(equalTo: profileView.bottomAnchor),
+            categoryCV.topAnchor.constraint(equalTo: mainProfileView.bottomAnchor),
             categoryCV.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             categoryCV.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             categoryCV.heightAnchor.constraint(equalToConstant: 69)
@@ -199,45 +91,71 @@ class ProfileViewController: UIViewController {
             cosmeticsTV.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             cosmeticsTV.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        
+        
     }
     
+    private func configureDataSetup() {
+        mainProfileView.setupUI(userImage: "",
+                                userName: viewModel.getUserName(), tombCount: viewModel.getUserTombCount(),
+                                refrigeratorCount: viewModel.getUserRefrigeratorCount(), hashTag: viewModel.getUserHashTag())
+
+        favoriteButtonSetup()
+    }
+    
+    private func favoriteButtonSetup() {
+//        let favoriteImage = viewModel.userIsFavorite() ? "bookMark.fill" : "bookMark"
+//        favoriteButton.setImage(UIImage(named: favoriteImage), for: .normal)
+    }
+    
+    @objc private func favoriteTapped() {
+//        viewModel.changeFavorite { [weak self] in
+//            self?.favoriteButtonSetup()
+//        }
+    }
+
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource  {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return topCategorys.count
+        return viewModel.topCateogoryCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCVCell", for: indexPath) as? CategoryCVCell {
-            cell.configureCell(category: topCategorys[indexPath.row])
+            
+            let category = viewModel.getCategoryItem(index: indexPath.row)
+            cell.configureCell(category: category)
             cell.isSelected = (indexPath == categorySelectedIndex)
+            
             return cell
         }
         return UICollectionViewCell()
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        self.categorySelectedIndex = indexPath
-//        collectionView.reloadData()
-//    }
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.getSectionCosmetic(caseType: indexPath.row) {
+            self.cosmeticsTV.reloadData()
+        }
+    }
     
 }
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return self.viewModel.cosmeticsCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "CosmeticsTVCell", for: indexPath) as? CosmeticsTVCell {
-            cell.configureUI()
+            
+            let cosmetic = viewModel.getCosmetic(index: indexPath.row)
+            cell.configureCell(cosmetic: cosmetic)
+            
             return cell
         }
         return UITableViewCell()
     }
-    
-    
 }
