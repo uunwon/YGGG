@@ -124,7 +124,7 @@ class LoginViewController: UIViewController {
         // Start the Sign In Flow!
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
             guard error == nil else {
-                print("몰?루 사용자가 취소 버튼 눌렀어")
+                print("Press the cancel Button")
                 return
             }
             
@@ -147,7 +147,7 @@ class LoginViewController: UIViewController {
                 
                 COLLECTION_USERS.document(user.uid).setData(data)
                 
-                print("로그인 성공 !")
+                print("Success to Login")
                 self.moveToMain()
             }
         }

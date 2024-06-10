@@ -26,11 +26,11 @@ class SplashViewController: UIViewController {
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
             if error != nil || user == nil {
                 // Show the app's signed-out state
-                print("로그인 안 됐다")
+                print("Any Login Information")
                 self.moveToLogin()
             } else {
                 // Show the app's signed-in state
-                print("로그인 됐다")
+                print("Success to Login")
                 self.moveToMain()
             }
         }

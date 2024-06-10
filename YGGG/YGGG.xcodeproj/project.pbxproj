@@ -30,7 +30,6 @@
 		5366BFA22C1682D200D9846F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5366BFA12C1682D200D9846F /* Launch Screen.storyboard */; };
 		5366BFA52C1685DE00D9846F /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 5366BFA42C1685DE00D9846F /* GoogleSignIn */; };
 		5366BFA72C1685DE00D9846F /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5366BFA62C1685DE00D9846F /* GoogleSignInSwift */; };
-		5366BFA92C168B9000D9846F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5366BFA82C168B9000D9846F /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,7 +48,6 @@
 		5366BF9D2C16807800D9846F /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		5366BF9F2C16809200D9846F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5366BFA12C1682D200D9846F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		5366BFA82C168B9000D9846F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +128,6 @@
 				5366BF9B2C16805200D9846F /* SplashViewController.swift */,
 				5366BF9D2C16807800D9846F /* MainTabBarController.swift */,
 				5366BF9F2C16809200D9846F /* LoginViewController.swift */,
-				5366BFA82C168B9000D9846F /* HomeViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -229,7 +226,6 @@
 				41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */,
 				41EB8EE12C108B05001DBF2A /* ProfileViewController.swift in Sources */,
 				41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */,
-				5366BFA92C168B9000D9846F /* HomeViewController.swift in Sources */,
 				41EB8EE32C109CB7001DBF2A /* CosmeticsTVCell.swift in Sources */,
 				5366BFA02C16809200D9846F /* LoginViewController.swift in Sources */,
 				5366BF9C2C16805200D9846F /* SplashViewController.swift in Sources */,
