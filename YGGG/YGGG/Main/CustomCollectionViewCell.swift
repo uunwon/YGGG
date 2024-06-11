@@ -88,13 +88,14 @@ class CustomCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configure(with cosmetic: UserCosmetic, isHomeTab: Bool) {
+    func configure(with cosmetic: UserCosmetics, isHomeTab: Bool) {
         productImageView.image = UIImage(named: cosmetic.imageName)
         titleLabel.text = cosmetic.title
         categoryLabel.text = "종류: \(cosmetic.category)"
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
-        expirationDateLabel.text = "유통기한: \(dateFormatter.string(from: cosmetic.expirationDate))"
+        let expirationDate = cosmetic.expirationDate.dateValue()
+        expirationDateLabel.text = "유통기한: \(dateFormatter.string(from: expirationDate))"
         
         if isHomeTab {
             colorView.backgroundColor = .setlightgreen

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Firebase
 
 // MARK: main
 
@@ -104,13 +104,14 @@ extension NameModalViewController {
     }
     
     @objc func buttonTapped() {
+        viewModel.userCosmetic.title = textField.text ?? ""
         let nextView = KindModalViewController(viewModel: viewModel)
         self.navigationController?.pushViewController(nextView, animated: true)
         
         let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = .black  // 색상 변경
         self.navigationItem.backBarButtonItem = backBarButtonItem
-        viewModel.userCosmetic?.title = textField.text ?? ""
+        
     }
     
     @objc func updateButtonColor() {

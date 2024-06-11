@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 protocol ModalDelegate: AnyObject {
     func onDismissReload(selection: String)
@@ -161,8 +162,8 @@ extension DateModalViewController {
         backBarButtonItem.tintColor = .black  // 색상 변경
         self.navigationItem.backBarButtonItem = backBarButtonItem
         
-        viewModel.userCosmetic?.kind = viewModel.selectedIndex ?? 0
-        viewModel.userCosmetic?.expirationDate = datePicker.date
+        viewModel.userCosmetic.kind = viewModel.selectedIndex ?? 0
+        viewModel.userCosmetic.expirationDate = Timestamp(date: datePicker.date)
     }
     
     @objc func saveButtonTapped() {

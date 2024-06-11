@@ -141,7 +141,7 @@ extension KindModalViewController {
         let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = .black
         navigationItem.backBarButtonItem = backBarButtonItem
-        viewModel.userCosmetic?.category = selectedKind ?? ""
+        viewModel.userCosmetic.category = selectedKind ?? ""
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

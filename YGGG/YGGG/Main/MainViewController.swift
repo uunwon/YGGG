@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 enum Tab {
     case home, grave
@@ -81,6 +82,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.loadCosmetic()
         
         view.backgroundColor = .white
         setupNavigationBar()
@@ -91,8 +93,8 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func getFilteredCosmetics() -> [UserCosmetic] {
-        let filteredCosmetics: [UserCosmetic]
+    private func getFilteredCosmetics() -> [UserCosmetics] {
+        let filteredCosmetics: [UserCosmetics]
         
         switch filterCategory {
         case "전체":
@@ -109,9 +111,9 @@ class MainViewController: UIViewController {
         
         switch tab {
         case .home:
-            return filteredCosmetics.filter { $0.expirationDate >= Date() }
+            return filteredCosmetics.filter { $0.expirationDate.dateValue() >= Date() }
         case .grave:
-            return filteredCosmetics.filter { $0.expirationDate < Date() }
+            return filteredCosmetics.filter { $0.expirationDate.dateValue() < Date() }
         }
     }
 }
@@ -209,8 +211,6 @@ extension MainViewController {
         viewModel.reloadAction = {
             self.collectionView.reloadData()
         }
-        
-        viewModel.userCosmetic = UserCosmetic()
     }
     
     @objc func filterButtonTapped(_ sender: UIButton) {

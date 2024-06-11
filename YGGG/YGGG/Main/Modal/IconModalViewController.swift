@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class IconModalViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     let viewModel: ModalViewModel
@@ -118,12 +120,13 @@ class IconModalViewController: UIViewController, UICollectionViewDelegate, UICol
 extension IconModalViewController {
     
     @objc func buttonTapped() {
-        viewModel.userCosmetic?.imageName = cosmeticIcons[selectedCellIndex?.row ?? 0]
+        viewModel.userCosmetic.imageName = cosmeticIcons[selectedCellIndex?.row ?? 0]
         
-        if let userCosmetic = viewModel.userCosmetic {
+        let userCosmetic = viewModel.userCosmetic
             viewModel.userCosmetics.append(userCosmetic)
+            ModalViewModel().addNewCosmetic(userCosmetic)
             viewModel.reloadAction?()
-        }
+        
         dismiss(animated: true, completion: nil)
     }
     

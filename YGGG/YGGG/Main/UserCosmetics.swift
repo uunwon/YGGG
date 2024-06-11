@@ -18,12 +18,12 @@ struct CosmeticCategory {
 
 let cosmeticOptions = ["냉동", "냉장", "실온"]
 
-struct UserCosmetic {
-    var expirationDate = Date()
-    var purchaseDate = Date()
-    var title = ""
-    var category = ""
-    var imageName = ""
-    var kind = 0
-}
+//struct UserCosmetic {
+//    var expirationDate = Date()
+//    var purchaseDate = Date()
+//    var title = ""
+//    var category = ""
+//    var imageName = ""
+//    var kind = 0
+//}
 
