@@ -141,7 +141,7 @@ class LoginViewController: UIViewController {
                     } else {
                         let data: [String: Any] = ["email": user.email as Any,
                                                    "uid": user.uid,
-                                                   "snsRoot": "apple",
+                                                   "snsRoot": "google",
                                                    "userName": user.displayName as Any,
                                                    "userImage": user.photoURL?.absoluteString ?? "",
                                                    "userHashTag": "",
