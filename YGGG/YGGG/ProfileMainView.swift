@@ -152,6 +152,11 @@ class ProfileMainView: UIView {
         
     }
     
+    func changeUserData(image: UIImage, name: String) {
+        profileImageView.image = image
+        nickNameLabel.text = name
+    }
+    
     
     @objc private func favoriteTapped() {
         self.delegate?.favoriteTapped()

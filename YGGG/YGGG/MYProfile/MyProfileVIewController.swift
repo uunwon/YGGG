@@ -34,6 +34,8 @@ class MyProfileVIewController: UIViewController{
         super.viewDidLoad()
         configureUI()
         configureDataSetup()
+
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -198,7 +200,7 @@ extension MyProfileVIewController: ProfileMainViewDelegate {
     func profileImageTapped() {
         print("profileImageTapped")
         let vc = MyProfileEditViewController()
-        
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -209,6 +211,13 @@ extension MyProfileVIewController: ProfileMainViewDelegate {
     }
     
 }
+
+extension MyProfileVIewController: MyProfileEditDelegate {
+    func changeUserDate(image: UIImage, name: String) {
+        self.mainProfileView.changeUserData(image: image, name: name)
+    }
+}
+
 //
 //extension MyProfileVIewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 //    

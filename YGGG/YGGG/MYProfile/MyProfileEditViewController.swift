@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol MyProfileEditDelegate: AnyObject {
+    func changeUserDate(image: UIImage, name: String)
+}
+
 class MyProfileEditViewController: UIViewController {
+    private let viewModel = MyProfileEditViewModel()
+    weak var delegate: MyProfileEditDelegate?
     
     private let imageViewContainer: UIView = {
         let view = UIView()
@@ -142,13 +148,23 @@ class MyProfileEditViewController: UIViewController {
         return cv
     }()
     
-    var hashTags: [String] = ["#수분"]
+    var hashTags: [String] = [] {
+        didSet{
+            hashTagCV.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = .appPrimary
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+
         setupUI()
+        getUserData()
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -158,6 +174,11 @@ class MyProfileEditViewController: UIViewController {
     func setupUI() {
         view.backgroundColor = .white
         navigationItem.title = "프로필"
+        
+        let rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
+        rightBarButtonItem.tintColor = .appPrimary
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem
+
         
         view.addSubview(imageViewContainer)
         
@@ -224,6 +245,28 @@ class MyProfileEditViewController: UIViewController {
         
     }
     
+    private func getUserData() {
+        
+        viewModel.getData { [weak self] user in
+            self?.profileImageView.loadImage(from: user.userImage)
+            self?.nickNameTF.text = user.userName
+            self?.hashTags = user.userHashTag.components(separatedBy: " ").filter { !$0.isEmpty }
+        }
+        
+    }
+    
+    
+    @objc private func saveButtonTapped() {
+        if let userName = nickNameTF.text, let userImage = profileImageView.image {
+            viewModel.saveUserData(hashTags: hashTags, userName: userName, userImage: userImage) {
+                
+                self.delegate?.changeUserDate(image: userImage, name: userName)
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+        
+    }
+    
     @objc func imageViewTapped() {
         // UIImagePickerController 생성
         let imagePickerController = UIImagePickerController()
@@ -268,7 +311,6 @@ extension MyProfileEditViewController: UIImagePickerControllerDelegate, UINaviga
         // 선택된 이미지 가져오기
         if let selectedImage = info[.originalImage] as? UIImage {
             profileImageView.image = selectedImage
-//            uploadImageToFirebase(selectedImage)
         }
         picker.dismiss(animated: true, completion: nil)
     }

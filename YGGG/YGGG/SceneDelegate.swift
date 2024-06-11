@@ -25,6 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func moveToSplash() {
         let navi = UINavigationController(rootViewController: SplashViewController())
+        
         window?.rootViewController = navi
     }
     
