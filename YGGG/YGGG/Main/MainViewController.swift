@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
     var filterCategory: String = "전체"
     
     var topCategorys: [TopCategory] = [
-        TopCategory(imageName: "AllMenu", title: "전체"),
+        TopCategory(imageName: "allmenu", title: "전체"),
         TopCategory(imageName: "snowflake", title: "냉동"),
         TopCategory(imageName: "fridge", title: "냉장"),
         TopCategory(imageName: "body", title: "실온")
@@ -48,7 +48,7 @@ class MainViewController: UIViewController {
             
             return button
         }
-
+        
         let stackView = UIStackView(arrangedSubviews: buttons)
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -82,6 +82,10 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.reloadAction = {
+            self.collectionView.reloadData()
+        }
         viewModel.loadCosmetic()
         
         view.backgroundColor = .white
@@ -91,6 +95,11 @@ class MainViewController: UIViewController {
         if let firstButton = stackView.arrangedSubviews.first as? UIButton {
             filterButtonTapped(firstButton)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     private func getFilteredCosmetics() -> [UserCosmetics] {
@@ -135,6 +144,7 @@ extension MainViewController {
         plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusButton)
+        
     }
     
     func setupCollectionView() {

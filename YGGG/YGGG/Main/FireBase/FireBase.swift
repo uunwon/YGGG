@@ -6,29 +6,29 @@
 //
 
 import Firebase
-import UIKit
+import Foundation
 import FirebaseFirestore
-
-class User: Codable {
-    let email: String
-    let uid: String
-    var userCosmetics: [UserCosmetics]
-    var userHashTag: String?
-    var userImage: String?
-    let userName: String
-    var bookmarkList: [String]
-
-    init(email: String, uid: String, userCosmetics: [UserCosmetics], userHashTag: String? = nil, userImage: String? = nil, userName: String, bookmarkList: [String]) {
-        self.email = email
-        self.uid = uid
-        self.userCosmetics = userCosmetics
-        self.userHashTag = userHashTag
-        self.userImage = userImage
-        self.userName = userName
-        self.bookmarkList = bookmarkList
-    }
-}
-
+//
+//class User: Codable {
+//    let email: String
+//    let uid: String
+//    var userCosmetics: [UserCosmetics]
+//    var userHashTag: String?
+//    var userImage: String?
+//    let userName: String
+//    var bookmarkList: [String]
+//
+//    init(email: String, uid: String, userCosmetics: [UserCosmetics], userHashTag: String? = nil, userImage: String? = nil, userName: String, bookmarkList: [String]) {
+//        self.email = email
+//        self.uid = uid
+//        self.userCosmetics = userCosmetics
+//        self.userHashTag = userHashTag
+//        self.userImage = userImage
+//        self.userName = userName
+//        self.bookmarkList = bookmarkList
+//    }
+//}
+//
 class UserCosmetics: Codable {
     var expirationDate: Timestamp
     var purchaseDate: Timestamp

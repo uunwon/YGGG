@@ -33,5 +33,11 @@ extension UIColor {
         return UIColor(red: 134/255, green: 200/255, blue: 188/255, alpha: 1.0)
     }
     
+    ///Custom Teal Color(red: 134, green: 200, blue: 188) ED8A3C
+    static var yggg_orange: UIColor {
+        return UIColor(red: 237/255, green: 117/255, blue: 23/255, alpha: 1.0)
+    }
+
+    
     
 }
