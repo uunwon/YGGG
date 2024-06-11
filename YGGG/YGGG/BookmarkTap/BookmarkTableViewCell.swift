@@ -16,7 +16,6 @@ class BookmarkTableViewCell: UITableViewCell {
     
     private lazy var userPhotoView: UIImageView = {
         let userPhotoView = UIImageView()
-        userPhotoView.image = UIImage(named: "userPhoto")
         userPhotoView.layer.cornerRadius = 32.5
         userPhotoView.layer.borderWidth = 2.0
         userPhotoView.layer.borderColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1.0).cgColor
@@ -77,12 +76,12 @@ class BookmarkTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             userPhotoView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 11),
-            userPhotoView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            userPhotoView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 24),
             userPhotoView.widthAnchor.constraint(equalToConstant: 65),
             userPhotoView.heightAnchor.constraint(equalToConstant: 65),
             
             bookmarkToggleButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 29),
-            bookmarkToggleButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            bookmarkToggleButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -24),
             bookmarkToggleButton.widthAnchor.constraint(equalToConstant: 23),
             bookmarkToggleButton.heightAnchor.constraint(equalToConstant: 23),
             
@@ -104,10 +103,11 @@ class BookmarkTableViewCell: UITableViewCell {
         var refrigeratorItems: [UserCosmetics] = []
         var graveItems: [UserCosmetics] = []
         
-        if let photoURL = user.userImage {
-            if photoURL != "" {
-                loadImage(from: photoURL)
-            }
+        if let photoURL = user.userImage, photoURL != "" {
+            loadImage(from: photoURL)
+            
+        } else {
+            userPhotoView.image = UIImage(named: "userPhoto")
         }
         
         usernameLabel.text = user.userName

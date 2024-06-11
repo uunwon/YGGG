@@ -12,6 +12,7 @@ class BookmarkTableViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -38,10 +39,6 @@ class BookmarkTableViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        Task {
-            await loadBookmarkList()
-        }
-        
         setupCustomSearchBar()
         setupTableView()
         setupTapGesture()
@@ -49,6 +46,13 @@ class BookmarkTableViewController: UIViewController {
         
         self.navigationController?.isNavigationBarHidden = true
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Task {
+            await loadBookmarkList()
+        }
     }
     
     private func loadBookmarkList() async {
@@ -128,7 +132,7 @@ class BookmarkTableViewController: UIViewController {
         
         search.setValue(customSearchBar, forKey: "searchBar")
         search.obscuresBackgroundDuringPresentation = false
-        search.searchBar.placeholder = "계정 및 해시태그 검색"
+        search.searchBar.placeholder = "계정 이름으로 검색"
         search.searchBar.delegate = self
     }
     
@@ -141,8 +145,8 @@ class BookmarkTableViewController: UIViewController {
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: customSearchBar.bottomAnchor, constant: 10),
-            tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 24),
-            tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -24),
+            tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
         ])
     }
@@ -215,10 +219,6 @@ extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegat
             let db = Firestore.firestore()
             let activeUserDocRef = db.collection("users").document(myID)
             try await activeUserDocRef.updateData(["bookmarkList" : bookmarkList])
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
             
             completion(isBookmarked)
         } catch {
