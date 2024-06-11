@@ -171,14 +171,33 @@ class MyProfileEditViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, 
+                                                  name: UIResponder.keyboardWillShowNotification, 
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self, 
+                                                  name: UIResponder.keyboardWillHideNotification,
+                                                  object: nil)
+    }
+    
     func setupUI() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, 
+                                                                 action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
         view.backgroundColor = .white
         navigationItem.title = "프로필"
         
-        let rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(saveButtonTapped))
+        let rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, 
+                                                 target: self, action: #selector(saveButtonTapped))
         rightBarButtonItem.tintColor = .appPrimary
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
-
+        self.navigationController?.navigationBar.accessibilityIgnoresInvertColors = true
+        self.navigationController?.navigationBar.backgroundColor = .white
+        
         
         view.addSubview(imageViewContainer)
         
@@ -193,12 +212,15 @@ class MyProfileEditViewController: UIViewController {
             
             profileImageView.centerXAnchor.constraint(equalTo: imageViewContainer.centerXAnchor),
             profileImageView.centerYAnchor.constraint(equalTo: imageViewContainer.centerYAnchor),
-            profileImageView.topAnchor.constraint(equalTo: imageViewContainer.topAnchor,constant: 39),
-            profileImageView.bottomAnchor.constraint(equalTo: imageViewContainer.bottomAnchor,constant: -39),
+            profileImageView.topAnchor.constraint(equalTo: imageViewContainer.topAnchor,
+                                                  constant: 39),
+            profileImageView.bottomAnchor.constraint(equalTo: imageViewContainer.bottomAnchor,
+                                                     constant: -39),
             profileImageView.heightAnchor.constraint(equalToConstant: 120),
             profileImageView.widthAnchor.constraint(equalToConstant: 120),
             
-            cameraImageView.trailingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: -10),
+            cameraImageView.trailingAnchor.constraint(equalTo: profileImageView.trailingAnchor, 
+                                                      constant: -10),
             cameraImageView.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor),
             cameraImageView.heightAnchor.constraint(equalToConstant: 26),
             cameraImageView.widthAnchor.constraint(equalToConstant: 26)
@@ -215,10 +237,11 @@ class MyProfileEditViewController: UIViewController {
         }
         
         NSLayoutConstraint.activate([
-            infoStackView.topAnchor.constraint(equalTo: imageViewContainer.bottomAnchor,constant: 10),
+            infoStackView.topAnchor.constraint(equalTo: imageViewContainer.bottomAnchor,
+                                               constant: 10),
             infoStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             infoStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                        infoStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            infoStackView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor),
             
             
             nickNameLabel.heightAnchor.constraint(equalToConstant: 15),
@@ -231,7 +254,8 @@ class MyProfileEditViewController: UIViewController {
             
             hashTagTF.centerYAnchor.constraint(equalTo: hashTagMainView.centerYAnchor),
             hashTagTF.leadingAnchor.constraint(equalTo: hashTagMainView.leadingAnchor),
-            hashTagTF.trailingAnchor.constraint(equalTo: tagAddButton.leadingAnchor, constant: -10),
+            hashTagTF.trailingAnchor.constraint(equalTo: tagAddButton.leadingAnchor, 
+                                                constant: -10),
             
             tagAddButton.centerYAnchor.constraint(equalTo: hashTagMainView.centerYAnchor),
             tagAddButton.trailingAnchor.constraint(equalTo: hashTagMainView.trailingAnchor),
@@ -239,7 +263,7 @@ class MyProfileEditViewController: UIViewController {
             tagAddButton.heightAnchor.constraint(equalToConstant: 48),
             tagAddButton.widthAnchor.constraint(equalToConstant: 76),
             
-            hashTagCV.heightAnchor.constraint(equalToConstant: 120)
+            hashTagCV.heightAnchor.constraint(lessThanOrEqualToConstant: 120)
             
         ])
         
@@ -285,17 +309,39 @@ class MyProfileEditViewController: UIViewController {
         }
     }
     
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= 120
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
     
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     
 }
 
-extension MyProfileEditViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension MyProfileEditViewController: UICollectionViewDelegate, 
+                                        UICollectionViewDataSource,
+                                        UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, 
+                        numberOfItemsInSection section: Int) -> Int {
         return hashTags.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HashTagCVCell", for: indexPath) as? HashTagCVCell {
+    func collectionView(_ collectionView: UICollectionView, 
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HashTagCVCell",
+                                                         for: indexPath) as? HashTagCVCell {
             cell.configureCell(hashtag: hashTags[indexPath.row])
             cell.delegate = self
             return cell
@@ -335,7 +381,12 @@ extension MyProfileEditViewController: HashTagCellDelegate {
 }
 
 extension MyProfileEditViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        addHashTagButtonTapped()
+        return true
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, 
+                   replacementString string: String) -> Bool {
 
         // 입력된 텍스트가 유효한지 확인
         guard let char = string.cString(using: String.Encoding.utf8) else { return true }
