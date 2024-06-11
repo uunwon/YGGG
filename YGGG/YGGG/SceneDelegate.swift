@@ -22,6 +22,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = navi
         window?.makeKeyAndVisible()
     }
+    
+    func moveToSplash() {
+        let navi = UINavigationController(rootViewController: SplashViewController())
+        window?.rootViewController = navi
+    }
+    
+    func moveToMain(){
+        let navi = UINavigationController(rootViewController: MainTabBarController())
+        window?.rootViewController = navi
+    }
+    
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

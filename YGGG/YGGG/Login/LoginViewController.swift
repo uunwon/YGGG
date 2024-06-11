@@ -106,12 +106,8 @@ class LoginViewController: UIViewController {
     
     // 로그인 성공 시 메인 화면으로 전환
     func moveToMain() {
-        let mainTabBarController = MainTabBarController()
-        
-        // SceneDelegate 에서 rootViewController 변경
-        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-            sceneDelegate.window?.rootViewController = mainTabBarController
-        }
+        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+        sceneDelegate.moveToMain()
     }
     
     func handleSignInButton() {
@@ -140,6 +136,7 @@ class LoginViewController: UIViewController {
                 
                 let data: [String: Any] = ["email": user.email as Any,
                                            "uid": user.uid,
+                                           "snsRoot": "google",
                                            "userName": user.displayName as Any,
                                            "userImage": user.photoURL?.absoluteString ?? "",
                                            "userHashTag": "",

@@ -7,6 +7,8 @@
 
 import UIKit
 import GoogleSignIn
+import FirebaseAuth
+
 
 class SplashViewController: UIViewController {
     let splashImageVIew: UIImageView = {
@@ -22,18 +24,23 @@ class SplashViewController: UIViewController {
         
         view.addSubview(splashImageVIew)
         
-        // 로그인 여부 체크하기
-        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-            if error != nil || user == nil {
-                // Show the app's signed-out state
-                print("Any Login Information")
-                self.moveToLogin()
-            } else {
-                // Show the app's signed-in state
-                print("Success to Login")
-                self.moveToMain()
+        if let _ = Auth.auth().currentUser {
+            // 로그인 여부 체크하기
+            GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+                if error != nil || user == nil {
+                    // Show the app's signed-out state
+                    print("Any Login Information")
+                    self.moveToLogin()
+                } else {
+                    // Show the app's signed-in state
+                    print("Success to Login")
+                    self.moveToMain()
+                }
             }
+        } else {
+            self.moveToLogin()
         }
+        
     }
     
     private lazy var splashImageViewConstraints: [NSLayoutConstraint] = {
@@ -55,12 +62,8 @@ class SplashViewController: UIViewController {
     
     // 로그인 성공 시 메인 화면으로 전환
     func moveToMain() {
-        let mainTabBarController = MainTabBarController()
-        
-        // SceneDelegate 에서 rootViewController 변경
-        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-            sceneDelegate.window?.rootViewController = UINavigationController(rootViewController: mainTabBarController)
-        }
+        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+        sceneDelegate.moveToMain()
     }
     
     // 로그인 실패 시 로그인 화면으로 전환

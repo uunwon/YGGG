@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 class MyProfileVIewController: UIViewController{
 
@@ -126,13 +127,15 @@ extension MyProfileVIewController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.row {
         case 5:
             print("logout")
-//            do {
-//                try Auth.auth().signOut()
-//                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
-//                sceneDelegate.goToSplash()
-//            } catch {
-//                print("logout error")
-//            }
+            do {
+                try Auth.auth().signOut()
+                GIDSignIn.sharedInstance.signOut()
+                GIDSignIn.sharedInstance.disconnect()
+                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+                sceneDelegate.moveToSplash()
+            } catch {
+                print("logout error")
+            }
         default:
             break
         }
