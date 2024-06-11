@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseAuth
 
-class BookmarkTableViewModel: BookmarkTableViewModelDelegate {
+class BookmarkTableViewModel {
     var datas: [User] = []
     var bookmarkList: [String] = []
     var myID = "67p8Fleq5wgDNnkEG2yB"
@@ -79,6 +79,9 @@ class BookmarkTableViewModel: BookmarkTableViewModelDelegate {
         }
     }
     
+}
+
+extension BookmarkTableViewModel: BookmarkTableViewModelDelegate {
     func toggleBookmark(uid: String, completion: @escaping (Bool) -> Void) async {
         do {
             let isBookmarked: Bool

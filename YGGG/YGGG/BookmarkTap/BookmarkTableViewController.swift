@@ -29,7 +29,7 @@ class BookmarkTableViewController: UIViewController {
         return customSearchBar
     }()
     
-    private let viewModel = BookmarkTableViewModel()
+    private let bookmarkTableViewModel = BookmarkTableViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +43,7 @@ class BookmarkTableViewController: UIViewController {
         
         self.navigationController?.isNavigationBarHidden = true
         
-        viewModel.onDataChanged = { [weak self] in
+        bookmarkTableViewModel.onDataChanged = { [weak self] in
             self?.tableView.reloadData()
         }
     }
@@ -51,7 +51,7 @@ class BookmarkTableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Task {
-            await viewModel.loadBookmarkList()
+            await bookmarkTableViewModel.loadBookmarkList()
         }
     }
     
@@ -135,15 +135,15 @@ class BookmarkTableViewController: UIViewController {
 extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.datas.count
+        bookmarkTableViewModel.datas.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as! BookmarkTableViewCell
         cell.selectionStyle = .none
-        cell.delegate = self.viewModel
-        let userEntry = viewModel.datas[indexPath.row]
-        cell.viewModel = BookmarkTableViewCellViewModel(user: userEntry, bookmarkList: viewModel.bookmarkList)
+        cell.delegate = self.bookmarkTableViewModel
+        let userEntry = bookmarkTableViewModel.datas[indexPath.row]
+        cell.bookmarkCellViewModel = BookmarkTableViewCellViewModel(user: userEntry, bookmarkList: bookmarkTableViewModel.bookmarkList)
         cell.configureCell()
         return cell
     }
@@ -162,12 +162,12 @@ extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegat
             if searchText.isEmpty {
                 customSearchBar.infoButton.isHidden = false
                 Task {
-                    await viewModel.loadBookmarkList()
+                    await bookmarkTableViewModel.loadBookmarkList()
                 }
             } else {
                 customSearchBar.infoButton.isHidden = true
                 Task {
-                    await viewModel.loadFilteredList(searchText: searchText)
+                    await bookmarkTableViewModel.loadFilteredList(searchText: searchText)
                 }
             }
         }

@@ -14,7 +14,7 @@ protocol BookmarkTableViewModelDelegate {
 class BookmarkTableViewCell: UITableViewCell {
     
     var delegate: BookmarkTableViewModelDelegate?
-    var viewModel: BookmarkTableViewCellViewModel?
+    var bookmarkCellViewModel: BookmarkTableViewCellViewModel?
     
     private lazy var userPhotoView: UIImageView = {
         let userPhotoView = UIImageView()
@@ -126,7 +126,7 @@ class BookmarkTableViewCell: UITableViewCell {
     }
    
     func configureCell() {
-        guard let viewModel = self.viewModel else { return }
+        guard let viewModel = self.bookmarkCellViewModel else { return }
         
         if let photoURL = viewModel.userPhotoURL, photoURL != "" {
             loadImage(from: photoURL)
