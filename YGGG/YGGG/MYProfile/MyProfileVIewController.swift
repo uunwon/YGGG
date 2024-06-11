@@ -8,12 +8,13 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import FirebaseAuth
 
 class MyProfileVIewController: UIViewController{
 
     
     private let mainProfileView = ProfileMainView()
-    
+    private let auth = Auth.auth().currentUser
     
     private lazy var settingTableView: UITableView = {
         let tv = UITableView()
@@ -68,9 +69,17 @@ class MyProfileVIewController: UIViewController{
     }
     
     
-    private func configureDataSetup() {
-        mainProfileView.setupUI(userImage: "", userName: "Ruel", tombCount: 20, refrigeratorCount: 10, hashTag: "#하이", isMyProfile: true)
+    private func configureDataSetup()  {
         
+        if let _ = self.auth {
+            getData { user in
+                self.mainProfileView.setupUI(userImage: user.userImage, userName: user.userName,
+                                        tombCount: user.tombCount, refrigeratorCount: user.refrigeratorCount,
+                                        hashTag: user.email, isMyProfile: true)
+                
+            }
+            
+        }
     }
     
     
@@ -87,6 +96,47 @@ class MyProfileVIewController: UIViewController{
         
         attributedString.append(countString)
         return attributedString
+    }
+    
+    func getData(completion: @escaping(User) -> Void) {
+        guard let uid = auth?.uid else { return }
+        RED_USERS.document(uid).getDocument { (document, error) in
+            if let document = document, document.exists {
+                do {
+                    if var data = document.data() {
+                        // Convert FIRTimestamp to formatted date string
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                        
+                        if let userCosmetics = data["userCosmetics"] as? [[String: Any]] {
+                            var updatedUserCosmetics = [[String: Any]]()
+                            for var cosmetic in userCosmetics {
+                                if let expirationDate = cosmetic["expirationDate"] as? Timestamp {
+                                    cosmetic["expirationDate"] = dateFormatter.string(from: expirationDate.dateValue())
+                                }
+                                if let purchaseDate = cosmetic["purchaseDate"] as? Timestamp {
+                                    cosmetic["purchaseDate"] = dateFormatter.string(from: purchaseDate.dateValue())
+                                }
+                                updatedUserCosmetics.append(cosmetic)
+                            }
+                            data["userCosmetics"] = updatedUserCosmetics
+                        }
+                        
+                        let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                        let decoder = JSONDecoder()
+                        let user = try decoder.decode(User.self, from: jsonData)
+                        
+                        completion(user)
+                    }
+                } catch let error {
+                    print("Error converting document data to JSON: \(error.localizedDescription)")
+                }
+            } else {
+                print("Document does not exist")
+            }
+            
+        }
+        
     }
     
 }

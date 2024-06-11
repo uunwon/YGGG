@@ -140,7 +140,8 @@ class LoginViewController: UIViewController {
                                            "userName": user.displayName as Any,
                                            "userImage": user.photoURL?.absoluteString ?? "",
                                            "userHashTag": "",
-                                           "userCosmetics": []]
+                                           "userCosmetics": [],
+                                           "bookmarkList": []]
                 
                 COLLECTION_USERS.document(user.uid).setData(data)
                 
