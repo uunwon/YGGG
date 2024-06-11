@@ -134,18 +134,26 @@ class LoginViewController: UIViewController {
                 // At this point, our user is signed in
                 guard let user = result?.user else { return }
                 
-                let data: [String: Any] = ["email": user.email as Any,
-                                           "uid": user.uid,
-                                           "snsRoot": "google",
-                                           "userName": user.displayName as Any,
-                                           "userImage": user.photoURL?.absoluteString ?? "",
-                                           "userHashTag": "",
-                                           "userCosmetics": []]
+                COLLECTION_USERS.whereField("uid", isEqualTo: user.uid).getDocuments() { document, error in
+                    if ((document?.isEmpty) != nil) {
+                        print("Login Data already exists")
+                        self.moveToMain()
+                    } else {
+                        let data: [String: Any] = ["email": user.email as Any,
+                                                   "uid": user.uid,
+                                                   "snsRoot": "apple",
+                                                   "userName": user.displayName as Any,
+                                                   "userImage": user.photoURL?.absoluteString ?? "",
+                                                   "userHashTag": "",
+                                                   "userCosmetics": []]
+                        
+                        COLLECTION_USERS.document(user.uid).setData(data)
+                        
+                        print("Success to Login")
+                        self.moveToMain()
+                    }
+                }
                 
-                COLLECTION_USERS.document(user.uid).setData(data)
-                
-                print("Success to Login")
-                self.moveToMain()
             }
         }
         
