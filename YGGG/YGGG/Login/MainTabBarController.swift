@@ -20,7 +20,7 @@ class MainTabBarController: UITabBarController {
         
         // TODO: - 각 탭에 맞는 ViewController 대입하기
         let followViewController = BookmarkTableViewController()
-        let homeViewController = ViewController()
+        let homeViewController = MainViewController()
         let myViewController = MyProfileVIewController()
                 
         followViewController.tabBarItem = UITabBarItem(

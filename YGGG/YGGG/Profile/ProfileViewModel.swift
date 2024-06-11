@@ -33,42 +33,6 @@ struct TopCategory: Codable {
     let title: String
 }
 
-
-//struct Cosmetics: Codable {
-//    let imageName: String
-//    let title: String
-//    let purchaseDate: String
-//    let expirationDate: String
-//    let kind: Int // 0: 냉동, 1: 냉장, 2: 실온
-//
-//
-//    private var dateFormatter: DateFormatter {
-//         let formatter = DateFormatter()
-//         formatter.dateFormat = "yyyy.MM.dd"
-//         return formatter
-//     }
-//
-//     var isExpired: Bool {
-//         guard let expirationDate = dateFormatter.date(from: expirationDate) else { return false }
-//         return expirationDate < Date()
-//     }
-//
-//     var purchaseString: String {
-//         guard let purchaseDate = dateFormatter.date(from: purchaseDate) else { return "Invalid date" }
-//         return dateFormatter.string(from: purchaseDate)
-//     }
-//
-//     var expirationString: String {
-//         guard let expirationDate = dateFormatter.date(from: expirationDate) else { return "Invalid date" }
-//         return dateFormatter.string(from: expirationDate)
-//     }
-//
-//    var expirationDateAsDate: Date {
-//        return dateFormatter.date(from: expirationDate) ?? Date()
-//    }
-//
-//}
-
 struct Cosmetics: Codable {
     let imageName: String
     let title: String
@@ -114,20 +78,7 @@ struct Cosmetics: Codable {
 class ProfileViewModel {
     
     let service: ProfileService = ProfileService()
-    
-    
-    
-    //    private lazy var user: User = User(userImage: "user", userName: "Ruel",
-    //                                       userHashTag: "#건조 #수분 #민감성 #홍조", isFavorite: false,
-    //                                       userCosmetics: [Cosmetics(imageName: "waterbottle", title: "로션",
-    //                                                                 purchaseDate: "20240601", expirationDate: "20240607", kind: 0),
-    //                                                       Cosmetics(imageName: "waterbottle", title: "핸드크림",
-    //                                                                 purchaseDate: "20240501", expirationDate: "20240601", kind: 1),
-    //                                                       Cosmetics(imageName: "waterbottle", title: "립밤",
-    //                                                                 purchaseDate: "20240601", expirationDate: "20240618", kind: 2),
-    //                                                       Cosmetics(imageName: "waterbottle", title: "선크림",
-    //                                                                 purchaseDate: "20240101", expirationDate: "20240801", kind: 0)])
-    
+
     private var user: User?
     
     init(user: User) {
@@ -149,11 +100,7 @@ class ProfileViewModel {
     func getCategoryItem(index: Int) -> TopCategory {
         return topCategorys[index]
     }
-    
-    //    init(user: User) {
-    //    init() {
-    //        self.loadData()
-    //    }
+
     
     func loadData(completion: @escaping() -> Void) {
         guard let uid = user?.uid else { return }
@@ -222,15 +169,5 @@ class ProfileViewModel {
     func getUserImage() -> String {
         return user?.userImage ?? ""
     }
-    
-    //    func userIsFavorite() -> Bool {
-    //        return user?.isFavorite ?? false
-    //    }
-    //
-    //    func changeFavorite(completion: @escaping() -> Void) {
-    //        user?.isFavorite = !(user?.isFavorite ?? false)
-    //        completion()
-    //    }
-    
-    
+
 }

@@ -10,10 +10,19 @@ import UIKit
 class CustomCollectionViewCell: UICollectionViewCell {
     static let name = "CustomCollectionViewCell"
     
+    let colorView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 30
+        view.clipsToBounds = true
+        return view
+    }()
+    
     let productImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -24,7 +33,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let purchaseDateLabel: UILabel = {
+    let categoryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14)
@@ -47,43 +56,51 @@ class CustomCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupViews() {
-        addSubview(productImageView)
+    private func setupViews() {
+        addSubview(colorView)
+        colorView.addSubview(productImageView)
         addSubview(titleLabel)
-        addSubview(purchaseDateLabel)
+        addSubview(categoryLabel)
         addSubview(expirationDateLabel)
         
         NSLayoutConstraint.activate([
-            productImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            productImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            productImageView.widthAnchor.constraint(equalToConstant: 50),
-            productImageView.heightAnchor.constraint(equalToConstant: 50),
+            colorView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            colorView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            colorView.widthAnchor.constraint(equalToConstant: 60),
+            colorView.heightAnchor.constraint(equalToConstant: 60),
+            
+            productImageView.centerXAnchor.constraint(equalTo: colorView.centerXAnchor),
+            productImageView.centerYAnchor.constraint(equalTo: colorView.centerYAnchor),
+            productImageView.widthAnchor.constraint(equalToConstant: 40),
+            productImageView.heightAnchor.constraint(equalToConstant: 40),
             
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            titleLabel.leadingAnchor.constraint(equalTo: productImageView.trailingAnchor, constant: 10),
+            titleLabel.leadingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             
-            purchaseDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
-            purchaseDateLabel.leadingAnchor.constraint(equalTo: productImageView.trailingAnchor, constant: 10),
-            purchaseDateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            categoryLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
+            categoryLabel.leadingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: 10),
+            categoryLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             
-            expirationDateLabel.topAnchor.constraint(equalTo: purchaseDateLabel.bottomAnchor, constant: 5),
-            expirationDateLabel.leadingAnchor.constraint(equalTo: productImageView.trailingAnchor, constant: 10),
+            expirationDateLabel.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor, constant: 5),
+            expirationDateLabel.leadingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: 10),
             expirationDateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ])
     }
     
-    func configureHome() {
-        productImageView.image = UIImage(resource: .lotion)
-        titleLabel.text = "로션"
-        purchaseDateLabel.text = "구매날짜: "
-        expirationDateLabel.text = "유통기한: "
-    }
-    
-    func configureGrave() {
-        productImageView.image = UIImage(resource: .grave)
-        titleLabel.text = "무덤"
-        purchaseDateLabel.text = "구매날짜: "
-        expirationDateLabel.text = "유통기한: "
+    func configure(with cosmetic: UserCosmetics, isHomeTab: Bool) {
+        productImageView.image = UIImage(named: cosmetic.imageName)
+        titleLabel.text = cosmetic.title
+        categoryLabel.text = "종류: \(cosmetic.category)"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        let expirationDate = cosmetic.expirationDate.dateValue()
+        expirationDateLabel.text = "유통기한: \(dateFormatter.string(from: expirationDate))"
+        
+        if isHomeTab {
+            colorView.backgroundColor = .setlightgreen
+        } else {
+            colorView.backgroundColor = .gray
+        }
     }
 }
