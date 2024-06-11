@@ -39,11 +39,36 @@ class BookmarkTableViewCell: UITableViewCell {
         return userHashTagLabel
     }()
     
-    private lazy var userItemCountLabel: UILabel = {
-        let userItemCountLabel = UILabel()
-        userItemCountLabel.font = UIFont.systemFont(ofSize: 12)
-        userItemCountLabel.translatesAutoresizingMaskIntoConstraints = false
-        return userItemCountLabel
+    private lazy var refrigeratorCountLabel: UILabel = {
+        let refrigeratorCountLabel = UILabel()
+        refrigeratorCountLabel.text = "0"
+        refrigeratorCountLabel.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        return refrigeratorCountLabel
+    }()
+    
+    private lazy var graveCountLabel: UILabel = {
+        let graveCountLabel = UILabel()
+        graveCountLabel.text = "0"
+        graveCountLabel.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        return graveCountLabel
+    }()
+    
+    private lazy var userItemCountStackView: UIStackView = {
+        let refrigeratorLabel = UILabel()
+        refrigeratorLabel.text = "냉장고"
+        refrigeratorLabel.font = UIFont.systemFont(ofSize: 12)
+        
+        let graveLabel = UILabel()
+        graveLabel.text = "무덤"
+        graveLabel.font = UIFont.systemFont(ofSize: 12)
+        
+        let userItemCountStackView = UIStackView(arrangedSubviews: [refrigeratorLabel, refrigeratorCountLabel, graveLabel, graveCountLabel])
+        userItemCountStackView.axis = .horizontal
+        userItemCountStackView.spacing = 5
+        userItemCountStackView.alignment = .leading
+        userItemCountStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return userItemCountStackView
     }()
     
     private lazy var bookmarkToggleButton: UIButton = {
@@ -69,7 +94,7 @@ class BookmarkTableViewCell: UITableViewCell {
         contentView.addSubview(userPhotoView)
         contentView.addSubview(usernameLabel)
         contentView.addSubview(userHashTagLabel)
-        contentView.addSubview(userItemCountLabel)
+        contentView.addSubview(userItemCountStackView)
         contentView.addSubview(bookmarkToggleButton)
         
         let safeArea = safeAreaLayoutGuide
@@ -93,9 +118,8 @@ class BookmarkTableViewCell: UITableViewCell {
             userHashTagLabel.leadingAnchor.constraint(equalTo: usernameLabel.leadingAnchor),
             userHashTagLabel.trailingAnchor.constraint(equalTo: bookmarkToggleButton.leadingAnchor, constant: -3),
             
-            userItemCountLabel.topAnchor.constraint(equalTo: userHashTagLabel.bottomAnchor, constant: 3),
-            userItemCountLabel.leadingAnchor.constraint(equalTo: usernameLabel.leadingAnchor),
-            userItemCountLabel.trailingAnchor.constraint(equalTo: bookmarkToggleButton.leadingAnchor, constant: -3)
+            userItemCountStackView.topAnchor.constraint(equalTo: userHashTagLabel.bottomAnchor, constant: 3),
+            userItemCountStackView.leadingAnchor.constraint(equalTo: usernameLabel.leadingAnchor),
         ])
     }
     
@@ -120,7 +144,8 @@ class BookmarkTableViewCell: UITableViewCell {
                 refrigeratorItems.append(cosmetic)
             }
         }
-        userItemCountLabel.text = "냉장고 \(refrigeratorItems.count) 무덤 \(graveItems.count)"
+        refrigeratorCountLabel.text = "\(refrigeratorItems.count)"
+        graveCountLabel.text = "\(graveItems.count)"
         
         let isBookmarked = bookmarkList.contains(user.uid)
         bookmarkToggleButton.setImage(UIImage(systemName: isBookmarked ? "heart.fill" : "heart"), for: .normal)
@@ -137,14 +162,13 @@ class BookmarkTableViewCell: UITableViewCell {
             }
         }, for: .touchUpInside)
     }
-    //예시코드
+    
     func loadImage(from urlString: String) {
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
             return
         }
         
-        // 비동기적으로 URL에서 이미지를 다운로드
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print("Error loading image: \(error)")
@@ -156,7 +180,6 @@ class BookmarkTableViewCell: UITableViewCell {
                 return
             }
             
-            // 메인 스레드에서 UIImageView에 이미지를 설정
             DispatchQueue.main.async {
                 self.userPhotoView.image = image
             }

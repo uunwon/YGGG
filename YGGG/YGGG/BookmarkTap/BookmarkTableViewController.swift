@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseAuth
 
 class BookmarkTableViewController: UIViewController {
     
@@ -51,7 +52,15 @@ class BookmarkTableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Task {
+//            await loadActiveUserID()
             await loadBookmarkList()
+        }
+    }
+    
+    private func loadActiveUserID() async {
+        let user = Auth.auth().currentUser
+        if let user = user {
+            myID = user.uid
         }
     }
     
