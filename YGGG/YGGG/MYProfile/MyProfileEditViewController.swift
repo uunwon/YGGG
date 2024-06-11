@@ -175,7 +175,7 @@ class MyProfileEditViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "프로필"
         
-        let rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonTapped))
+        let rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, target: self, action: #selector(saveButtonTapped))
         rightBarButtonItem.tintColor = .appPrimary
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
 

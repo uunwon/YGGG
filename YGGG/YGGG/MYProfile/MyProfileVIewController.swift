@@ -205,9 +205,6 @@ extension MyProfileVIewController: ProfileMainViewDelegate {
     }
     
     func favoriteTapped() {
-        //        viewModel.changeFavorite { [weak self] in
-        //            self?.favoriteButtonSetup()
-        //        }
     }
     
 }
@@ -217,21 +214,3 @@ extension MyProfileVIewController: MyProfileEditDelegate {
         self.mainProfileView.changeUserData(image: image, name: name)
     }
 }
-
-//
-//extension MyProfileVIewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-//    
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//    
-//        if let selectedImage = info[.originalImage] as? UIImage {
-//            mainProfileView.changeImageView(image: selectedImage)
-////            profileImageView.image = selectedImage
-////            uploadImageToFirebase(selectedImage)
-//        }
-//        picker.dismiss(animated: true, completion: nil)
-//    }
-//    
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        picker.dismiss(animated: true, completion: nil)
-//    }
-//}
