@@ -29,10 +29,9 @@ class BookmarkTableViewController: UIViewController {
     
     var datas: [User] = []
     var bookmarkList: [String] = []
-    var filteredTableData: [User] = []
+    
     //task: 로그인된 계정의 id 가져오기
     var myID = "67p8Fleq5wgDNnkEG2yB"
-//    var myID = "KUopIURXK9e7k9t8vnSxzzDaGYy1"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +62,30 @@ class BookmarkTableViewController: UIViewController {
             var loadedDatas: [User] = []
             let snapshot = try await db.collection("users").whereField("uid", in: bookmarkList).getDocuments()
             for document in snapshot.documents {
+                if let data = try? document.data(as: User.self) {
+                    loadedDatas.append(data)
+                }
+            }
+            
+            self.datas = loadedDatas
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        } catch {
+            print("Error getting documents: \(error)")
+        }
+    }
+    
+    private func loadFilteredList(searchText: String) async {
+        do {
+            let db = Firestore.firestore()
+            let snapshotByName = try await db.collection("users")
+                .whereField("userName", isGreaterThanOrEqualTo: searchText)
+                .whereField("userName", isLessThanOrEqualTo: searchText + "\u{f7ff}")
+                .getDocuments()
+            
+            var loadedDatas: [User] = []
+            for document in snapshotByName.documents {
                 if let data = try? document.data(as: User.self) {
                     loadedDatas.append(data)
                 }
@@ -179,8 +202,6 @@ extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func toggleBookmark(uid: String, completion: @escaping (Bool) -> Void) async {
-        //북마크 토글
-        print("toggle")
         do {
             let isBookmarked: Bool
             if bookmarkList.contains(uid) {
@@ -209,8 +230,14 @@ extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegat
         if let customSearchBar = searchBar as? CustomSearchBar {
             if searchText.isEmpty {
                 customSearchBar.infoButton.isHidden = false
+                Task {
+                    await loadBookmarkList()
+                }
             } else {
                 customSearchBar.infoButton.isHidden = true
+                Task {
+                    await loadFilteredList(searchText: searchText)
+                }
             }
         }
     }
