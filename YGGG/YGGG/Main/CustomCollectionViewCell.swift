@@ -88,7 +88,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configure(with cosmetic: userCosmetic, isHomeTab: Bool) {
+    func configure(with cosmetic: UserCosmetic, isHomeTab: Bool) {
         productImageView.image = UIImage(named: cosmetic.imageName)
         titleLabel.text = cosmetic.title
         categoryLabel.text = "종류: \(cosmetic.category)"

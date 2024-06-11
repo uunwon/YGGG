@@ -8,8 +8,20 @@
 import UIKit
 
 class IconModalViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    let viewModel: ModalViewModel
     var selectedCellIndex: IndexPath?
-
+    
+    let cosmeticIcons = ["brush", "clipboard", "comb", "cream-jar", "eye-liner", "facial-mask", "hand-sanitizer", "lip-balm", "lip-balm", "lip", "lipstick", "lotion", "cream", "mascara", "mirror", "mist", "nail-polish", "nail", "form", "perfume", "shaver", "soap", "spray", "serum", "sunscreen", "tube"]
+    
+    init(viewModel: ModalViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -72,7 +84,6 @@ class IconModalViewController: UIViewController, UICollectionViewDelegate, UICol
         
         buttonNext.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         
-        // 이미지 선택 알림을 수신하고 imageView를 업데이트하는 리스너 등록
         NotificationCenter.default.addObserver(self, selector: #selector(handleImageSelection(_:)), name: NSNotification.Name("ImageSelected"), object: nil)
         
         NSLayoutConstraint.activate([
@@ -101,22 +112,30 @@ class IconModalViewController: UIViewController, UICollectionViewDelegate, UICol
         ])
         updateNextButtonState()
     }
+}
+
+// MARK: - button & collectionview
+extension IconModalViewController {
     
     @objc func buttonTapped() {
+        viewModel.userCosmetic?.imageName = cosmeticIcons[selectedCellIndex?.row ?? 0]
+        
+        if let userCosmetic = viewModel.userCosmetic {
+            viewModel.userCosmetics.append(userCosmetic)
+            viewModel.reloadAction?()
+        }
         dismiss(animated: true, completion: nil)
     }
     
     func updateNextButtonState() {
-            if imageView.image == UIImage(named: "icon_modal") {
-                buttonNext.isEnabled = false
-                buttonNext.backgroundColor = .systemGray6
-            } else {
-                buttonNext.isEnabled = true
-                buttonNext.backgroundColor = .setorange
-            }
+        if imageView.image == UIImage(named: "icon_modal") {
+            buttonNext.isEnabled = false
+            buttonNext.backgroundColor = .systemGray6
+        } else {
+            buttonNext.isEnabled = true
+            buttonNext.backgroundColor = .setorange
         }
-    
-    // MARK: - UICollectionViewDataSource
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cosmeticIcons.count
@@ -125,20 +144,15 @@ class IconModalViewController: UIViewController, UICollectionViewDelegate, UICol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CircleButtonCell", for: indexPath) as! CircleButtonCell
         let image = UIImage(named: cosmeticIcons[indexPath.item])
-        cell.setImage(image)
         
-        // Reset the cell to its default state
+        cell.setImage(image)
         cell.setSelected(false)
         
-        // Highlight the selected cell
         if indexPath == selectedCellIndex {
             cell.setSelected(true)
         }
-        
         return cell
     }
-    
-    // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let padding: CGFloat = 20
@@ -148,15 +162,12 @@ class IconModalViewController: UIViewController, UICollectionViewDelegate, UICol
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
     
-    // 이미지 선택 시 실행되는 메서드
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let previousIndex = selectedCellIndex {
-            // Deselect the previously selected cell
             let previousCell = collectionView.cellForItem(at: previousIndex) as? CircleButtonCell
             previousCell?.setSelected(false)
         }
         
-        // Select the new cell
         let cell = collectionView.cellForItem(at: indexPath) as! CircleButtonCell
         cell.setSelected(true)
         selectedCellIndex = indexPath
@@ -167,73 +178,9 @@ class IconModalViewController: UIViewController, UICollectionViewDelegate, UICol
         updateNextButtonState()
     }
     
-    // 이미지 선택 알림을 받아 imageView를 업데이트하는 메서드
     @objc func handleImageSelection(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
               let selectedImage = userInfo["image"] as? UIImage else { return }
         imageView.image = selectedImage
-    }
-}
-
-class CircleButtonCell: UICollectionViewCell {
-    
-    let containerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .setlightgreen
-        view.layer.cornerRadius = 35
-        view.clipsToBounds = true
-        return view
-    }()
-    
-    let iconImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        contentView.addSubview(containerView)
-        containerView.addSubview(iconImageView)
-        
-        NSLayoutConstraint.activate([
-            containerView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            containerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            containerView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            containerView.heightAnchor.constraint(equalTo: contentView.heightAnchor),
-            
-            iconImageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            iconImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            iconImageView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.6),
-            iconImageView.heightAnchor.constraint(equalTo: containerView.heightAnchor, multiplier: 0.6)
-        ])
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // 이미지 설정 메서드
-    func setImage(_ image: UIImage?) {
-        iconImageView.image = image
-    }
-    
-    // 선택 상태 업데이트 메서드
-    func setSelected(_ selected: Bool) {
-        if selected {
-            containerView.layer.borderColor = UIColor.orange.cgColor
-            containerView.layer.borderWidth = 2.0
-            containerView.layer.shadowColor = UIColor.gray.cgColor
-            containerView.layer.shadowOffset = CGSize(width: 0, height: 2)
-            containerView.layer.shadowOpacity = 0.7
-            containerView.layer.shadowRadius = 4.0
-        } else {
-            containerView.layer.borderColor = UIColor.clear.cgColor
-            containerView.layer.borderWidth = 0.0
-            containerView.layer.shadowColor = UIColor.clear.cgColor
-            containerView.layer.shadowOpacity = 0.0
-        }
     }
 }

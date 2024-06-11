@@ -1,20 +1,21 @@
+//
+//  MainViewController.swift
+//  YGGG
+//
+//  Created by Song Kim on 6/4/24.
+//
+
 import UIKit
 
 enum Tab {
     case home, grave
 }
 
-var userCosmetics = [
-    userCosmetic(expirationDate: Date(timeIntervalSinceNow: 60*60*24*365), purchaseDate: Date(), title: "녹두", category: "세럼",  imageName: "serum", kind: 0),
-    userCosmetic(expirationDate: Date(timeIntervalSinceNow: 60*60*24*365), purchaseDate: Date(), title: "안넝", category: "세럼",  imageName: "sunscreen", kind: 0),
-    userCosmetic(expirationDate: Date(timeIntervalSinceNow: 60*60*24*365), purchaseDate: Date(), title: "우히히", category: "세럼",  imageName: "eye-liner", kind: 1),
-    userCosmetic(expirationDate: Date(timeIntervalSinceNow: 60*60*24*365), purchaseDate: Date(), title: "녹두", category: "세럼",  imageName: "serum", kind: 1),
-    userCosmetic(expirationDate: Date(timeIntervalSinceNow: 60*60*24*365), purchaseDate: Date(), title: "안넝", category: "세럼",  imageName: "sunscreen", kind: 2),
-    userCosmetic(expirationDate: Date(timeIntervalSinceNow: 60*60*24*365), purchaseDate: Date(), title: "우히히", category: "세럼",  imageName: "eye-liner", kind: 1),
-    userCosmetic(expirationDate: Date(timeIntervalSinceNow: -60*60*24*365), purchaseDate: Date(), title: "크림", category: "크림",  imageName: "lotion", kind: 2)
-]
+// MARK: main
 
 class MainViewController: UIViewController {
+    let viewModel = ModalViewModel()
+    
     var tab = Tab.home
     let cellHeight: CGFloat = 150
     var selectedButton: UIButton?
@@ -47,7 +48,6 @@ class MainViewController: UIViewController {
             return button
         }
 
-        
         let stackView = UIStackView(arrangedSubviews: buttons)
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -85,25 +85,26 @@ class MainViewController: UIViewController {
         view.backgroundColor = .white
         setupNavigationBar()
         setupCollectionView()
+        
         if let firstButton = stackView.arrangedSubviews.first as? UIButton {
             filterButtonTapped(firstButton)
         }
     }
     
-    private func getFilteredCosmetics() -> [userCosmetic] {
-        let filteredCosmetics: [userCosmetic]
+    private func getFilteredCosmetics() -> [UserCosmetic] {
+        let filteredCosmetics: [UserCosmetic]
         
         switch filterCategory {
         case "전체":
-            filteredCosmetics = userCosmetics
+            filteredCosmetics = viewModel.userCosmetics
         case "냉동":
-            filteredCosmetics = userCosmetics.filter { $0.kind == 0 }
+            filteredCosmetics = viewModel.userCosmetics.filter { $0.kind == 0 }
         case "냉장":
-            filteredCosmetics = userCosmetics.filter { $0.kind == 1 }
+            filteredCosmetics = viewModel.userCosmetics.filter { $0.kind == 1 }
         case "실온":
-            filteredCosmetics = userCosmetics.filter { $0.kind == 2 }
+            filteredCosmetics = viewModel.userCosmetics.filter { $0.kind == 2 }
         default:
-            filteredCosmetics = userCosmetics
+            filteredCosmetics = viewModel.userCosmetics
         }
         
         switch tab {
@@ -114,6 +115,8 @@ class MainViewController: UIViewController {
         }
     }
 }
+
+// MARK: - setup
 
 extension MainViewController {
     func setupNavigationBar() {
@@ -152,6 +155,8 @@ extension MainViewController {
     }
 }
 
+// MARK: - collectionView
+
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return getFilteredCosmetics().count
@@ -169,6 +174,8 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         return CGSize(width: collectionView.frame.width, height: 100)
     }
 }
+
+// MARK: - button
 
 extension MainViewController {
     @objc func leftButtonTapped() {
@@ -194,10 +201,16 @@ extension MainViewController {
     }
     
     @objc func plusButtonTapped() {
-        let vc = NameModalViewController()
+        let vc = NameModalViewController(viewModel: viewModel)
         let nav = UINavigationController(rootViewController: vc)
         vc.modalPresentationStyle = .automatic
         self.present(nav, animated: true, completion: nil)
+        
+        viewModel.reloadAction = {
+            self.collectionView.reloadData()
+        }
+        
+        viewModel.userCosmetic = UserCosmetic()
     }
     
     @objc func filterButtonTapped(_ sender: UIButton) {
@@ -214,5 +227,4 @@ extension MainViewController {
         
         collectionView.reloadData()
     }
-
 }

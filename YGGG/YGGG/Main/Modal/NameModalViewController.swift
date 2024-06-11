@@ -11,6 +11,17 @@ import UIKit
 // MARK: main
 
 class NameModalViewController: UIViewController, UITextFieldDelegate {
+    let viewModel: ModalViewModel
+    
+    init(viewModel: ModalViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     let imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "name_modal"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +69,7 @@ class NameModalViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(label)
         view.addSubview(textField)
         
-        buttonNext.addTarget(self, action: #selector(ButtonTapped), for: .touchUpInside)
+        buttonNext.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         view.addSubview(buttonNext)
         
         NSLayoutConstraint.activate([
@@ -84,7 +95,7 @@ class NameModalViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-// MARK: - textfield & button actions
+// MARK: - textfield & button
 
 extension NameModalViewController {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -92,19 +103,14 @@ extension NameModalViewController {
         return true
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-    }
-    
-    @objc func ButtonTapped() {
-        let nextView = KindModalViewController()
+    @objc func buttonTapped() {
+        let nextView = KindModalViewController(viewModel: viewModel)
         self.navigationController?.pushViewController(nextView, animated: true)
         
         let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = .black  // 색상 변경
         self.navigationItem.backBarButtonItem = backBarButtonItem
+        viewModel.userCosmetic?.title = textField.text ?? ""
     }
     
     @objc func updateButtonColor() {

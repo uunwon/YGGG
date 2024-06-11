@@ -14,7 +14,16 @@ protocol ModalDelegate: AnyObject {
 // MARK: main
 
 class DateModalViewController: UIViewController {
-    let viewModel = ModalViewModel()
+    let viewModel: ModalViewModel
+    
+    init(viewModel: ModalViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     let imageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "date_modal"))
@@ -116,7 +125,7 @@ class DateModalViewController: UIViewController {
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             saveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            saveButton.heightAnchor.constraint(equalToConstant: 50),
+            saveButton.heightAnchor.constraint(equalToConstant: 45),
             
             saveLabel.leadingAnchor.constraint(equalTo: saveButton.leadingAnchor, constant: 20),
             saveLabel.centerYAnchor.constraint(equalTo: saveButton.centerYAnchor),
@@ -145,12 +154,15 @@ class DateModalViewController: UIViewController {
 
 extension DateModalViewController {
     @objc func buttonTapped() {
-        let nextView = IconModalViewController()
+        let nextView = IconModalViewController(viewModel: viewModel)
         self.navigationController?.pushViewController(nextView, animated: true)
         
         let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = .black  // 색상 변경
         self.navigationItem.backBarButtonItem = backBarButtonItem
+        
+        viewModel.userCosmetic?.kind = viewModel.selectedIndex ?? 0
+        viewModel.userCosmetic?.expirationDate = datePicker.date
     }
     
     @objc func saveButtonTapped() {
@@ -169,7 +181,7 @@ extension DateModalViewController {
             buttonNext.backgroundColor = .systemGray6
         } else {
             buttonNext.isEnabled = true
-            buttonNext.backgroundColor = .setorange 
+            buttonNext.backgroundColor = .setorange
         }
     }
 }
