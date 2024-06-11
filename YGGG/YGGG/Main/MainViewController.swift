@@ -140,11 +140,6 @@ extension MainViewController {
         plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusButton)
-        print(self.navigationItem)
-        print(self.navigationItem.rightBarButtonItem)
-        print(self.navigationItem.leftBarButtonItem)
-        print(self.navigationItem.backBarButtonItem)
-        
     }
     
     func setupCollectionView() {
