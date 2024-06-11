@@ -1,26 +1,22 @@
 //
-//  ProfileService.swift
+//  MyProfileViewModel.swift
 //  YGGG
 //
-//  Created by Chung Wussup on 6/8/24.
+//  Created by Chung Wussup on 6/11/24.
 //
 
 import Foundation
 import Firebase
+import FirebaseAuth
+import GoogleSignIn
 
 
-let DB_RED = Firestore.firestore()
-let RED_USERS = DB_RED.collection("users")
-
-
-
-struct ProfileService {
-    
-    static let shared = ProfileService()
+class MyProfileViewModel {
+    private let auth = Auth.auth().currentUser
     
     func getData(completion: @escaping(User) -> Void) {
-        
-        RED_USERS.document("NuAyZbv5uPYZYCTJb6kqYHziFRq2").getDocument { (document, error) in
+        guard let uid = auth?.uid else { return }
+        RED_USERS.document(uid).getDocument { (document, error) in
             if let document = document, document.exists {
                 do {
                     if var data = document.data() {
@@ -44,7 +40,6 @@ struct ProfileService {
                         
                         let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
                         let decoder = JSONDecoder()
-                        decoder.dateDecodingStrategy = .iso8601
                         let user = try decoder.decode(User.self, from: jsonData)
                         
                         completion(user)
@@ -57,6 +52,18 @@ struct ProfileService {
             }
             
         }
-        
     }
+    
+    func authLogout(completion: @escaping() -> Void) {
+        do {
+            try Auth.auth().signOut()
+            GIDSignIn.sharedInstance.signOut()
+            GIDSignIn.sharedInstance.disconnect()
+     
+            completion()
+        } catch {
+            print("logout error")
+        }
+    }
+    
 }

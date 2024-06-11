@@ -131,29 +131,32 @@ class LoginViewController: UIViewController {
             let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: user.accessToken.tokenString)
             
             Auth.auth().signIn(with: credential) { result, error in
-                // At this point, our user is signed in
                 guard let user = result?.user else { return }
-                
-                COLLECTION_USERS.whereField("uid", isEqualTo: user.uid).getDocuments() { document, error in
-                    if ((document?.isEmpty) != nil) {
-                        print("Login Data already exists")
+       
+                let userRef = COLLECTION_USERS.document(user.uid)
+                userRef.getDocument { document, error in
+                    if let document = document, document.exists {
                         self.moveToMain()
                     } else {
+                        // Document does not exist, user is signing up
                         let data: [String: Any] = ["email": user.email as Any,
                                                    "uid": user.uid,
                                                    "snsRoot": "google",
                                                    "userName": user.displayName as Any,
                                                    "userImage": user.photoURL?.absoluteString ?? "",
                                                    "userHashTag": "",
-                                                   "userCosmetics": []]
+                                                   "userCosmetics": [],
+                                                   "bookmarkList": []]
                         
-                        COLLECTION_USERS.document(user.uid).setData(data)
-                        
-                        print("Success to Login")
-                        self.moveToMain()
+                        userRef.setData(data) { error in
+                            if let error = error {
+                                print("Error adding document: \(error)")
+                            } else {
+                                self.moveToMain()
+                            }
+                        }
                     }
                 }
-                
             }
         }
         

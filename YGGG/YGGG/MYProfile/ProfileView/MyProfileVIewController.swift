@@ -6,14 +6,11 @@
 //
 
 import UIKit
-import Firebase
-import GoogleSignIn
 
 class MyProfileVIewController: UIViewController{
-
     
     private let mainProfileView = ProfileMainView()
-    
+    private let viewModel = MyProfileViewModel()
     
     private lazy var settingTableView: UITableView = {
         let tv = UITableView()
@@ -31,8 +28,8 @@ class MyProfileVIewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-        configureDataSetup()
+        setupUI()
+        setupData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,14 +37,14 @@ class MyProfileVIewController: UIViewController{
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
-    private func configureUI() {
+    private func setupUI() {
         view.backgroundColor = .white
         view.addSubview(mainProfileView)
         
         mainProfileView.delegate = self
         
         mainProfileView.translatesAutoresizingMaskIntoConstraints = false
-       
+        
         [mainProfileView, settingTableView].forEach {
             view.addSubview($0)
         }
@@ -68,50 +65,39 @@ class MyProfileVIewController: UIViewController{
     }
     
     
-    private func configureDataSetup() {
-        mainProfileView.setupUI(userImage: "", userName: "Ruel", tombCount: 20, refrigeratorCount: 10, hashTag: "#하이", isMyProfile: true)
+    private func setupData()  {
+        viewModel.getData { user in
+            self.mainProfileView.setupUI(userImage: user.userImage, userName: user.userName,
+                                         tombCount: user.tombCount, 
+                                         refrigeratorCount: user.refrigeratorCount,
+                                         hashTag: user.email, isMyProfile: true)
+            
+        }
         
-    }
-    
-    
-    private func attributeButtonText(title: String, count: Int) -> NSAttributedString{
-        let normalAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 10)
-        ]
-        let boldAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.boldSystemFont(ofSize: 10)
-        ]
-        
-        let attributedString = NSMutableAttributedString(string: title, attributes: normalAttributes)
-        let countString = NSAttributedString(string: "\(count)", attributes: boldAttributes)
-        
-        attributedString.append(countString)
-        return attributedString
     }
     
 }
 
 extension MyProfileVIewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyProfileTableViewCell", for: indexPath) as? MyProfileTableViewCell {
+            
             switch indexPath.row {
             case 0:
                 cell.settingCell(iconHidden: true, title: "설정")
             case 1:
                 cell.settingCell(iconImageName: "settingUser", title: "계정")
             case 2:
-                cell.settingCell(iconImageName: "monitor", title: "화면")
-            case 3:
                 cell.settingCell(iconImageName: "bell", title: "알림")
-            case 4:
+            case 3:
                 cell.settingCell(iconImageName: "question", title: "문의")
-            case 5:
+            case 4:
                 cell.settingCell(iconImageName: "powerOff", title: "로그아웃")
-            case 6:
+            case 5:
                 cell.settingCell(subInfo: false)
             default:
                 break
@@ -122,19 +108,16 @@ extension MyProfileVIewController: UITableViewDelegate, UITableViewDataSource {
         
         return UITableViewCell()
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 5:
-            print("logout")
-            do {
-                try Auth.auth().signOut()
-                GIDSignIn.sharedInstance.signOut()
-                GIDSignIn.sharedInstance.disconnect()
+        case 1:
+            let vc = AccountViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        case 4:
+            viewModel.authLogout {
                 let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
                 sceneDelegate.moveToSplash()
-            } catch {
-                print("logout error")
             }
         default:
             break
@@ -146,33 +129,18 @@ extension MyProfileVIewController: UITableViewDelegate, UITableViewDataSource {
 
 extension MyProfileVIewController: ProfileMainViewDelegate {
     func profileImageTapped() {
-        print("profileImageTapped")
         let vc = MyProfileEditViewController()
-        
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
     func favoriteTapped() {
-        //        viewModel.changeFavorite { [weak self] in
-        //            self?.favoriteButtonSetup()
-        //        }
     }
     
 }
-//
-//extension MyProfileVIewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-//    
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//    
-//        if let selectedImage = info[.originalImage] as? UIImage {
-//            mainProfileView.changeImageView(image: selectedImage)
-////            profileImageView.image = selectedImage
-////            uploadImageToFirebase(selectedImage)
-//        }
-//        picker.dismiss(animated: true, completion: nil)
-//    }
-//    
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        picker.dismiss(animated: true, completion: nil)
-//    }
-//}
+
+extension MyProfileVIewController: MyProfileEditDelegate {
+    func changeUserDate(image: UIImage, name: String) {
+        self.mainProfileView.changeUserData(image: image, name: name)
+    }
+}

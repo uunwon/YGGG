@@ -26,13 +26,13 @@ class HashTagCVCell: UICollectionViewCell {
     }()
     
     private lazy var hashTagDeleteButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 13
         button.layer.masksToBounds = true
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.tintColor = .white
-        button.backgroundColor = .appPrimary
+        button.backgroundColor = .yggg_orange
         button.addTarget(self, action: #selector(hashTagDeleteButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -56,7 +56,7 @@ class HashTagCVCell: UICollectionViewCell {
     private func setupUI() {
         contentView.addSubview(titleView)
         titleView.addSubview(hashTagLabel)
-        titleView.addSubview(hashTagDeleteButton)
+        contentView.addSubview(hashTagDeleteButton)
         
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),

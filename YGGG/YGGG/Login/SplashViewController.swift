@@ -21,8 +21,9 @@ class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .appPrimary
-        
         view.addSubview(splashImageVIew)
+        
+        sleep(1)
         
         if let _ = Auth.auth().currentUser {
             // 로그인 여부 체크하기

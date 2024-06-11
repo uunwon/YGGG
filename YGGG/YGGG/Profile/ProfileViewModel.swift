@@ -15,6 +15,7 @@ struct User: Codable {
     let uid: String
     let userHashTag: String
     let bookmarkList: [String]
+    let snsRoot: String
     
     var refrigeratorCount: Int {
         return userCosmetics.filter { $0.expirationDateAsDate > Date() }.count

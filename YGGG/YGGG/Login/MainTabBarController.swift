@@ -11,7 +11,11 @@ class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = .appPrimary  // 색상 변경
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+        
         view.backgroundColor = .white
         
         // TODO: - 각 탭에 맞는 ViewController 대입하기
