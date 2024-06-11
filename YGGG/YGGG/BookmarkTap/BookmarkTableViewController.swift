@@ -1,8 +1,8 @@
 //
-//  BookmarkTableViewController.swift
+//  ControllerBookmarkTableView.swift
 //  YGGG
 //
-//  Created by 김영훈 on 6/4/24.
+//  Created by 김영훈 on 6/11/24.
 //
 
 import UIKit
@@ -29,11 +29,7 @@ class BookmarkTableViewController: UIViewController {
         return customSearchBar
     }()
     
-    var datas: [User] = []
-    var bookmarkList: [String] = []
-    
-    //task: 로그인된 계정의 id 가져오기
-    var myID = "67p8Fleq5wgDNnkEG2yB"
+    private let viewModel = BookmarkTableViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,69 +43,15 @@ class BookmarkTableViewController: UIViewController {
         
         self.navigationController?.isNavigationBarHidden = true
         
+        viewModel.onDataChanged = { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Task {
-//            await loadActiveUserID()
-            await loadBookmarkList()
-        }
-    }
-    
-    private func loadActiveUserID() async {
-        let user = Auth.auth().currentUser
-        if let user = user {
-            myID = user.uid
-        }
-    }
-    
-    private func loadBookmarkList() async {
-        do {
-            let db = Firestore.firestore()
-            let activeUserDocRef = db.collection("users").document(myID)
-            let activeUserData = try await activeUserDocRef.getDocument(as: User.self)
-            
-            bookmarkList = activeUserData.bookmarkList
-            
-            var loadedDatas: [User] = []
-            let snapshot = try await db.collection("users").whereField("uid", in: bookmarkList).getDocuments()
-            for document in snapshot.documents {
-                if let data = try? document.data(as: User.self) {
-                    loadedDatas.append(data)
-                }
-            }
-            
-            self.datas = loadedDatas
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        } catch {
-            print("Error getting documents: \(error)")
-        }
-    }
-    
-    private func loadFilteredList(searchText: String) async {
-        do {
-            let db = Firestore.firestore()
-            let snapshotByName = try await db.collection("users")
-                .whereField("userName", isGreaterThanOrEqualTo: searchText)
-                .whereField("userName", isLessThanOrEqualTo: searchText + "\u{f7ff}")
-                .getDocuments()
-            
-            var loadedDatas: [User] = []
-            for document in snapshotByName.documents {
-                if let data = try? document.data(as: User.self) {
-                    loadedDatas.append(data)
-                }
-            }
-            
-            self.datas = loadedDatas
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        } catch {
-            print("Error getting documents: \(error)")
+            await viewModel.loadBookmarkList()
         }
     }
     
@@ -177,31 +119,32 @@ class BookmarkTableViewController: UIViewController {
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            let keyboardHeight = keyboardSize.height
-            view.frame.size.height -= keyboardHeight
+            let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+            tableView.contentInset = contentInsets
+            tableView.scrollIndicatorInsets = contentInsets
         }
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            let keyboardHeight = keyboardSize.height
-            view.frame.size.height += keyboardHeight
-        }
+        let contentInsets = UIEdgeInsets.zero
+        tableView.contentInset = contentInsets
+        tableView.scrollIndicatorInsets = contentInsets
     }
 }
 
-extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegate, BookmarkTableViewControllerDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate {
+extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIPopoverPresentationControllerDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        datas.count
+        viewModel.datas.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as! BookmarkTableViewCell
         cell.selectionStyle = .none
-        cell.delegate = self
-        let userEntry = datas[indexPath.row]
-        cell.configureCell(user: userEntry, bookmarkList: bookmarkList)
+        cell.delegate = self.viewModel
+        let userEntry = viewModel.datas[indexPath.row]
+        cell.viewModel = BookmarkTableViewCellViewModel(user: userEntry, bookmarkList: viewModel.bookmarkList)
+        cell.configureCell()
         return cell
     }
     
@@ -214,38 +157,17 @@ extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegat
         print("이동")
     }
     
-    func toggleBookmark(uid: String, completion: @escaping (Bool) -> Void) async {
-        do {
-            let isBookmarked: Bool
-            if bookmarkList.contains(uid) {
-                bookmarkList = bookmarkList.filter { $0 != uid }
-                isBookmarked = false
-            } else {
-                bookmarkList.append(uid)
-                isBookmarked = true
-            }
-            
-            let db = Firestore.firestore()
-            let activeUserDocRef = db.collection("users").document(myID)
-            try await activeUserDocRef.updateData(["bookmarkList" : bookmarkList])
-            
-            completion(isBookmarked)
-        } catch {
-            print("Error toggling documents: \(error)")
-        }
-    }
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let customSearchBar = searchBar as? CustomSearchBar {
             if searchText.isEmpty {
                 customSearchBar.infoButton.isHidden = false
                 Task {
-                    await loadBookmarkList()
+                    await viewModel.loadBookmarkList()
                 }
             } else {
                 customSearchBar.infoButton.isHidden = true
                 Task {
-                    await loadFilteredList(searchText: searchText)
+                    await viewModel.loadFilteredList(searchText: searchText)
                 }
             }
         }
@@ -258,6 +180,4 @@ extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegat
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
-    
 }
-

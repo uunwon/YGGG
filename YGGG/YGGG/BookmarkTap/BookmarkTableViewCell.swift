@@ -6,13 +6,15 @@
 //
 
 import UIKit
-protocol BookmarkTableViewControllerDelegate {
+
+protocol BookmarkTableViewModelDelegate {
     func toggleBookmark(uid: String, completion: @escaping (Bool) -> Void) async
 }
 
 class BookmarkTableViewCell: UITableViewCell {
     
-    var delegate: BookmarkTableViewControllerDelegate?
+    var delegate: BookmarkTableViewModelDelegate?
+    var viewModel: BookmarkTableViewCellViewModel?
     
     private lazy var userPhotoView: UIImageView = {
         let userPhotoView = UIImageView()
@@ -122,38 +124,28 @@ class BookmarkTableViewCell: UITableViewCell {
             userItemCountStackView.leadingAnchor.constraint(equalTo: usernameLabel.leadingAnchor),
         ])
     }
-    
-    func configureCell(user: User, bookmarkList: [String]) {
-        var refrigeratorItems: [UserCosmetics] = []
-        var graveItems: [UserCosmetics] = []
+   
+    func configureCell() {
+        guard let viewModel = self.viewModel else { return }
         
-        if let photoURL = user.userImage, photoURL != "" {
+        if let photoURL = viewModel.userPhotoURL, photoURL != "" {
             loadImage(from: photoURL)
             
         } else {
             userPhotoView.image = UIImage(named: "userPhoto")
         }
         
-        usernameLabel.text = user.userName
-        userHashTagLabel.text = user.userHashTag
+        usernameLabel.text = viewModel.username
+        userHashTagLabel.text = viewModel.userHashTag
+        refrigeratorCountLabel.text = "\(viewModel.refrigeratorCount)"
+        graveCountLabel.text = "\(viewModel.graveCount)"
         
-        for cosmetic in user.userCosmetics {
-            if cosmetic.expirationDate.dateValue() < Date() {
-                graveItems.append(cosmetic)
-            } else {
-                refrigeratorItems.append(cosmetic)
-            }
-        }
-        refrigeratorCountLabel.text = "\(refrigeratorItems.count)"
-        graveCountLabel.text = "\(graveItems.count)"
-        
-        let isBookmarked = bookmarkList.contains(user.uid)
-        bookmarkToggleButton.setImage(UIImage(systemName: isBookmarked ? "heart.fill" : "heart"), for: .normal)
+        bookmarkToggleButton.setImage(UIImage(systemName: viewModel.isBookmarked ? "heart.fill" : "heart"), for: .normal)
         bookmarkToggleButton.removeTarget(nil, action: nil, for: .allEvents)
         bookmarkToggleButton.addAction(UIAction { [weak self] _ in
             Task {
                 if let delegate = self?.delegate {
-                    await delegate.toggleBookmark(uid: user.uid) { newState in
+                    await delegate.toggleBookmark(uid: viewModel.uid) { newState in
                         DispatchQueue.main.async {
                             self?.bookmarkToggleButton.setImage(UIImage(systemName: newState ? "heart.fill" : "heart"), for: .normal)
                         }
