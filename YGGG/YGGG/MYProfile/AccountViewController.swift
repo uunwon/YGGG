@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class AccountViewController: UIViewController {
     
@@ -32,6 +33,7 @@ class AccountViewController: UIViewController {
         button.configuration = configuration
         button.contentHorizontalAlignment = .left
         
+        button.addTarget(self, action: #selector(accountDeleteButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -65,4 +67,31 @@ class AccountViewController: UIViewController {
         
     }
     
+    
+    @objc func accountDeleteButtonTapped() {
+        guard let user = Auth.auth().currentUser else {
+            print("로그인 안되어잇음")
+            return
+        }
+        
+        
+        COLLECTION_USERS.document(user.uid).delete { error in
+            //유저데이터 삭제
+            if let error = error {
+                print("사용자 데이터 삭제 중 오류 발생 : \(error.localizedDescription)")
+            } else {
+                user.delete { error in
+                    if let error = error {
+                        print("사용자 삭제중 오류 발생 : \(error.localizedDescription)")
+                    } else {
+                        print("삭제 성공")
+                        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+                        sceneDelegate.moveToSplash()
+                    }
+                }
+            }
+        }
+        
+        
+    }
 }

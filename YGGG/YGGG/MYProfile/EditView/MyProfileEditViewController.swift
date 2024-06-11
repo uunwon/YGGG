@@ -127,7 +127,7 @@ class MyProfileEditViewController: UIViewController {
         button.tintColor = .white
         button.layer.cornerRadius = 20
         button.layer.masksToBounds = true
-        button.backgroundColor = UIColor(red: 53/255, green: 78/255, blue: 74/255, alpha: 1.0)
+        button.backgroundColor = .yggg_teal
         button.addTarget(self, action: #selector(addHashTagButtonTapped), for: .touchUpInside)
         return button
     }()

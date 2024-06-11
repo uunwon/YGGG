@@ -34,8 +34,6 @@ class MyProfileVIewController: UIViewController{
         super.viewDidLoad()
         configureUI()
         configureDataSetup()
-
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,7 +78,6 @@ class MyProfileVIewController: UIViewController{
                                         hashTag: user.email, isMyProfile: true)
                 
             }
-            
         }
     }
     
@@ -145,28 +142,27 @@ class MyProfileVIewController: UIViewController{
 
 extension MyProfileVIewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyProfileTableViewCell", for: indexPath) as? MyProfileTableViewCell {
+            
             switch indexPath.row {
-            case 0:
-                cell.settingCell(iconHidden: true, title: "설정")
-            case 1:
-                cell.settingCell(iconImageName: "settingUser", title: "계정")
-            case 2:
-                cell.settingCell(iconImageName: "monitor", title: "화면")
-            case 3:
-                cell.settingCell(iconImageName: "bell", title: "알림")
-            case 4:
-                cell.settingCell(iconImageName: "question", title: "문의")
-            case 5:
-                cell.settingCell(iconImageName: "powerOff", title: "로그아웃")
-            case 6:
-                cell.settingCell(subInfo: false)
-            default:
-                break
+                case 0:
+                    cell.settingCell(iconHidden: true, title: "설정")
+                case 1:
+                    cell.settingCell(iconImageName: "settingUser", title: "계정")
+                case 2:
+                    cell.settingCell(iconImageName: "bell", title: "알림")
+                case 3:
+                    cell.settingCell(iconImageName: "question", title: "문의")
+                case 4:
+                    cell.settingCell(iconImageName: "powerOff", title: "로그아웃")
+                case 5:
+                    cell.settingCell(subInfo: false)
+                default:
+                    break
             }
             
             return cell
@@ -180,8 +176,7 @@ extension MyProfileVIewController: UITableViewDelegate, UITableViewDataSource {
         case 1:
             let vc = AccountViewController()
             self.navigationController?.pushViewController(vc, animated: true)
-        case 5:
-            print("logout")
+        case 4:
             do {
                 try Auth.auth().signOut()
                 GIDSignIn.sharedInstance.signOut()
@@ -201,11 +196,9 @@ extension MyProfileVIewController: UITableViewDelegate, UITableViewDataSource {
 
 extension MyProfileVIewController: ProfileMainViewDelegate {
     func profileImageTapped() {
-        print("profileImageTapped")
+    
         let vc = MyProfileEditViewController()
         vc.delegate = self
-
-        
         navigationController?.pushViewController(vc, animated: true)
     }
     
