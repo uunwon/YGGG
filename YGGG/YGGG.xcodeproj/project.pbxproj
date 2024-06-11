@@ -167,6 +167,7 @@
 				4157B6D32C176ACF00B2CF2D /* LoginViewController.swift */,
 				4157B6D42C176ACF00B2CF2D /* MainTabBarController.swift */,
 				4157B6D52C176ACF00B2CF2D /* SplashViewController.swift */,
+				418C231D2C18772200A90924 /* DoubleTitleView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -275,7 +276,6 @@
 			isa = PBXGroup;
 			children = (
 				418C23222C18772200A90924 /* CustomCollectionViewCell.swift */,
-				418C231D2C18772200A90924 /* DoubleTitleView.swift */,
 				418C231C2C18772100A90924 /* FireBase */,
 				418C23212C18772200A90924 /* MainViewController.swift */,
 				418C232A2C18772200A90924 /* Modal */,

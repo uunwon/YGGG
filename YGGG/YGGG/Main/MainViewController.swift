@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
     var filterCategory: String = "전체"
     
     var topCategorys: [TopCategory] = [
-        TopCategory(imageName: "AllMenu", title: "전체"),
+        TopCategory(imageName: "allmenu", title: "전체"),
         TopCategory(imageName: "snowflake", title: "냉동"),
         TopCategory(imageName: "fridge", title: "냉장"),
         TopCategory(imageName: "body", title: "실온")
@@ -48,7 +48,7 @@ class MainViewController: UIViewController {
             
             return button
         }
-
+        
         let stackView = UIStackView(arrangedSubviews: buttons)
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -82,6 +82,10 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.reloadAction = {
+            self.collectionView.reloadData()
+        }
         viewModel.loadCosmetic()
         
         view.backgroundColor = .white
@@ -128,7 +132,7 @@ class MainViewController: UIViewController {
 extension MainViewController {
     func setupNavigationBar() {
         self.navigationItem.largeTitleDisplayMode = .never
-
+        
         doubleTitleView.leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
         doubleTitleView.rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
         
@@ -140,10 +144,6 @@ extension MainViewController {
         plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusButton)
-        print(self.navigationItem)
-        print(self.navigationItem.rightBarButtonItem)
-        print(self.navigationItem.leftBarButtonItem)
-        print(self.navigationItem.backBarButtonItem)
         
     }
     
