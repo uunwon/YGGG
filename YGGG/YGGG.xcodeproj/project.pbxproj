@@ -30,6 +30,8 @@
 		4157B6DE2C176AF500B2CF2D /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4157B6DD2C176AF500B2CF2D /* GoogleSignInSwift */; };
 		418279DD2C17E83800704E89 /* MyProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418279DC2C17E83800704E89 /* MyProfileEditViewModel.swift */; };
 		418279E02C17E90E00704E89 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 418279DF2C17E90E00704E89 /* FirebaseStorage */; };
+		418279E42C180DE700704E89 /* Extension+UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418279E32C180DE700704E89 /* Extension+UIImageView.swift */; };
+		418279E62C180E5B00704E89 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418279E52C180E5B00704E89 /* AccountViewController.swift */; };
 		41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8652C0EC83300A09411 /* AppDelegate.swift */; };
 		41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8672C0EC83300A09411 /* SceneDelegate.swift */; };
 		41CCE86A2C0EC83300A09411 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8692C0EC83300A09411 /* ViewController.swift */; };
@@ -71,6 +73,8 @@
 		4157B6D42C176ACF00B2CF2D /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		4157B6D52C176ACF00B2CF2D /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		418279DC2C17E83800704E89 /* MyProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileEditViewModel.swift; sourceTree = "<group>"; };
+		418279E32C180DE700704E89 /* Extension+UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIImageView.swift"; sourceTree = "<group>"; };
+		418279E52C180E5B00704E89 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		41CCE8622C0EC83300A09411 /* YGGG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YGGG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41CCE8652C0EC83300A09411 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41CCE8672C0EC83300A09411 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				413C0F072C11E23F00BBFBD7 /* Extension+UIColor.swift */,
+				418279E32C180DE700704E89 /* Extension+UIImageView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -130,11 +135,10 @@
 		414103FB2C16870A00381B7A /* MYProfile */ = {
 			isa = PBXGroup;
 			children = (
-				414103FC2C16872200381B7A /* MyProfileVIewController.swift */,
-				414104002C1693AC00381B7A /* MyProfileTableViewCell.swift */,
-				414104042C16EA6E00381B7A /* HashTagCVCell.swift */,
-				414104022C16BC9700381B7A /* MyProfileEditViewController.swift */,
-				418279DC2C17E83800704E89 /* MyProfileEditViewModel.swift */,
+				414103FE2C1688D000381B7A /* ProfileMainView.swift */,
+				418279E22C180DCC00704E89 /* ProfileView */,
+				418279E12C180DC200704E89 /* EditView */,
+				418279E52C180E5B00704E89 /* AccountViewController.swift */,
 			);
 			path = MYProfile;
 			sourceTree = "<group>";
@@ -154,6 +158,25 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		418279E12C180DC200704E89 /* EditView */ = {
+			isa = PBXGroup;
+			children = (
+				414104022C16BC9700381B7A /* MyProfileEditViewController.swift */,
+				418279DC2C17E83800704E89 /* MyProfileEditViewModel.swift */,
+			);
+			path = EditView;
+			sourceTree = "<group>";
+		};
+		418279E22C180DCC00704E89 /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				414103FC2C16872200381B7A /* MyProfileVIewController.swift */,
+				414104002C1693AC00381B7A /* MyProfileTableViewCell.swift */,
+				414104042C16EA6E00381B7A /* HashTagCVCell.swift */,
+			);
+			path = ProfileView;
 			sourceTree = "<group>";
 		};
 		41CCE8592C0EC83300A09411 = {
@@ -176,7 +199,6 @@
 		41CCE8642C0EC83300A09411 /* YGGG */ = {
 			isa = PBXGroup;
 			children = (
-				414103FE2C1688D000381B7A /* ProfileMainView.swift */,
 				4157B6D62C176ACF00B2CF2D /* Login */,
 				414103FB2C16870A00381B7A /* MYProfile */,
 				413C0F082C11E23F00BBFBD7 /* Extension */,
@@ -316,12 +338,14 @@
 				41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */,
 				5763B1C72C0EFC21007C0F57 /* MainViewController.swift in Sources */,
 				413C0F102C11E25300BBFBD7 /* CosmeticsTVCell.swift in Sources */,
+				418279E42C180DE700704E89 /* Extension+UIImageView.swift in Sources */,
 				414104052C16EA6E00381B7A /* HashTagCVCell.swift in Sources */,
 				413C0F112C11E25300BBFBD7 /* ProfileViewModel.swift in Sources */,
 				5763B1CB2C0F0574007C0F57 /* CustomCollectionViewCell.swift in Sources */,
 				5763B1CD2C0F057D007C0F57 /* StackViewCollectionViewCell.swift in Sources */,
 				414103FF2C1688D000381B7A /* ProfileMainView.swift in Sources */,
 				15A01A3C2C10001700C4FC47 /* SearchInfoViewController.swift in Sources */,
+				418279E62C180E5B00704E89 /* AccountViewController.swift in Sources */,
 				15A01A3E2C10003F00C4FC47 /* CustomSearchBar.swift in Sources */,
 				151AA1512C0EDD22000800DF /* BookmarkTableViewCell.swift in Sources */,
 				4122721D2C1422DB00E7ED9C /* ProfileService.swift in Sources */,

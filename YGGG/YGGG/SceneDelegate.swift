@@ -31,6 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func moveToMain(){
         let navi = UINavigationController(rootViewController: MainTabBarController())
+
         window?.rootViewController = navi
     }
     

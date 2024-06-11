@@ -177,6 +177,9 @@ extension MyProfileVIewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
+        case 1:
+            let vc = AccountViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
         case 5:
             print("logout")
             do {
@@ -201,6 +204,8 @@ extension MyProfileVIewController: ProfileMainViewDelegate {
         print("profileImageTapped")
         let vc = MyProfileEditViewController()
         vc.delegate = self
+
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     
