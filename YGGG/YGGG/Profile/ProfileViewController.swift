@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    private var viewModel = ProfileViewModel()
+    private var viewModel: ProfileViewModel?
     
     var categorySelectedIndex: IndexPath?
     private let mainProfileView = ProfileMainView()
@@ -41,6 +41,15 @@ class ProfileViewController: UIViewController {
         return tv
     }()
     
+    init(viewModel: ProfileViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,16 +59,21 @@ class ProfileViewController: UIViewController {
         
         categorySelectedIndex = IndexPath(row: 0, section: 0)
         categoryCV.selectItem(at: categorySelectedIndex, animated: false, scrollPosition: .left)
-        
-        viewModel.loadData {
+        view.backgroundColor = .white
+        viewModel?.loadData {
             self.configureUI()
             self.configureDataSetup()
         }
 //        ProfileService.shared.getData(completion: <#T##(User) -> Void#>)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     private func configureUI() {
-        view.backgroundColor = .white
+ 
 //        view.addSubview(mainProfileView)
         mainProfileView.translatesAutoresizingMaskIntoConstraints = false
         [mainProfileView, categoryCV, cosmeticsTV].forEach {
@@ -74,7 +88,7 @@ class ProfileViewController: UIViewController {
         
 //        view.addSubview(profileView)
         
-        navigationController?.navigationBar.backgroundColor = .blue
+        
         
         //categoryCV Constraint Setting
         NSLayoutConstraint.activate([
@@ -97,7 +111,8 @@ class ProfileViewController: UIViewController {
     }
     
     private func configureDataSetup() {
-        mainProfileView.setupUI(userImage: "",
+        guard let viewModel = self.viewModel else { return }
+        mainProfileView.setupUI(userImage: viewModel.getUserImage(),
                                 userName: viewModel.getUserName(), tombCount: viewModel.getUserTombCount(),
                                 refrigeratorCount: viewModel.getUserRefrigeratorCount(), hashTag: viewModel.getUserHashTag())
 
@@ -119,14 +134,16 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource  {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.topCateogoryCount()
+        guard let sectionCount = viewModel?.topCateogoryCount() else { return 0 }
+        return sectionCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCVCell", for: indexPath) as? CategoryCVCell {
             
-            let category = viewModel.getCategoryItem(index: indexPath.row)
-            cell.configureCell(category: category)
+            if let category = viewModel?.getCategoryItem(index: indexPath.row) {
+                cell.configureCell(category: category)
+            }
             cell.isSelected = (indexPath == categorySelectedIndex)
             
             return cell
@@ -135,7 +152,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.getSectionCosmetic(caseType: indexPath.row) {
+        viewModel?.getSectionCosmetic(caseType: indexPath.row) {
             self.cosmeticsTV.reloadData()
         }
     }
@@ -144,15 +161,17 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.cosmeticsCount()
+        return self.viewModel?.cosmeticsCount() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "CosmeticsTVCell", for: indexPath) as? CosmeticsTVCell {
             
-            let cosmetic = viewModel.getCosmetic(index: indexPath.row)
-            cell.configureCell(cosmetic: cosmetic)
+            if let cosmetic = viewModel?.getCosmetic(index: indexPath.row) {
+                cell.configureCell(cosmetic: cosmetic)
+            }
+            
             
             return cell
         }

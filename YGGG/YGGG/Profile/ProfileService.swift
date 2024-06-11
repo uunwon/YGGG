@@ -18,9 +18,9 @@ struct ProfileService {
     
     static let shared = ProfileService()
     
-    func getData(completion: @escaping(User) -> Void) {
+    func getData(uid: String, completion: @escaping(User) -> Void) {
         
-        RED_USERS.document("NuAyZbv5uPYZYCTJb6kqYHziFRq2").getDocument { (document, error) in
+        RED_USERS.document(uid).getDocument { (document, error) in
             if let document = document, document.exists {
                 do {
                     if var data = document.data() {

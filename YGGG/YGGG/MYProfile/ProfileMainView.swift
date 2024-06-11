@@ -167,7 +167,7 @@ class ProfileMainView: UIView {
     
     
     func setupUI(userImage: String, userName: String, tombCount: Int, refrigeratorCount: Int, hashTag: String, isMyProfile: Bool = false) {
-        print(userImage)
+        
         profileImageView.loadImage(from: userImage)
         nickNameLabel.text = userName
         
