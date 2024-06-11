@@ -15,6 +15,7 @@ class MyProfileEditViewController: UIViewController {
     private let viewModel = MyProfileEditViewModel()
     weak var delegate: MyProfileEditDelegate?
     
+    
     private let imageViewContainer: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -160,7 +161,7 @@ class MyProfileEditViewController: UIViewController {
         let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = .appPrimary
         self.navigationItem.backBarButtonItem = backBarButtonItem
-
+        
         setupUI()
         getUserData()
     }
@@ -171,33 +172,32 @@ class MyProfileEditViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self, 
-                                                  name: UIResponder.keyboardWillShowNotification, 
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(self, 
-                                                  name: UIResponder.keyboardWillHideNotification,
-                                                  object: nil)
-    }
+//    deinit {
+//        NotificationCenter.default.removeObserver(self,
+//                                                  name: UIResponder.keyboardWillShowNotification,
+//                                                  object: nil)
+//        NotificationCenter.default.removeObserver(self,
+//                                                  name: UIResponder.keyboardWillHideNotification,
+//                                                  object: nil)
+//    }
     
     func setupUI() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, 
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                                  action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
         
         view.backgroundColor = .white
         navigationItem.title = "프로필"
         
-        let rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain, 
+        let rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain,
                                                  target: self, action: #selector(saveButtonTapped))
         rightBarButtonItem.tintColor = .appPrimary
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
-        self.navigationController?.navigationBar.accessibilityIgnoresInvertColors = true
         self.navigationController?.navigationBar.backgroundColor = .white
-        
+
         
         view.addSubview(imageViewContainer)
         
@@ -219,7 +219,7 @@ class MyProfileEditViewController: UIViewController {
             profileImageView.heightAnchor.constraint(equalToConstant: 120),
             profileImageView.widthAnchor.constraint(equalToConstant: 120),
             
-            cameraImageView.trailingAnchor.constraint(equalTo: profileImageView.trailingAnchor, 
+            cameraImageView.trailingAnchor.constraint(equalTo: profileImageView.trailingAnchor,
                                                       constant: -10),
             cameraImageView.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor),
             cameraImageView.heightAnchor.constraint(equalToConstant: 26),
@@ -241,7 +241,7 @@ class MyProfileEditViewController: UIViewController {
                                                constant: 10),
             infoStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             infoStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            infoStackView.bottomAnchor.constraint(greaterThanOrEqualTo: view.bottomAnchor),
+            infoStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor),
             
             
             nickNameLabel.heightAnchor.constraint(equalToConstant: 15),
@@ -254,16 +254,16 @@ class MyProfileEditViewController: UIViewController {
             
             hashTagTF.centerYAnchor.constraint(equalTo: hashTagMainView.centerYAnchor),
             hashTagTF.leadingAnchor.constraint(equalTo: hashTagMainView.leadingAnchor),
-            hashTagTF.trailingAnchor.constraint(equalTo: tagAddButton.leadingAnchor, 
+            hashTagTF.trailingAnchor.constraint(equalTo: tagAddButton.leadingAnchor,
                                                 constant: -10),
             
             tagAddButton.centerYAnchor.constraint(equalTo: hashTagMainView.centerYAnchor),
             tagAddButton.trailingAnchor.constraint(equalTo: hashTagMainView.trailingAnchor),
-          
+            
             tagAddButton.heightAnchor.constraint(equalToConstant: 48),
             tagAddButton.widthAnchor.constraint(equalToConstant: 76),
             
-            hashTagCV.heightAnchor.constraint(lessThanOrEqualToConstant: 120)
+            hashTagCV.heightAnchor.constraint(greaterThanOrEqualToConstant: 120)
             
         ])
         
@@ -308,20 +308,21 @@ class MyProfileEditViewController: UIViewController {
             }
         }
     }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= 120
-            }
-        }
-    }
 
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
-    }
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y == 0 {
+//                self.view.frame.origin.y -= 120
+//            }
+//        }
+//    }
+//    
+//    @objc func keyboardWillHide(notification: NSNotification) {
+//        if self.view.frame.origin.y != 0 {
+//            self.view.frame.origin.y = 0
+//        }
+//
+//    }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
@@ -329,15 +330,15 @@ class MyProfileEditViewController: UIViewController {
     
 }
 
-extension MyProfileEditViewController: UICollectionViewDelegate, 
+extension MyProfileEditViewController: UICollectionViewDelegate,
                                         UICollectionViewDataSource,
-                                        UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, 
+                                       UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         return hashTags.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, 
+    func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HashTagCVCell",
@@ -385,13 +386,13 @@ extension MyProfileEditViewController: UITextFieldDelegate {
         addHashTagButtonTapped()
         return true
     }
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, 
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
-
+        
         // 입력된 텍스트가 유효한지 확인
         guard let char = string.cString(using: String.Encoding.utf8) else { return true }
         let backSpace = strcmp(char, "\\b")
-
+        
         // 텍스트의 길이가 10 이상이면서 백스페이스가 아닌 경우
         if textField.text!.count >= 4 {
             if backSpace != -92 {
@@ -442,8 +443,8 @@ extension MyProfileEditViewController: UITextFieldDelegate {
         // 'ㄱ'(0x3131)부터 'ㅎ'(0x314E)까지가 자음의 유니코드 범위
         return unicodeScalarValue >= 0x3131 && unicodeScalarValue <= 0x314E
     }
-
-
+    
+    
     //텍스트가 모음인지 확인
     func isVowel(_ character: Character) -> Bool {
         let unicodeScalarValue = character.unicodeScalars.first!.value
