@@ -36,9 +36,10 @@ struct TopCategory: Codable {
 struct Cosmetics: Codable {
     let imageName: String
     let title: String
-    let purchaseDate: String
-    let expirationDate: String
+    let purchaseDate: Timestamp
+    let expirationDate: Timestamp
     let kind: Int // 0: 냉동, 1: 냉장, 2: 실온
+    let category: String
     
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -56,22 +57,26 @@ struct Cosmetics: Codable {
     
     
     var isExpired: Bool {
-        guard let expirationDate = dateFormatter.date(from: expirationDate) else { return false }
+//        guard let expirationDate = dateFormatter.date(from: expirationDate) else { return false }
+        let expirationDate = expirationDate.dateValue()
         return expirationDate < Date()
     }
     
     var purchaseString: String {
-        guard let purchaseDate = inputDateFormatter.date(from: purchaseDate) else { return "Invalid date" }
+//        guard let purchaseDate = inputDateFormatter.date(from: purchaseDate) else { return "Invalid date" }
+        let purchaseDate = purchaseDate.dateValue()
         return dateFormatter.string(from: purchaseDate)
     }
     
     var expirationString: String {
-        guard let expirationDate = inputDateFormatter.date(from: expirationDate) else { return "Invalid date" }
+//        guard let expirationDate = inputDateFormatter.date(from: expirationDate) else { return "Invalid date" }
+        let expirationDate = expirationDate.dateValue()
         return dateFormatter.string(from: expirationDate)
     }
     
     var expirationDateAsDate: Date {
-        return dateFormatter.date(from: expirationDate) ?? Date()
+//        return dateFormatter.date(from: expirationDate) ?? Date()
+        return expirationDate.dateValue()
     }
 }
 
