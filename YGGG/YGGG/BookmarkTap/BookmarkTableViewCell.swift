@@ -18,6 +18,7 @@ class BookmarkTableViewCell: UITableViewCell {
     
     private lazy var userPhotoView: UIImageView = {
         let userPhotoView = UIImageView()
+        userPhotoView.image = UIImage(named: "userPhoto")
         userPhotoView.layer.cornerRadius = 32.5
         userPhotoView.layer.borderWidth = 2.0
         userPhotoView.layer.borderColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1.0).cgColor
@@ -128,11 +129,9 @@ class BookmarkTableViewCell: UITableViewCell {
     func configureCell() {
         guard let viewModel = self.bookmarkCellViewModel else { return }
         
+        userPhotoView.image = UIImage(named: "userPhoto")
         if let photoURL = viewModel.userPhotoURL, photoURL != "" {
             loadImage(from: photoURL)
-            
-        } else {
-            userPhotoView.image = UIImage(named: "userPhoto")
         }
         
         usernameLabel.text = viewModel.username
