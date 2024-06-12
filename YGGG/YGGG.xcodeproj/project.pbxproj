@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		151AA1532C0EDD6C000800DF /* UserInfoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AA1522C0EDD6C000800DF /* UserInfoEntry.swift */; };
 		4122721D2C1422DB00E7ED9C /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4122721C2C1422DB00E7ED9C /* ProfileService.swift */; };
 		413C0F092C11E23F00BBFBD7 /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F072C11E23F00BBFBD7 /* Extension+UIColor.swift */; };
 		413C0F0E2C11E25300BBFBD7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */; };
@@ -62,7 +61,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		151AA1522C0EDD6C000800DF /* UserInfoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoEntry.swift; sourceTree = "<group>"; };
 		4122721C2C1422DB00E7ED9C /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		413C0F072C11E23F00BBFBD7 /* Extension+UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
 		413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -266,7 +264,6 @@
 				41CCE86E2C0EC83400A09411 /* Assets.xcassets */,
 				5330C2AB2C0EE54800136C4D /* Launch Screen.storyboard */,
 				41CCE8732C0EC83400A09411 /* Info.plist */,
-				151AA1522C0EDD6C000800DF /* UserInfoEntry.swift */,
 			);
 			path = YGGG;
 			sourceTree = "<group>";
@@ -388,7 +385,6 @@
 				418C230C2C18692700A90924 /* SearchInfoViewController.swift in Sources */,
 				418C23382C18772200A90924 /* OptionTableViewController.swift in Sources */,
 				418279DD2C17E83800704E89 /* MyProfileEditViewModel.swift in Sources */,
-				151AA1532C0EDD6C000800DF /* UserInfoEntry.swift in Sources */,
 				418C23322C18772200A90924 /* CircleButtonCell.swift in Sources */,
 				418C232B2C18772200A90924 /* FireBase.swift in Sources */,
 				4157B6D82C176ACF00B2CF2D /* MainTabBarController.swift in Sources */,

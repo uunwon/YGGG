@@ -19,7 +19,6 @@ class BookmarkTableViewModel {
     init() {
         Task {
             await loadActiveUserID()
-//            await loadBookmarkList()
         }
     }
     
@@ -37,6 +36,7 @@ class BookmarkTableViewModel {
             let activeUserData = try await activeUserDocRef.getDocument(as: User.self)
         
             //bookmarkList가 필요없지 않은지..?
+            //toogleBookmark함수에서 위에 세 줄 다시 안쓰려고 bookmarkList에 담아놨어요
             bookmarkList = activeUserData.bookmarkList
             
             if !(activeUserData.bookmarkList.isEmpty) {
@@ -52,6 +52,8 @@ class BookmarkTableViewModel {
                 DispatchQueue.main.async {
                     self.onDataChanged?()
                 }
+            } else {
+                self.datas = []
             }
         } catch {
             print("Error getting documents: \(error)")
