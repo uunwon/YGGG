@@ -84,4 +84,5 @@ class ModalViewModel {
     }
     
     var reloadAction: (() -> Void)? = nil
+
 }

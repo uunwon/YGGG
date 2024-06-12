@@ -15,7 +15,16 @@ enum Tab {
 // MARK: main
 
 class MainViewController: UIViewController {
-    let viewModel = ModalViewModel()
+    var viewModel = ModalViewModel()
+    
+    init(viewModel: ModalViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     var tab = Tab.home
     let cellHeight: CGFloat = 150
@@ -83,9 +92,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.reloadAction = {
-            self.collectionView.reloadData()
-        }
         viewModel.loadCosmetic()
         
         view.backgroundColor = .white
@@ -118,11 +124,14 @@ class MainViewController: UIViewController {
             filteredCosmetics = viewModel.userCosmetics
         }
         
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        
         switch tab {
         case .home:
-            return filteredCosmetics.filter { $0.expirationDate.dateValue() >= Date() }
+            return filteredCosmetics.filter { $0.expirationDate.dateValue() >= today }
         case .grave:
-            return filteredCosmetics.filter { $0.expirationDate.dateValue() < Date() }
+            return filteredCosmetics.filter { $0.expirationDate.dateValue() < today }
         }
     }
 }
@@ -160,7 +169,7 @@ extension MainViewController {
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             
             collectionView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
