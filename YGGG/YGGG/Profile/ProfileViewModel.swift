@@ -8,7 +8,10 @@
 import Foundation
 import Firebase
 
-
+struct TopCategory: Codable {
+    let imageName: String
+    let title: String
+}
 struct User: Codable {
     let userImage: String
     let userName: String
@@ -27,10 +30,7 @@ struct User: Codable {
     let userCosmetics: [Cosmetics]
 }
 
-struct TopCategory: Codable {
-    let imageName: String
-    let title: String
-}
+
 
 struct Cosmetics: Codable {
     let imageName: String
@@ -49,7 +49,7 @@ struct Cosmetics: Codable {
     
     private var inputDateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        formatter.dateFormat = "yyyy.MM.dd"
         
         return formatter
     }
@@ -81,6 +81,36 @@ struct Cosmetics: Codable {
             return date
         }
         return Date()
+    }
+    enum CodingKeys: String, CodingKey {
+        case imageName, title, purchaseDate, expirationDate, kind, category
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        imageName = try container.decode(String.self, forKey: .imageName)
+        title = try container.decode(String.self, forKey: .title)
+
+        // purchaseDate를 Timestamp로 디코딩 후 String으로 변환
+        if let timestamp = try? container.decode(Timestamp.self, forKey: .purchaseDate) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy.MM.dd"
+            purchaseDate = dateFormatter.string(from: timestamp.dateValue())
+        } else {
+            purchaseDate = try container.decode(String.self, forKey: .purchaseDate)
+        }
+
+        // expirationDate를 Timestamp로 디코딩 후 String으로 변환
+        if let timestamp = try? container.decode(Timestamp.self, forKey: .expirationDate) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy.MM.dd"
+            expirationDate = dateFormatter.string(from: timestamp.dateValue())
+        } else {
+            expirationDate = try container.decode(String.self, forKey: .expirationDate)
+        }
+
+        kind = try container.decode(Int.self, forKey: .kind)
+        category = try container.decode(String.self, forKey: .category)
     }
 }
 
@@ -177,6 +207,10 @@ class ProfileViewModel {
     
     func getUserImage() -> String {
         return user?.userImage ?? ""
+    }
+    
+    func getUserUid() -> String {
+        return user?.uid ?? ""
     }
 
 }

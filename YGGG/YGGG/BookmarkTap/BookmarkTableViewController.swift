@@ -36,6 +36,10 @@ class BookmarkTableViewController: UIViewController {
         
         view.backgroundColor = .white
         
+        Task {
+            await bookmarkTableViewModel.loadBookmarkList()
+        }
+        
         setupCustomSearchBar()
         setupTableView()
         setupTapGesture()
@@ -50,9 +54,7 @@ class BookmarkTableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        Task {
-            await bookmarkTableViewModel.loadBookmarkList()
-        }
+
     }
     
     private func setupCustomSearchBar() {

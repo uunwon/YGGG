@@ -26,7 +26,7 @@ struct ProfileService {
                     if var data = document.data() {
                       
                         let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+                        dateFormatter.dateFormat = "yyyy.MM.dd"
                         
                         if let userCosmetics = data["userCosmetics"] as? [[String: Any]] {
                             var updatedUserCosmetics = [[String: Any]]()

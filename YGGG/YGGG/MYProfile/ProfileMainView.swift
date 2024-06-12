@@ -34,6 +34,8 @@ class ProfileMainView: UIView {
     
     private lazy var favoriteButton: UIButton = {
         let button = UIButton()
+//        button.setImage(UIImage(systemName: viewModel.isBookmarked ? "heart.fill" : "heart"), for: .normal)
+        button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.favoriteTapped()
@@ -180,7 +182,11 @@ class ProfileMainView: UIView {
         if isMyProfile {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
             profileImageView.addGestureRecognizer(tapGestureRecognizer)
+            favoriteButton.isHidden = true
+        } else {
+            favoriteButton.isHidden = false
         }
+        
     }
     
     @objc private func imageTapped(_ sender: UITapGestureRecognizer) {

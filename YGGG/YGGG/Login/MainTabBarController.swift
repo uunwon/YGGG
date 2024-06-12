@@ -53,7 +53,7 @@ class MainTabBarController: UITabBarController {
         )
         
         tabBar.tintColor = UIColor.yggg_green
-        
+        tabBar.backgroundColor = .white
         let tabBarList = [followViewController, homeViewController, myViewController]
         viewControllers = tabBarList
     }

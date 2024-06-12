@@ -17,6 +17,14 @@ class CosmeticsTVCell: UITableViewCell {
         return view
     }()
     
+    private let cosmeticsView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 40
+        view.layer.masksToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private let cosmaticsImageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +35,7 @@ class CosmeticsTVCell: UITableViewCell {
         let sv = UIStackView()
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.axis = .vertical
-        sv.spacing = 12
+        sv.spacing = 10
         
         return sv
     }()
@@ -44,17 +52,19 @@ class CosmeticsTVCell: UITableViewCell {
         let sv = UIStackView()
         sv.translatesAutoresizingMaskIntoConstraints = false
         sv.axis = .vertical
-
+        
         return sv
     }()
     
     let purchaseDateLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14)
         return label
     }()
     
     let expirationDateLabel: UILabel = {
         let label = UILabel()
+        label.font = .systemFont(ofSize: 14)
         return label
     }()
     
@@ -82,13 +92,24 @@ class CosmeticsTVCell: UITableViewCell {
             mainView.heightAnchor.constraint(equalToConstant: 137)
         ])
         
-        mainView.addSubview(cosmaticsImageView)
+        mainView.addSubview(cosmeticsView)
         NSLayoutConstraint.activate([
-            cosmaticsImageView.widthAnchor.constraint(equalToConstant: 78),
-            cosmaticsImageView.heightAnchor.constraint(equalToConstant: 87),
-            cosmaticsImageView.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 25),
-            cosmaticsImageView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 23),
-            cosmaticsImageView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -25)
+            cosmeticsView.widthAnchor.constraint(equalToConstant: 80),
+            cosmeticsView.heightAnchor.constraint(equalToConstant: 80),
+            cosmeticsView.centerYAnchor.constraint(equalTo: mainView.centerYAnchor),
+            cosmeticsView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 23),
+        
+        ])
+        
+        cosmeticsView.addSubview(cosmaticsImageView)
+        NSLayoutConstraint.activate([
+            cosmaticsImageView.centerXAnchor.constraint(equalTo: cosmeticsView.centerXAnchor),
+            cosmaticsImageView.centerYAnchor.constraint(equalTo: cosmeticsView.centerYAnchor),
+            
+            cosmaticsImageView.topAnchor.constraint(equalTo: cosmeticsView.topAnchor, constant: 20),
+            cosmaticsImageView.leadingAnchor.constraint(equalTo: cosmeticsView.leadingAnchor, constant: 20),
+            cosmaticsImageView.trailingAnchor.constraint(equalTo: cosmeticsView.trailingAnchor,constant: -20),
+            cosmaticsImageView.bottomAnchor.constraint(equalTo: cosmeticsView.bottomAnchor, constant: -20)
         ])
         
         
@@ -103,10 +124,10 @@ class CosmeticsTVCell: UITableViewCell {
         }
         
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 30),
-            mainStackView.leadingAnchor.constraint(equalTo: cosmaticsImageView.trailingAnchor, constant: 18),
+
+            mainStackView.leadingAnchor.constraint(equalTo: cosmeticsView.trailingAnchor, constant: 18),
             mainStackView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -5),
-            mainStackView.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -15)
+            mainStackView.centerYAnchor.constraint(equalTo: mainView.centerYAnchor)
         ])
         
     }
@@ -116,18 +137,20 @@ class CosmeticsTVCell: UITableViewCell {
         print("configureCell", cosmetic)
         let image: UIImage?
         if cosmetic.isExpired {
-            image = UIImage(systemName: cosmetic.imageName)?.withRenderingMode(.alwaysTemplate)
-            cosmaticsImageView.tintColor = UIColor.gray
+            image = UIImage(named: cosmetic.imageName)
+            cosmeticsView.backgroundColor = .gray
+            
         } else {
-            image = UIImage(systemName: cosmetic.imageName)?.withRenderingMode(.alwaysOriginal)
-            cosmaticsImageView.tintColor = nil
+            image = UIImage(named: cosmetic.imageName)
+            cosmeticsView.backgroundColor = .yggg_green
+            
         }
         
         cosmaticsImageView.image = image
         
         cosmeticLabel.text = cosmetic.title
-        purchaseDateLabel.text = "구매날짜: \(cosmetic.purchaseString)"
-        expirationDateLabel.text = "유통기한: \(cosmetic.expirationString)"
+        purchaseDateLabel.text = "종류: \(cosmetic.category)"
+        expirationDateLabel.text = "유통기한: \(cosmetic.expirationDate)"
     }
     
 }

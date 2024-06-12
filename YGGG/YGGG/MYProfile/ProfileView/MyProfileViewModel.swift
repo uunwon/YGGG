@@ -22,7 +22,7 @@ class MyProfileViewModel {
                     if var data = document.data() {
                         // Convert FIRTimestamp to formatted date string
                         let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                        dateFormatter.dateFormat = "yyyy.MM.dd"
                         
                         if let userCosmetics = data["userCosmetics"] as? [[String: Any]] {
                             var updatedUserCosmetics = [[String: Any]]()

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 
 class ProfileViewController: UIViewController {
     
@@ -112,9 +112,11 @@ class ProfileViewController: UIViewController {
     
     private func configureDataSetup() {
         guard let viewModel = self.viewModel else { return }
+        
         mainProfileView.setupUI(userImage: viewModel.getUserImage(),
-                                userName: viewModel.getUserName(), tombCount: viewModel.getUserTombCount(),
-                                refrigeratorCount: viewModel.getUserRefrigeratorCount(), hashTag: viewModel.getUserHashTag())
+                                userName: viewModel.getUserName(), tombCount: viewModel.getUserRefrigeratorCount(),
+                                refrigeratorCount: viewModel.getUserTombCount(), hashTag: viewModel.getUserHashTag(),
+                                isMyProfile: viewModel.getUserUid() == Auth.auth().currentUser?.uid)
 
         favoriteButtonSetup()
     }

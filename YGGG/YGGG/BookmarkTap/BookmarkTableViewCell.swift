@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 protocol BookmarkTableViewModelDelegate {
     func toggleBookmark(uid: String, completion: @escaping (Bool) -> Void) async
@@ -131,13 +132,16 @@ class BookmarkTableViewCell: UITableViewCell {
         
         userPhotoView.image = UIImage(named: "userPhoto")
         if let photoURL = viewModel.userPhotoURL, photoURL != "" {
-            loadImage(from: photoURL)
+            userPhotoView.loadImage(from: photoURL)
         }
         
         usernameLabel.text = viewModel.username
         userHashTagLabel.text = viewModel.userHashTag
         refrigeratorCountLabel.text = "\(viewModel.refrigeratorCount)"
         graveCountLabel.text = "\(viewModel.graveCount)"
+    
+            
+        bookmarkToggleButton.isHidden = viewModel.uid == Auth.auth().currentUser?.uid ? true : false
         
         bookmarkToggleButton.setImage(UIImage(systemName: viewModel.isBookmarked ? "heart.fill" : "heart"), for: .normal)
         bookmarkToggleButton.removeTarget(nil, action: nil, for: .allEvents)
@@ -154,26 +158,5 @@ class BookmarkTableViewCell: UITableViewCell {
         }, for: .touchUpInside)
     }
     
-    func loadImage(from urlString: String) {
-        guard let url = URL(string: urlString) else {
-            print("loadImage Invalid URL")
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                print("Error loading image: \(error)")
-                return
-            }
-            
-            guard let data = data, let image = UIImage(data: data) else {
-                print("No data or failed to create image")
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.userPhotoView.image = image
-            }
-        }.resume()
-    }
+  
 }
