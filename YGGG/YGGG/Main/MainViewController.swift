@@ -15,7 +15,16 @@ enum Tab {
 // MARK: main
 
 class MainViewController: UIViewController {
-    let viewModel = ModalViewModel()
+    var viewModel = ModalViewModel()
+    
+    init(viewModel: ModalViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     var tab = Tab.home
     let cellHeight: CGFloat = 150
@@ -23,7 +32,7 @@ class MainViewController: UIViewController {
     var filterCategory: String = "전체"
     
     var topCategorys: [TopCategory] = [
-        TopCategory(imageName: "AllMenu", title: "전체"),
+        TopCategory(imageName: "allmenu", title: "전체"),
         TopCategory(imageName: "snowflake", title: "냉동"),
         TopCategory(imageName: "fridge", title: "냉장"),
         TopCategory(imageName: "body", title: "실온")
@@ -48,7 +57,7 @@ class MainViewController: UIViewController {
             
             return button
         }
-
+        
         let stackView = UIStackView(arrangedSubviews: buttons)
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -82,6 +91,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         viewModel.loadCosmetic()
         
         view.backgroundColor = .white
@@ -114,11 +124,14 @@ class MainViewController: UIViewController {
             filteredCosmetics = viewModel.userCosmetics
         }
         
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        
         switch tab {
         case .home:
-            return filteredCosmetics.filter { $0.expirationDate.dateValue() >= Date() }
+            return filteredCosmetics.filter { $0.expirationDate.dateValue() >= today }
         case .grave:
-            return filteredCosmetics.filter { $0.expirationDate.dateValue() < Date() }
+            return filteredCosmetics.filter { $0.expirationDate.dateValue() < today }
         }
     }
 }
@@ -128,7 +141,7 @@ class MainViewController: UIViewController {
 extension MainViewController {
     func setupNavigationBar() {
         self.navigationItem.largeTitleDisplayMode = .never
-
+        
         doubleTitleView.leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
         doubleTitleView.rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
         
@@ -140,6 +153,7 @@ extension MainViewController {
         plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusButton)
+        
     }
     
     func setupCollectionView() {
@@ -155,7 +169,7 @@ extension MainViewController {
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             
             collectionView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])

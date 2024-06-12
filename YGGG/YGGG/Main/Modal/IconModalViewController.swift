@@ -123,10 +123,10 @@ extension IconModalViewController {
         viewModel.userCosmetic.imageName = cosmeticIcons[selectedCellIndex?.row ?? 0]
         
         let userCosmetic = viewModel.userCosmetic
-            viewModel.userCosmetics.append(userCosmetic)
-            ModalViewModel().addNewCosmetic(userCosmetic)
-            viewModel.reloadAction?()
-        
+        viewModel.addNewCosmetic(userCosmetic)
+        viewModel.loadCosmetic()
+        viewModel.reloadAction?()
+        viewModel.selectedIndex = nil
         dismiss(animated: true, completion: nil)
     }
     

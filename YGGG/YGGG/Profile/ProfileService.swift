@@ -24,12 +24,13 @@ struct ProfileService {
             if let document = document, document.exists {
                 do {
                     if var data = document.data() {
-                        // Convert FIRTimestamp to formatted date string
+                      
                         let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
                         
                         if let userCosmetics = data["userCosmetics"] as? [[String: Any]] {
                             var updatedUserCosmetics = [[String: Any]]()
+                            
                             for var cosmetic in userCosmetics {
                                 if let expirationDate = cosmetic["expirationDate"] as? Timestamp {
                                     cosmetic["expirationDate"] = dateFormatter.string(from: expirationDate.dateValue())
@@ -44,13 +45,12 @@ struct ProfileService {
                         
                         let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
                         let decoder = JSONDecoder()
-                        decoder.dateDecodingStrategy = .iso8601
                         let user = try decoder.decode(User.self, from: jsonData)
                         
                         completion(user)
                     }
                 } catch let error {
-                    print("Error converting document data to JSON: \(error.localizedDescription)")
+                    print("Error converting document data to JSON: \(error)")
                 }
             } else {
                 print("Document does not exist")

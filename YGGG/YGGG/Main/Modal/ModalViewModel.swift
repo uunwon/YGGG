@@ -11,10 +11,17 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class ModalViewModel {
+    var userCosmetics = [UserCosmetics]()
+    
     let options = cosmeticOptions
     var selectedIndex: Int? = nil
     
-    let userRef = Firestore.firestore().collection("users").document("KUopIURXK9e7k9t8vnSxzzDaGYy1")
+    private var userRef: DocumentReference? {
+        if let userUUID = Auth.auth().currentUser?.uid {
+            return Firestore.firestore().collection("users").document(userUUID)
+        }
+        return nil
+    }
     
     func addNewCosmetic(_ viewModel: UserCosmetics) {
         let cosmetic: [String: Any] = [
@@ -26,7 +33,7 @@ class ModalViewModel {
             "category": viewModel.category
         ]
         
-        userRef.updateData(["userCosmetics": FieldValue.arrayUnion([cosmetic])]) { error in
+        userRef?.updateData(["userCosmetics": FieldValue.arrayUnion([cosmetic])]) { error in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
             } else {
@@ -36,7 +43,7 @@ class ModalViewModel {
     }
     
     func loadCosmetic() {
-        userRef.getDocument { (documentSnapshot, error) in
+        userRef?.getDocument { (documentSnapshot, error) in
             if let error = error {
                 print("Error: \(error.localizedDescription)")
                 return
@@ -66,8 +73,6 @@ class ModalViewModel {
         }
     }
     
-    var userCosmetics = [UserCosmetics]()
-    
     var userCosmetic = UserCosmetics(expirationDate: Timestamp(date: Date()), purchaseDate: Timestamp(date: Date()), title: "", category: "", imageName: "", kind: 0)
     
     var selectedOption: String {
@@ -79,4 +84,5 @@ class ModalViewModel {
     }
     
     var reloadAction: (() -> Void)? = nil
+
 }

@@ -18,12 +18,11 @@ struct User: Codable {
     let snsRoot: String
     
     var refrigeratorCount: Int {
-        return userCosmetics.filter { $0.expirationDateAsDate > Date() }.count
-    }
-    var tombCount: Int {
         return userCosmetics.filter { $0.expirationDateAsDate < Date() }.count
     }
-    //    var isFavorite: Bool = false
+    var tombCount: Int {
+        return userCosmetics.filter { $0.expirationDateAsDate > Date() }.count
+    }
     let email: String
     let userCosmetics: [Cosmetics]
 }
@@ -36,8 +35,8 @@ struct TopCategory: Codable {
 struct Cosmetics: Codable {
     let imageName: String
     let title: String
-    let purchaseDate: Timestamp
-    let expirationDate: Timestamp
+    let purchaseDate: String
+    let expirationDate: String
     let kind: Int // 0: 냉동, 1: 냉장, 2: 실온
     let category: String
     
@@ -50,33 +49,38 @@ struct Cosmetics: Codable {
     
     private var inputDateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
         
         return formatter
     }
     
     
     var isExpired: Bool {
-//        guard let expirationDate = dateFormatter.date(from: expirationDate) else { return false }
-        let expirationDate = expirationDate.dateValue()
-        return expirationDate < Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        
+        if let date = dateFormatter.date(from: expirationDate) {
+            return date < Date()
+        }
+        return false
     }
     
     var purchaseString: String {
-//        guard let purchaseDate = inputDateFormatter.date(from: purchaseDate) else { return "Invalid date" }
-        let purchaseDate = purchaseDate.dateValue()
-        return dateFormatter.string(from: purchaseDate)
+        return purchaseDate
     }
     
     var expirationString: String {
-//        guard let expirationDate = inputDateFormatter.date(from: expirationDate) else { return "Invalid date" }
-        let expirationDate = expirationDate.dateValue()
-        return dateFormatter.string(from: expirationDate)
+        return expirationDate
     }
     
     var expirationDateAsDate: Date {
-//        return dateFormatter.date(from: expirationDate) ?? Date()
-        return expirationDate.dateValue()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        
+        if let date = dateFormatter.date(from: expirationDate) {
+            return date
+        }
+        return Date()
     }
 }
 

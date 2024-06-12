@@ -165,6 +165,7 @@
 				4157B6D32C176ACF00B2CF2D /* LoginViewController.swift */,
 				4157B6D42C176ACF00B2CF2D /* MainTabBarController.swift */,
 				4157B6D52C176ACF00B2CF2D /* SplashViewController.swift */,
+				418C231D2C18772200A90924 /* DoubleTitleView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -221,11 +222,11 @@
 			isa = PBXGroup;
 			children = (
 				418C23232C18772200A90924 /* CircleButtonCell.swift */,
+				418C23282C18772200A90924 /* NameModalViewController.swift */,
+				418C23262C18772200A90924 /* KindModalViewController.swift */,
 				418C23242C18772200A90924 /* DateModalViewController.swift */,
 				418C23252C18772200A90924 /* IconModalViewController.swift */,
-				418C23262C18772200A90924 /* KindModalViewController.swift */,
 				418C23272C18772200A90924 /* ModalViewModel.swift */,
-				418C23282C18772200A90924 /* NameModalViewController.swift */,
 				418C23292C18772200A90924 /* OptionTableViewController.swift */,
 			);
 			path = Modal;
@@ -272,7 +273,6 @@
 			isa = PBXGroup;
 			children = (
 				418C23222C18772200A90924 /* CustomCollectionViewCell.swift */,
-				418C231D2C18772200A90924 /* DoubleTitleView.swift */,
 				418C231C2C18772100A90924 /* FireBase */,
 				418C23212C18772200A90924 /* MainViewController.swift */,
 				418C232A2C18772200A90924 /* Modal */,
