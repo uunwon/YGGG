@@ -13,7 +13,8 @@ import FirebaseAuth
 class ModalViewModel {
     var userCosmetics = [UserCosmetics]()
     
-    let options = cosmeticOptions
+    let options = ["냉동", "냉장", "실온"]
+    
     var selectedIndex: Int? = nil
     
     private var userRef: DocumentReference? {

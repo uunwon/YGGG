@@ -75,7 +75,7 @@ class DateModalViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "선택"
         label.font = .systemFont(ofSize: 17)
-        label.textColor = .orange
+        label.textColor = .setneworange
         return label
     }()
     
@@ -159,7 +159,7 @@ extension DateModalViewController {
         self.navigationController?.pushViewController(nextView, animated: true)
         
         let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .black  // 색상 변경
+        backBarButtonItem.tintColor = .setneworange  // 색상 변경
         self.navigationItem.backBarButtonItem = backBarButtonItem
         
         viewModel.userCosmetic.kind = viewModel.selectedIndex ?? 0

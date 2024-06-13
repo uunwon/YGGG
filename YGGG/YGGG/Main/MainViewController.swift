@@ -49,8 +49,6 @@ class MainViewController: UIViewController {
             
             let button = UIButton(configuration: configuration, primaryAction: nil)
             button.backgroundColor = UIColor(red: 248/255, green: 245/255, blue: 245/255, alpha: 1.0)
-//            button.layer.borderWidth = 0.5
-//            button.layer.borderColor = UIColor.lightGray.cgColor
             button.layer.cornerRadius = 10
             button.clipsToBounds = true
             button.addTarget(self, action: #selector(filterButtonTapped(_:)), for: .touchUpInside)
@@ -201,24 +199,12 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
 extension MainViewController {
     @objc func leftButtonTapped() {
         tab = .home
-        
         collectionView.reloadData()
-        
-        doubleTitleView.leftButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
-        doubleTitleView.rightButton.titleLabel?.font = .systemFont(ofSize: 25)
-        doubleTitleView.rightButton.setTitleColor(.gray, for: .normal)
-        doubleTitleView.leftButton.setTitleColor(.black, for: .normal)
     }
     
     @objc func rightButtonTapped() {
         tab = .grave
-        
         collectionView.reloadData()
-        
-        doubleTitleView.leftButton.titleLabel?.font = .systemFont(ofSize: 25)
-        doubleTitleView.rightButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
-        doubleTitleView.leftButton.setTitleColor(.gray, for: .normal)
-        doubleTitleView.rightButton.setTitleColor(.black, for: .normal)
     }
     
     @objc func plusButtonTapped() {

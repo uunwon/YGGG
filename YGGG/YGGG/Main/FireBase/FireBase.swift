@@ -28,7 +28,7 @@ import FirebaseFirestore
 //        self.bookmarkList = bookmarkList
 //    }
 //}
-//
+
 class UserCosmetics: Codable {
     var expirationDate: Timestamp
     var purchaseDate: Timestamp

@@ -7,6 +7,15 @@
 
 import UIKit
 
+struct Cosmetic {
+    let name: String
+}
+
+struct CosmeticCategory {
+    let category: String
+    let cosmetics: [Cosmetic]
+}
+
 // MARK: main
 
 class KindModalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -139,7 +148,7 @@ extension KindModalViewController {
         navigationController?.pushViewController(nextView, animated: true)
 
         let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .black
+        backBarButtonItem.tintColor = .setneworange
         navigationItem.backBarButtonItem = backBarButtonItem
         viewModel.userCosmetic.category = selectedKind ?? ""
     }
