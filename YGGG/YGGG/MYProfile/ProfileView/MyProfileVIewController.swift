@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MessageUI
 
 class MyProfileVIewController: UIViewController{
     
@@ -74,9 +75,23 @@ class MyProfileVIewController: UIViewController{
                                          hashTag: user.email, isMyProfile: true)
             
         }
-        
     }
     
+    private func sendEmail() {
+        if MFMailComposeViewController.canSendMail() {
+            let mailComposeVC = MFMailComposeViewController()
+            mailComposeVC.mailComposeDelegate = self
+            mailComposeVC.setToRecipients(["nadana0929@gmail.com"]) // 받는 사람 이메일 주소
+            mailComposeVC.setSubject("문의 사항") // 이메일 제목
+            mailComposeVC.setMessageBody("여기에 내용을 입력하세요.", isHTML: false) // 이메일 본문
+            
+            self.present(mailComposeVC, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "메일 설정 오류", message: "이메일 계정을 설정해주세요.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }
 
 extension MyProfileVIewController: UITableViewDelegate, UITableViewDataSource {
@@ -115,6 +130,8 @@ extension MyProfileVIewController: UITableViewDelegate, UITableViewDataSource {
         case 1:
             let vc = AccountViewController()
             self.navigationController?.pushViewController(vc, animated: true)
+        case 3:
+            self.sendEmail()
         case 4:
             viewModel.authLogout {
                 let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
@@ -124,9 +141,26 @@ extension MyProfileVIewController: UITableViewDelegate, UITableViewDataSource {
             break
         }
     }
-    
-    
 }
+
+extension MyProfileVIewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+        switch result {
+        case .cancelled:
+            print("사용자가 이메일 작성을 취소했습니다.")
+        case .saved:
+            print("이메일이 임시 저장되었습니다.")
+        case .sent:
+            print("이메일이 발송되었습니다.")
+        case .failed:
+            print("이메일 전송에 실패했습니다.")
+        @unknown default:
+            print("알 수 없는 오류가 발생했습니다.")
+        }
+    }
+}
+
 
 extension MyProfileVIewController: ProfileMainViewDelegate {
     func profileImageTapped() {
