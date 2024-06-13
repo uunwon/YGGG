@@ -47,9 +47,7 @@ class SplashViewController: UIViewController {
     private lazy var splashImageViewConstraints: [NSLayoutConstraint] = {
         return [
             splashImageVIew.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            splashImageVIew.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            splashImageVIew.heightAnchor.constraint(equalToConstant: 300),
-            splashImageVIew.widthAnchor.constraint(equalToConstant: 300)
+            splashImageVIew.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ]
     }()
     

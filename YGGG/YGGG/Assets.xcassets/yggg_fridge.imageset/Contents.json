@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "fridge.png",
+      "filename" : "refrigerator.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "refrigerator 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "refrigerator 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
