@@ -198,8 +198,8 @@
 		418C23062C18692700A90924 /* BookmarkTap */ = {
 			isa = PBXGroup;
 			children = (
-				418C23002C18692700A90924 /* BookmarkTableViewCell.swift */,
 				418C23012C18692700A90924 /* BookmarkTableViewCellViewModel.swift */,
+				418C23002C18692700A90924 /* BookmarkTableViewCell.swift */,
 				418C23022C18692700A90924 /* BookmarkTableViewController.swift */,
 				418C23032C18692700A90924 /* BookmarkTableViewModel.swift */,
 				418C23042C18692700A90924 /* CustomSearchBar.swift */,

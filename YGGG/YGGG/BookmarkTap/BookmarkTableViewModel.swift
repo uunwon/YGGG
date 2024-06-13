@@ -15,6 +15,8 @@ class BookmarkTableViewModel {
     var myID = ""
     
     var onDataChanged: (() -> Void)?
+    var showEmptyBookmarkText: (() -> Void)?
+    var hideListEmptyLabel: (() -> Void)?
     
     init() {
         Task {
@@ -52,6 +54,11 @@ class BookmarkTableViewModel {
             }
             DispatchQueue.main.async {
                 self.onDataChanged?()
+//                if self.datas.isEmpty {
+//                    self.showEmptyBookmarkText?()
+//                } else {
+//                    self.hideListEmptyLabel?()
+//                }
             }
         } catch {
             print("Error getting documents: \(error)")
