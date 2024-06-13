@@ -48,9 +48,9 @@ class MainViewController: UIViewController {
             configuration.baseForegroundColor = .label
             
             let button = UIButton(configuration: configuration, primaryAction: nil)
-            button.backgroundColor = .white
-            button.layer.borderWidth = 0.5
-            button.layer.borderColor = UIColor.lightGray.cgColor
+            button.backgroundColor = UIColor(red: 248/255, green: 245/255, blue: 245/255, alpha: 1.0)
+//            button.layer.borderWidth = 0.5
+//            button.layer.borderColor = UIColor.lightGray.cgColor
             button.layer.cornerRadius = 10
             button.clipsToBounds = true
             button.addTarget(self, action: #selector(filterButtonTapped(_:)), for: .touchUpInside)
@@ -233,7 +233,7 @@ extension MainViewController {
     }
     
     @objc func filterButtonTapped(_ sender: UIButton) {
-        selectedButton?.backgroundColor = .white
+        selectedButton?.backgroundColor = UIColor(red: 248/255, green: 245/255, blue: 245/255, alpha: 1.0)
         sender.backgroundColor = .setorange
         selectedButton = sender
         

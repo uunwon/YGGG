@@ -17,9 +17,9 @@ class StackViewCollectionViewCell: UICollectionViewCell {
             let button = UIButton()
             button.setTitle($0, for: .normal)
             button.setTitleColor(.label, for: .normal)
-            button.backgroundColor = .white
-            button.layer.borderWidth = 0.5
-            button.layer.borderColor = UIColor.lightGray.cgColor
+            button.backgroundColor = UIColor(red: 248/255, green: 245/255, blue: 245/255, alpha: 1.0)
+//            button.layer.borderWidth = 0.5
+//            button.layer.borderColor = UIColor.lightGray.cgColor
             button.layer.cornerRadius = 10
             button.clipsToBounds = true
             return button
