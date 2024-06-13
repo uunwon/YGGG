@@ -134,7 +134,6 @@ class CosmeticsTVCell: UITableViewCell {
     
     
     func configureCell(cosmetic: Cosmetics) {
-        print("configureCell", cosmetic)
         let image: UIImage?
         if cosmetic.isExpired {
             image = UIImage(named: cosmetic.imageName)

@@ -34,8 +34,7 @@ class ProfileMainView: UIView {
     
     private lazy var favoriteButton: UIButton = {
         let button = UIButton()
-//        button.setImage(UIImage(systemName: viewModel.isBookmarked ? "heart.fill" : "heart"), for: .normal)
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
+        button.tintColor = .appGreen
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.favoriteTapped()

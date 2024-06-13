@@ -214,28 +214,22 @@ class ProfileViewModel {
         return user?.uid ?? ""
     }
     
-    func getFavoriteState() -> Bool {
-        var returnBool: Bool = false
-        guard let otherUserUid = self.user?.uid else { return returnBool }
+    func getFavoriteState(completion: @escaping (Bool) -> Void) {
+        guard let otherUserUid = self.user?.uid,
+              let uid = Auth.auth().currentUser?.uid else {
+            completion(false)
+            return
+        }
         
-        if let uid = Auth.auth().currentUser?.uid {
-            COLLECTION_USERS.document(uid).getDocument { documnet, error in
-                
-                if let document = documnet, document.exists {
-                    if let bookmarkList = document.data()?["bookmarkList"] as? [String] {
-                        
-                        if bookmarkList.contains(otherUserUid) {
-                            returnBool = true
-                        } else{
-                            returnBool = false
-                        }
-                    }
-                }
+        COLLECTION_USERS.document(uid).getDocument { document, error in
+            if let document = document, document.exists,
+               let bookmarkList = document.data()?["bookmarkList"] as? [String] {
+                completion(bookmarkList.contains(otherUserUid))
+            } else {
+                completion(false)
             }
         }
-        return returnBool
     }
-    
     
     func userFavorite(completion: @escaping(Bool) -> Void) {
         var bookmark = [String]()

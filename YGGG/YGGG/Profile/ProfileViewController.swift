@@ -106,8 +106,9 @@ class ProfileViewController: UIViewController {
                                 refrigeratorCount: viewModel.getUserTombCount(), hashTag: viewModel.getUserHashTag(),
                                 isMyProfile: viewModel.getUserUid() == Auth.auth().currentUser?.uid)
 
-        mainProfileView.favoriteButtonSetup(isBookMark: !viewModel.getFavoriteState())
-    
+        viewModel.getFavoriteState {[weak self] isBookMark in
+            self?.mainProfileView.favoriteButtonSetup(isBookMark: isBookMark)
+        }
     }    
 }
 
