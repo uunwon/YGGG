@@ -50,7 +50,7 @@ class MainTabBarController: UITabBarController {
             selectedImage: UIImage(systemName: "person.fill")
         )
         
-        tabBar.tintColor = UIColor.yggg_green
+        tabBar.tintColor = .setgreen
         tabBar.backgroundColor = .white
         let tabBarList = [followViewController, homeViewController, myViewController]
         viewControllers = tabBarList
