@@ -198,9 +198,6 @@ class ProfileMainView: UIView {
         delegate?.profileImageTapped()
     }
     
-    
-  
-    
     private func attributeButtonText(title: String, count: Int) -> NSAttributedString{
         let normalAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 10)

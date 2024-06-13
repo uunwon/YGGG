@@ -80,8 +80,6 @@ extension MainTabBarController {
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: CustomNaviView(title: "북마크"))
         } else if viewController is MyProfileVIewController {
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: CustomNaviView(title: "프로필"))
-            
-            
         }
     }
     

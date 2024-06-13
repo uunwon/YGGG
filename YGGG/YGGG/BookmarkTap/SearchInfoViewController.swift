@@ -20,12 +20,9 @@ class SearchInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .white
-        
         setupLabel()
         updatePreferredContentSize()
-//        self.preferredContentSize = CGSize(width: 220, height: 130)
     }
     
     private func setupLabel() {

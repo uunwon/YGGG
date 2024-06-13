@@ -90,7 +90,6 @@ class MainViewController: UIViewController {
         viewModel.loadCosmetic()
         
         view.backgroundColor = .white
-//        setupNavigationBar()
         setupCollectionView()
         
         if let firstButton = stackView.arrangedSubviews.first as? UIButton {

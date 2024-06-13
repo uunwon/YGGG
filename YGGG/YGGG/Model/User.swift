@@ -201,7 +201,6 @@ class ProfileViewModel {
         return user?.userName ?? ""
     }
     
-    //    func getUserHashTag() -> [String] {
     func getUserHashTag() -> String {
         return user?.userHashTag ?? ""
     }
@@ -221,41 +220,20 @@ class ProfileViewModel {
             return
         }
         
-        COLLECTION_USERS.document(uid).getDocument { document, error in
-            if let document = document, document.exists,
-               let bookmarkList = document.data()?["bookmarkList"] as? [String] {
-                completion(bookmarkList.contains(otherUserUid))
-            } else {
-                completion(false)
-            }
+        service.getFavoriteState(uid: uid, otherUid: otherUserUid) { isFavorite in
+            completion(isFavorite)
         }
+        
     }
     
     func userFavorite(completion: @escaping(Bool) -> Void) {
-        guard let otherUserUid = self.user?.uid, let uid = Auth.auth().currentUser?.uid else { return }
+        guard let otherUserUid = self.user?.uid, 
+                let uid = Auth.auth().currentUser?.uid else { return }
 
-        COLLECTION_USERS.document(uid).getDocument { document, error in
-            guard let document = document, document.exists,
-                  var bookmarkList = document.data()?["bookmarkList"] as? [String] else {
-                print("Document does not exist or error occurred")
-                return
-            }
-            
-            let isFavorite = bookmarkList.contains(otherUserUid)
-            if isFavorite {
-                bookmarkList.removeAll { $0 == otherUserUid }
-            } else {
-                bookmarkList.append(otherUserUid)
-            }
-            
-            COLLECTION_USERS.document(uid).updateData(["bookmarkList": bookmarkList]) { error in
-                if let error = error {
-                    print("업데이트 에러, \(error.localizedDescription)")
-                } else {
-                    completion(!isFavorite)
-                }
-            }
+        service.userFavorite(uid: uid, otherUid: otherUserUid) { favorite in
+            completion(favorite)
         }
+        
     }
     
 }

@@ -14,7 +14,7 @@
 		413C0F0E2C11E25300BBFBD7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */; };
 		413C0F0F2C11E25300BBFBD7 /* CategoryCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F0B2C11E25300BBFBD7 /* CategoryCVCell.swift */; };
 		413C0F102C11E25300BBFBD7 /* CosmeticsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F0C2C11E25300BBFBD7 /* CosmeticsTVCell.swift */; };
-		413C0F112C11E25300BBFBD7 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F0D2C11E25300BBFBD7 /* ProfileViewModel.swift */; };
+		413C0F112C11E25300BBFBD7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F0D2C11E25300BBFBD7 /* User.swift */; };
 		414103FD2C16872200381B7A /* MyProfileVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414103FC2C16872200381B7A /* MyProfileVIewController.swift */; };
 		414103FF2C1688D000381B7A /* ProfileMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414103FE2C1688D000381B7A /* ProfileMainView.swift */; };
 		414104012C1693AC00381B7A /* MyProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414104002C1693AC00381B7A /* MyProfileTableViewCell.swift */; };
@@ -28,7 +28,7 @@
 		418279E62C180E5B00704E89 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418279E52C180E5B00704E89 /* AccountViewController.swift */; };
 		418279E82C1837FD00704E89 /* MyProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418279E72C1837FD00704E89 /* MyProfileViewModel.swift */; };
 		418C23072C18692700A90924 /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23002C18692700A90924 /* BookmarkTableViewCell.swift */; };
-		418C23082C18692700A90924 /* BookmarkTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23012C18692700A90924 /* BookmarkTableViewCellViewModel.swift */; };
+		418C23082C18692700A90924 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23012C18692700A90924 /* Bookmark.swift */; };
 		418C23092C18692700A90924 /* BookmarkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23022C18692700A90924 /* BookmarkTableViewController.swift */; };
 		418C230A2C18692700A90924 /* BookmarkTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23032C18692700A90924 /* BookmarkTableViewModel.swift */; };
 		418C230B2C18692700A90924 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23042C18692700A90924 /* CustomSearchBar.swift */; };
@@ -40,7 +40,7 @@
 		418C23162C186A4900A90924 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 418C23152C186A4900A90924 /* FirebaseFirestore */; };
 		418C23182C186A4900A90924 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 418C23172C186A4900A90924 /* FirebaseStorage */; };
 		418C231A2C186A7400A90924 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 418C23192C186A7400A90924 /* FirebaseFirestoreSwift */; };
-		418C232B2C18772200A90924 /* FireBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C231B2C18772100A90924 /* FireBase.swift */; };
+		418C232B2C18772200A90924 /* Cosmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C231B2C18772100A90924 /* Cosmetic.swift */; };
 		418C23302C18772200A90924 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23212C18772200A90924 /* MainViewController.swift */; };
 		418C23312C18772200A90924 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23222C18772200A90924 /* CustomCollectionViewCell.swift */; };
 		418C23322C18772200A90924 /* CircleButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23232C18772200A90924 /* CircleButtonCell.swift */; };
@@ -65,7 +65,7 @@
 		413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		413C0F0B2C11E25300BBFBD7 /* CategoryCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCVCell.swift; sourceTree = "<group>"; };
 		413C0F0C2C11E25300BBFBD7 /* CosmeticsTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmeticsTVCell.swift; sourceTree = "<group>"; };
-		413C0F0D2C11E25300BBFBD7 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		413C0F0D2C11E25300BBFBD7 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		414103FC2C16872200381B7A /* MyProfileVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVIewController.swift; sourceTree = "<group>"; };
 		414103FE2C1688D000381B7A /* ProfileMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMainView.swift; sourceTree = "<group>"; };
 		414104002C1693AC00381B7A /* MyProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileTableViewCell.swift; sourceTree = "<group>"; };
@@ -79,12 +79,12 @@
 		418279E52C180E5B00704E89 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		418279E72C1837FD00704E89 /* MyProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewModel.swift; sourceTree = "<group>"; };
 		418C23002C18692700A90924 /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
-		418C23012C18692700A90924 /* BookmarkTableViewCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		418C23012C18692700A90924 /* Bookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		418C23022C18692700A90924 /* BookmarkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewController.swift; sourceTree = "<group>"; };
 		418C23032C18692700A90924 /* BookmarkTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewModel.swift; sourceTree = "<group>"; };
 		418C23042C18692700A90924 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		418C23052C18692700A90924 /* SearchInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchInfoViewController.swift; sourceTree = "<group>"; };
-		418C231B2C18772100A90924 /* FireBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBase.swift; sourceTree = "<group>"; };
+		418C231B2C18772100A90924 /* Cosmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cosmetic.swift; sourceTree = "<group>"; };
 		418C23212C18772200A90924 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		418C23222C18772200A90924 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		418C23232C18772200A90924 /* CircleButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleButtonCell.swift; sourceTree = "<group>"; };
@@ -127,7 +127,6 @@
 				413C0F0B2C11E25300BBFBD7 /* CategoryCVCell.swift */,
 				413C0F0C2C11E25300BBFBD7 /* CosmeticsTVCell.swift */,
 				413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */,
-				413C0F0D2C11E25300BBFBD7 /* ProfileViewModel.swift */,
 				4122721C2C1422DB00E7ED9C /* ProfileService.swift */,
 			);
 			path = Profile;
@@ -171,6 +170,16 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		414E85932C1B3C610053BD97 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				418C231B2C18772100A90924 /* Cosmetic.swift */,
+				413C0F0D2C11E25300BBFBD7 /* User.swift */,
+				418C23012C18692700A90924 /* Bookmark.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		4157B6D62C176ACF00B2CF2D /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,7 +220,6 @@
 		418C23062C18692700A90924 /* BookmarkTap */ = {
 			isa = PBXGroup;
 			children = (
-				418C23012C18692700A90924 /* BookmarkTableViewCellViewModel.swift */,
 				418C23002C18692700A90924 /* BookmarkTableViewCell.swift */,
 				418C23022C18692700A90924 /* BookmarkTableViewController.swift */,
 				418C23032C18692700A90924 /* BookmarkTableViewModel.swift */,
@@ -219,14 +227,6 @@
 				418C23052C18692700A90924 /* SearchInfoViewController.swift */,
 			);
 			path = BookmarkTap;
-			sourceTree = "<group>";
-		};
-		418C231C2C18772100A90924 /* FireBase */ = {
-			isa = PBXGroup;
-			children = (
-				418C231B2C18772100A90924 /* FireBase.swift */,
-			);
-			path = FireBase;
 			sourceTree = "<group>";
 		};
 		418C232A2C18772200A90924 /* Modal */ = {
@@ -270,6 +270,7 @@
 				5763B1C52C0EFC00007C0F57 /* Main */,
 				414103FB2C16870A00381B7A /* MYProfile */,
 				413C0F062C11E22100BBFBD7 /* Profile */,
+				414E85932C1B3C610053BD97 /* Model */,
 				413C0F082C11E23F00BBFBD7 /* Extension */,
 				41CCE8792C0EC9FD00A09411 /* GoogleService-Info.plist */,
 				41CCE86E2C0EC83400A09411 /* Assets.xcassets */,
@@ -282,7 +283,6 @@
 		5763B1C52C0EFC00007C0F57 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				418C231C2C18772100A90924 /* FireBase */,
 				418C23212C18772200A90924 /* MainViewController.swift */,
 				418C23222C18772200A90924 /* CustomCollectionViewCell.swift */,
 				418C232A2C18772200A90924 /* Modal */,
@@ -374,7 +374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				418C23082C18692700A90924 /* BookmarkTableViewCellViewModel.swift in Sources */,
+				418C23082C18692700A90924 /* Bookmark.swift in Sources */,
 				418C23312C18772200A90924 /* CustomCollectionViewCell.swift in Sources */,
 				418C230A2C18692700A90924 /* BookmarkTableViewModel.swift in Sources */,
 				418C23332C18772200A90924 /* DateModalViewController.swift in Sources */,
@@ -393,7 +393,7 @@
 				418C23382C18772200A90924 /* OptionTableViewController.swift in Sources */,
 				418279DD2C17E83800704E89 /* MyProfileEditViewModel.swift in Sources */,
 				418C23322C18772200A90924 /* CircleButtonCell.swift in Sources */,
-				418C232B2C18772200A90924 /* FireBase.swift in Sources */,
+				418C232B2C18772200A90924 /* Cosmetic.swift in Sources */,
 				4157B6D82C176ACF00B2CF2D /* MainTabBarController.swift in Sources */,
 				418C230B2C18692700A90924 /* CustomSearchBar.swift in Sources */,
 				41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */,
@@ -406,7 +406,7 @@
 				418279E42C180DE700704E89 /* Extension+UIImageView.swift in Sources */,
 				414104052C16EA6E00381B7A /* HashTagCVCell.swift in Sources */,
 				418C23362C18772200A90924 /* ModalViewModel.swift in Sources */,
-				413C0F112C11E25300BBFBD7 /* ProfileViewModel.swift in Sources */,
+				413C0F112C11E25300BBFBD7 /* User.swift in Sources */,
 				414103FF2C1688D000381B7A /* ProfileMainView.swift in Sources */,
 				418C23092C18692700A90924 /* BookmarkTableViewController.swift in Sources */,
 				418279E62C180E5B00704E89 /* AccountViewController.swift in Sources */,

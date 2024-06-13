@@ -54,11 +54,6 @@ class BookmarkTableViewModel {
             }
             DispatchQueue.main.async {
                 self.onDataChanged?()
-//                if self.datas.isEmpty {
-//                    self.showEmptyBookmarkText?()
-//                } else {
-//                    self.hideListEmptyLabel?()
-//                }
             }
         } catch {
             print("Error getting documents: \(error)")
