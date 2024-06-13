@@ -17,8 +17,7 @@ enum Tab {
 class MainViewController: UIViewController {
     var viewModel = ModalViewModel()
     
-    init(viewModel: ModalViewModel) {
-        self.viewModel = viewModel
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -99,6 +98,10 @@ class MainViewController: UIViewController {
         if let firstButton = stackView.arrangedSubviews.first as? UIButton {
             filterButtonTapped(firstButton)
         }
+        viewModel.reloadAction = {
+            self.collectionView.reloadData()
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -8,7 +8,6 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-    let viewModel = ModalViewModel()
 
     let doubleTitleView = DoubleTitleView()
     
@@ -25,13 +24,12 @@ class MainTabBarController: UITabBarController {
         backBarButtonItem.tintColor = .setneworange
         self.navigationItem.backBarButtonItem = backBarButtonItem
         self.delegate = self
-        viewModel.loadCosmetic()
         
         
         view.backgroundColor = .white
         
         let followViewController = BookmarkTableViewController()
-        let homeViewController = MainViewController(viewModel: viewModel)
+        let homeViewController = MainViewController()
         let myViewController = MyProfileVIewController()
         
         followViewController.tabBarItem = UITabBarItem(
