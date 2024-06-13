@@ -24,8 +24,8 @@ class SearchInfoViewController: UIViewController {
         view.backgroundColor = .white
         
         setupLabel()
-        
-        self.preferredContentSize = CGSize(width: 220, height: 130)
+        updatePreferredContentSize()
+//        self.preferredContentSize = CGSize(width: 220, height: 130)
     }
     
     private func setupLabel() {
@@ -37,4 +37,12 @@ class SearchInfoViewController: UIViewController {
             label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
         ])
     }
+    
+    private func updatePreferredContentSize() {
+          let targetSize = CGSize(width: 220, height: UIView.layoutFittingCompressedSize.height)
+          let labelSize = label.systemLayoutSizeFitting(targetSize,
+                                                        withHorizontalFittingPriority: .required,
+                                                        verticalFittingPriority: .fittingSizeLevel)
+          self.preferredContentSize = CGSize(width: 220, height: labelSize.height + 40)
+      }
 }
