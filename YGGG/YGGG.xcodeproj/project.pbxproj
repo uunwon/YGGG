@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		411646F22C1AAB0E008C3694 /* CustomNaviView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411646F12C1AAB0E008C3694 /* CustomNaviView.swift */; };
+		411646F42C1ADAF6008C3694 /* NaviDoubleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411646F32C1ADAF6008C3694 /* NaviDoubleButtonView.swift */; };
 		4122721D2C1422DB00E7ED9C /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4122721C2C1422DB00E7ED9C /* ProfileService.swift */; };
 		413C0F092C11E23F00BBFBD7 /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F072C11E23F00BBFBD7 /* Extension+UIColor.swift */; };
 		413C0F0E2C11E25300BBFBD7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */; };
@@ -59,6 +60,7 @@
 
 /* Begin PBXFileReference section */
 		411646F12C1AAB0E008C3694 /* CustomNaviView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNaviView.swift; sourceTree = "<group>"; };
+		411646F32C1ADAF6008C3694 /* NaviDoubleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaviDoubleButtonView.swift; sourceTree = "<group>"; };
 		4122721C2C1422DB00E7ED9C /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		413C0F072C11E23F00BBFBD7 /* Extension+UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
 		413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				4157B6D42C176ACF00B2CF2D /* MainTabBarController.swift */,
 				4157B6D52C176ACF00B2CF2D /* SplashViewController.swift */,
 				418C231D2C18772200A90924 /* DoubleTitleView.swift */,
+				411646F32C1ADAF6008C3694 /* NaviDoubleButtonView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				418279E82C1837FD00704E89 /* MyProfileViewModel.swift in Sources */,
 				4157B6D72C176ACF00B2CF2D /* LoginViewController.swift in Sources */,
 				418C23372C18772200A90924 /* NameModalViewController.swift in Sources */,
+				411646F42C1ADAF6008C3694 /* NaviDoubleButtonView.swift in Sources */,
 				413C0F0F2C11E25300BBFBD7 /* CategoryCVCell.swift in Sources */,
 				418C23302C18772200A90924 /* MainViewController.swift in Sources */,
 				414104012C1693AC00381B7A /* MyProfileTableViewCell.swift in Sources */,

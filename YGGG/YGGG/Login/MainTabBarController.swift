@@ -8,7 +8,7 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-
+    
     let doubleTitleView = DoubleTitleView()
     
     let plusButton: UIButton = {
@@ -16,6 +16,8 @@ class MainTabBarController: UITabBarController {
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         return button
     }()
+    
+    let customView = NaviDoubleButtonView(frame: CGRect(x: 0, y: 0, width: 100, height: 44))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,13 +68,11 @@ extension MainTabBarController {
         self.navigationItem.rightBarButtonItems = nil
         
         if viewController is MainViewController {
-            doubleTitleView.leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
-            doubleTitleView.rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
             
-            navigationItem.leftBarButtonItems = [
-                UIBarButtonItem(customView: doubleTitleView.leftButton),
-                UIBarButtonItem(customView: doubleTitleView.rightButton)
-            ]
+            customView.delegate = self
+            
+            let customBarButtonItem = UIBarButtonItem(customView: customView)
+            navigationItem.leftBarButtonItem = customBarButtonItem
             
             plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
             plusButton.tintColor = .black
@@ -82,29 +82,8 @@ extension MainTabBarController {
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: CustomNaviView(title: "북마크"))
         } else if viewController is MyProfileVIewController {
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: CustomNaviView(title: "프로필"))
-
-        }
-    }
-    
-    @objc func leftButtonTapped() {
-        if let homeVC = self.viewControllers?.first(where: { $0 is MainViewController }) as? MainViewController {
-            homeVC.leftButtonTapped()
             
-            doubleTitleView.leftButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
-            doubleTitleView.rightButton.titleLabel?.font = .systemFont(ofSize: 25)
-            doubleTitleView.rightButton.setTitleColor(.gray, for: .normal)
-            doubleTitleView.leftButton.setTitleColor(.black, for: .normal)
-        }
-    }
-    
-    @objc func rightButtonTapped() {
-        if let homeVC = self.viewControllers?.first(where: { $0 is MainViewController }) as? MainViewController {
-            homeVC.rightButtonTapped()
             
-            doubleTitleView.leftButton.titleLabel?.font = .systemFont(ofSize: 25)
-            doubleTitleView.rightButton.titleLabel?.font = .boldSystemFont(ofSize: 25)
-            doubleTitleView.leftButton.setTitleColor(.gray, for: .normal)
-            doubleTitleView.rightButton.setTitleColor(.black, for: .normal)
         }
     }
     
@@ -118,5 +97,28 @@ extension MainTabBarController {
 extension MainTabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         setupNavigationBar(viewController: viewController)
+    }
+}
+
+extension MainTabBarController: CustomNavigationViewDelegate {
+    private var mainViewController: MainViewController? {
+        return viewControllers?.compactMap { $0 as? MainViewController }.first
+    }
+    
+    func configureButtons(leftButtonBold: Bool) {
+        customView.leftButton.titleLabel?.font = leftButtonBold ? .boldSystemFont(ofSize: 25) : .systemFont(ofSize: 25)
+        customView.rightButton.titleLabel?.font = leftButtonBold ? .systemFont(ofSize: 25) : .boldSystemFont(ofSize: 25)
+        customView.leftButton.setTitleColor(leftButtonBold ? .black : .gray, for: .normal)
+        customView.rightButton.setTitleColor(leftButtonBold ? .gray : .black, for: .normal)
+    }
+    
+    func leftButtonTapped() {
+        configureButtons(leftButtonBold: true)
+        mainViewController?.leftButtonTapped()
+    }
+    
+    func rightButtonTapped() {
+        configureButtons(leftButtonBold: false)
+        mainViewController?.rightButtonTapped()
     }
 }

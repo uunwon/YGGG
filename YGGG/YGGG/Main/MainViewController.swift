@@ -65,7 +65,7 @@ class MainViewController: UIViewController {
         return stackView
     }()
     
-    let doubleTitleView = DoubleTitleView()
+//    let doubleTitleView = DoubleTitleView()
     
     let plusButton: UIButton = {
         let button = UIButton()
@@ -92,7 +92,7 @@ class MainViewController: UIViewController {
         viewModel.loadCosmetic()
         
         view.backgroundColor = .white
-        setupNavigationBar()
+//        setupNavigationBar()
         setupCollectionView()
         
         if let firstButton = stackView.arrangedSubviews.first as? UIButton {
@@ -142,18 +142,18 @@ class MainViewController: UIViewController {
 extension MainViewController {
     func setupNavigationBar() {
         self.navigationItem.largeTitleDisplayMode = .never
-        
-        doubleTitleView.leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
-        doubleTitleView.rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
-        
-        navigationItem.leftBarButtonItems = [
-            UIBarButtonItem(customView: doubleTitleView.leftButton),
-            UIBarButtonItem(customView: doubleTitleView.rightButton)
-        ]
-        
-        plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusButton)
+//        
+//        doubleTitleView.leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
+//        doubleTitleView.rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
+//        
+//        navigationItem.leftBarButtonItems = [
+//            UIBarButtonItem(customView: doubleTitleView.leftButton),
+//            UIBarButtonItem(customView: doubleTitleView.rightButton)
+//        ]
+//        
+//        plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+//        
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusButton)
         
     }
     
@@ -200,12 +200,12 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
 // MARK: - button
 
 extension MainViewController {
-    @objc func leftButtonTapped() {
+    func leftButtonTapped() {
         tab = .home
         collectionView.reloadData()
     }
     
-    @objc func rightButtonTapped() {
+    func rightButtonTapped() {
         tab = .grave
         collectionView.reloadData()
     }
