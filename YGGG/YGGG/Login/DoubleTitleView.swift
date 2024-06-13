@@ -21,7 +21,7 @@ class DoubleTitleView: UIView {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 25)
-        button.setTitle("무덤", for: .normal)
+        button.setTitle("만료", for: .normal)
         button.setTitleColor(.label, for: .normal)
         button.setTitleColor(.gray, for: .normal)
         return button

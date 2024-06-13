@@ -22,7 +22,7 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         
         let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .appPrimary
+        backBarButtonItem.tintColor = .setneworange
         self.navigationItem.backBarButtonItem = backBarButtonItem
         
         viewModel.loadCosmetic()
