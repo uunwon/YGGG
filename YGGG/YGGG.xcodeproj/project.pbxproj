@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		411646F22C1AAB0E008C3694 /* CustomNaviView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 411646F12C1AAB0E008C3694 /* CustomNaviView.swift */; };
 		4122721D2C1422DB00E7ED9C /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4122721C2C1422DB00E7ED9C /* ProfileService.swift */; };
 		413C0F092C11E23F00BBFBD7 /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F072C11E23F00BBFBD7 /* Extension+UIColor.swift */; };
 		413C0F0E2C11E25300BBFBD7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */; };
@@ -57,6 +58,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		411646F12C1AAB0E008C3694 /* CustomNaviView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNaviView.swift; sourceTree = "<group>"; };
 		4122721C2C1422DB00E7ED9C /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		413C0F072C11E23F00BBFBD7 /* Extension+UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
 		413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 		41CCE8642C0EC83300A09411 /* YGGG */ = {
 			isa = PBXGroup;
 			children = (
+				411646F12C1AAB0E008C3694 /* CustomNaviView.swift */,
 				418C23062C18692700A90924 /* BookmarkTap */,
 				4157B6D62C176ACF00B2CF2D /* Login */,
 				414103FB2C16870A00381B7A /* MYProfile */,
@@ -369,6 +372,7 @@
 				418C23342C18772200A90924 /* IconModalViewController.swift in Sources */,
 				414104032C16BC9700381B7A /* MyProfileEditViewController.swift in Sources */,
 				418C230C2C18692700A90924 /* SearchInfoViewController.swift in Sources */,
+				411646F22C1AAB0E008C3694 /* CustomNaviView.swift in Sources */,
 				418C23382C18772200A90924 /* OptionTableViewController.swift in Sources */,
 				418279DD2C17E83800704E89 /* MyProfileEditViewModel.swift in Sources */,
 				418C23322C18772200A90924 /* CircleButtonCell.swift in Sources */,

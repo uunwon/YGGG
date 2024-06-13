@@ -24,9 +24,9 @@ class MainTabBarController: UITabBarController {
         let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
         backBarButtonItem.tintColor = .setneworange
         self.navigationItem.backBarButtonItem = backBarButtonItem
-        
+        self.delegate = self
         viewModel.loadCosmetic()
-        setupNavigationBar()
+        
         
         view.backgroundColor = .white
         
@@ -56,25 +56,36 @@ class MainTabBarController: UITabBarController {
         tabBar.backgroundColor = .white
         let tabBarList = [followViewController, homeViewController, myViewController]
         viewControllers = tabBarList
+        selectedIndex = 1
+        setupNavigationBar(viewController: homeViewController)
     }
 }
 
 extension MainTabBarController {
-    func setupNavigationBar() {
+    func setupNavigationBar(viewController: UIViewController) {
         self.navigationItem.largeTitleDisplayMode = .never
+        self.navigationItem.leftBarButtonItems = nil
+        self.navigationItem.rightBarButtonItems = nil
         
-        doubleTitleView.leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
-        doubleTitleView.rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
-        
-        navigationItem.leftBarButtonItems = [
-            UIBarButtonItem(customView: doubleTitleView.leftButton),
-            UIBarButtonItem(customView: doubleTitleView.rightButton)
-        ]
-        
-        plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
-        plusButton.tintColor = .black
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusButton)
+        if viewController is MainViewController {
+            doubleTitleView.leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
+            doubleTitleView.rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
+            
+            navigationItem.leftBarButtonItems = [
+                UIBarButtonItem(customView: doubleTitleView.leftButton),
+                UIBarButtonItem(customView: doubleTitleView.rightButton)
+            ]
+            
+            plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+            plusButton.tintColor = .black
+            
+            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusButton)
+        } else if viewController is BookmarkTableViewController {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(customView: CustomNaviView(title: "북마크"))
+        } else if viewController is MyProfileVIewController {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(customView: CustomNaviView(title: "프로필"))
+
+        }
     }
     
     @objc func leftButtonTapped() {
@@ -103,5 +114,11 @@ extension MainTabBarController {
         if let homeVC = self.viewControllers?.first(where: { $0 is MainViewController }) as? MainViewController {
             homeVC.plusButtonTapped()
         }
+    }
+}
+
+extension MainTabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        setupNavigationBar(viewController: viewController)
     }
 }
