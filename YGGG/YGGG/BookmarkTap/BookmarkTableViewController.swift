@@ -151,8 +151,11 @@ class BookmarkTableViewController: UIViewController {
         ])
     }
     
-    @objc func dismissKeyboard() {
-        customSearchBar.resignFirstResponder()
+    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        let touchLocation = sender.location(in: view)
+        if !customSearchBar.frame.contains(touchLocation) {
+            customSearchBar.resignFirstResponder()
+        }
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
