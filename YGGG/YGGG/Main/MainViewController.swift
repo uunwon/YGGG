@@ -47,7 +47,7 @@ class MainViewController: UIViewController {
             configuration.baseForegroundColor = .label
             
             let button = UIButton(configuration: configuration, primaryAction: nil)
-            button.backgroundColor = UIColor(red: 248/255, green: 245/255, blue: 245/255, alpha: 1.0)
+            button.backgroundColor = .yggg_lightgray
             button.layer.cornerRadius = 10
             button.clipsToBounds = true
             button.addTarget(self, action: #selector(filterButtonTapped(_:)), for: .touchUpInside)
@@ -150,7 +150,7 @@ extension MainViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 2),
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             
@@ -207,8 +207,8 @@ extension MainViewController {
     }
     
     @objc func filterButtonTapped(_ sender: UIButton) {
-        selectedButton?.backgroundColor = UIColor(red: 248/255, green: 245/255, blue: 245/255, alpha: 1.0)
-        sender.backgroundColor = .setorange
+        selectedButton?.backgroundColor = .yggg_lightgray
+        sender.backgroundColor = .yggg_orange
         selectedButton = sender
         
         guard let index = stackView.arrangedSubviews.firstIndex(of: sender) else {

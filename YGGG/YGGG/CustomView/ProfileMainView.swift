@@ -34,7 +34,7 @@ class ProfileMainView: UIView {
     
     private lazy var favoriteButton: UIButton = {
         let button = UIButton()
-        button.tintColor = .appGreen
+        button.tintColor = .yggg_app_green
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.favoriteTapped()
@@ -164,13 +164,18 @@ class ProfileMainView: UIView {
     }
     
     
-    func setupUI(userImage: String, userName: String, tombCount: Int, refrigeratorCount: Int, hashTag: String, isMyProfile: Bool = false) {
+    func setupUI(userImage: String, userName: String, tombCount: Int, refrigeratorCount: Int, 
+                 hashTag: String, isMyProfile: Bool = false) {
         
         profileImageView.loadImage(from: userImage)
         nickNameLabel.text = userName
         
-        tombButton.setAttributedTitle(self.attributeButtonText(title: "무덤: ", count: tombCount), for: .normal)
-        refrigeratorButton.setAttributedTitle(self.attributeButtonText(title: "냉장고: ", count: refrigeratorCount), for: .normal)
+        tombButton.setAttributedTitle(
+            self.attributeButtonText(title: "만료: ", count: tombCount), for: .normal
+        )
+        refrigeratorButton.setAttributedTitle(
+            self.attributeButtonText(title: "냉장고: ", count: refrigeratorCount), for: .normal
+        )
         
         tagLabel.text = hashTag
         

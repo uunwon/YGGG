@@ -148,7 +148,7 @@ extension KindModalViewController {
         navigationController?.pushViewController(nextView, animated: true)
 
         let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .setneworange
+        backBarButtonItem.tintColor = .yggg_orange2
         navigationItem.backBarButtonItem = backBarButtonItem
         viewModel.userCosmetic.category = selectedKind ?? ""
     }
@@ -180,7 +180,7 @@ extension KindModalViewController {
     
     func updateButtonState() {
         if buttonNext.isEnabled {
-            buttonNext.backgroundColor = .setorange
+            buttonNext.backgroundColor = .yggg_orange
         } else {
             buttonNext.backgroundColor = .systemGray5
         }

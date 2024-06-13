@@ -98,7 +98,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
         expirationDateLabel.text = "유통기한: \(dateFormatter.string(from: expirationDate))"
         
         if isHomeTab {
-            colorView.backgroundColor = .setlightgreen
+            colorView.backgroundColor = .yggg_lightgreen
         } else {
             colorView.backgroundColor = .gray
         }

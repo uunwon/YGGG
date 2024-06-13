@@ -12,7 +12,7 @@ class CosmeticsTVCell: UITableViewCell {
     private let mainView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(red: 248/255, green: 245/255, blue: 245/255, alpha: 1.0)
+        view.backgroundColor = .yggg_lightgray2
         view.layer.cornerRadius = 10
         return view
     }()

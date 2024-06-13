@@ -12,7 +12,7 @@ class CircleButtonCell: UICollectionViewCell {
     let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .setlightgreen
+        view.backgroundColor = .yggg_lightgreen
         view.layer.cornerRadius = 35
         view.clipsToBounds = true
         return view

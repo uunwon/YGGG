@@ -78,7 +78,9 @@ class NaviDoubleButtonView: UIView {
             rightButton.widthAnchor.constraint(equalToConstant: 44)
         ])
         
-        underLineViewLeadingConstraint = underLineView.leadingAnchor.constraint(equalTo: leftButton.leadingAnchor)
+        underLineViewLeadingConstraint = underLineView
+                                                .leadingAnchor
+                                                .constraint(equalTo: leftButton.leadingAnchor)
         
         NSLayoutConstraint.activate([
             underLineViewLeadingConstraint!,

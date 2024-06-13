@@ -33,7 +33,7 @@ class CustomNaviView: UIView {
         addSubview(titleLabel)
         titleLabel.text = title
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 11),
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }

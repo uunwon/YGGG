@@ -21,7 +21,7 @@ class HashTagCVCell: UICollectionViewCell {
         view.layer.masksToBounds = false
         view.layer.cornerRadius = 20
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.appPrimary.cgColor
+        view.layer.borderColor = UIColor.yggg_app_primary.cgColor
         return view
     }()
     

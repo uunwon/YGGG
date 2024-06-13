@@ -109,7 +109,7 @@ extension NameModalViewController {
         self.navigationController?.pushViewController(nextView, animated: true)
         
         let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .setneworange  // 색상 변경
+        backBarButtonItem.tintColor = .yggg_orange2
         self.navigationItem.backBarButtonItem = backBarButtonItem
         
     }
@@ -117,7 +117,7 @@ extension NameModalViewController {
     @objc func updateButtonColor() {
         if let text = textField.text, !text.isEmpty {
             buttonNext.isEnabled = true
-            buttonNext.backgroundColor = .setorange
+            buttonNext.backgroundColor = .yggg_orange
         } else {
             buttonNext.isEnabled = false
             buttonNext.backgroundColor = .systemGray5

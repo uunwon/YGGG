@@ -27,7 +27,7 @@ class IconModalViewController: UIViewController, UICollectionViewDelegate, UICol
     let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .setlightgreen
+        view.backgroundColor = .yggg_lightgreen
         view.layer.cornerRadius = 50
         return view
     }()
@@ -53,7 +53,7 @@ class IconModalViewController: UIViewController, UICollectionViewDelegate, UICol
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.setTitle("추가", for: .normal)
-        button.backgroundColor = .setorange
+        button.backgroundColor = .yggg_orange
         button.tintColor = .black
         button.setTitleColor(.label, for: .normal)
         button.layer.cornerRadius = 10
@@ -136,7 +136,7 @@ extension IconModalViewController {
             buttonNext.backgroundColor = .systemGray6
         } else {
             buttonNext.isEnabled = true
-            buttonNext.backgroundColor = .setorange
+            buttonNext.backgroundColor = .yggg_orange
         }
     }
     

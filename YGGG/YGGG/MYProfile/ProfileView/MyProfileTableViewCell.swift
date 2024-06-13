@@ -63,7 +63,7 @@ class MyProfileTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Chat GPT"
-        label.textColor = .appGreen
+        label.textColor = .yggg_app_green
         label.font = .systemFont(ofSize: 12)
         return label
     }()

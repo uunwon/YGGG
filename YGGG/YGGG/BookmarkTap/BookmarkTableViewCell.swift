@@ -22,7 +22,8 @@ class BookmarkTableViewCell: UITableViewCell {
         userPhotoView.image = UIImage(named: "userPhoto")
         userPhotoView.layer.cornerRadius = 32.5
         userPhotoView.layer.borderWidth = 2.0
-        userPhotoView.layer.borderColor = UIColor(red: 219/255, green: 219/255, blue: 219/255, alpha: 1.0).cgColor
+        userPhotoView.layer.borderColor = UIColor.yggg_lightgray2.cgColor
+        
         userPhotoView.clipsToBounds = true
         userPhotoView.translatesAutoresizingMaskIntoConstraints = false
         return userPhotoView
@@ -77,7 +78,7 @@ class BookmarkTableViewCell: UITableViewCell {
     
     private lazy var bookmarkToggleButton: UIButton = {
         let bookmarkToggleButton = UIButton()
-        bookmarkToggleButton.tintColor = UIColor(red: 135/255, green: 200/255, blue: 188/255, alpha: 1)
+        bookmarkToggleButton.tintColor = .yggg_green
         bookmarkToggleButton.contentHorizontalAlignment = .fill
         bookmarkToggleButton.contentVerticalAlignment = .fill
         bookmarkToggleButton.imageView?.contentMode = .scaleAspectFit

@@ -14,7 +14,7 @@ class CategoryCVCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
-        view.backgroundColor = UIColor.yggg_gray
+        view.backgroundColor = .yggg_lightgray2
         return view
     }()
     
@@ -35,7 +35,7 @@ class CategoryCVCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            mainView.backgroundColor = isSelected ? UIColor.yggg_peach : UIColor.yggg_gray
+            mainView.backgroundColor = isSelected ? .yggg_peach : .yggg_lightgray2
         }
     }
     

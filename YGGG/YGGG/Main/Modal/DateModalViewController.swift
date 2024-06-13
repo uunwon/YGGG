@@ -47,7 +47,7 @@ class DateModalViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.setTitle("다음", for: .normal)
-        button.backgroundColor = .setorange
+        button.backgroundColor = .yggg_orange
         button.tintColor = .black
         button.setTitleColor(.label, for: .normal)
         button.layer.cornerRadius = 10
@@ -75,7 +75,7 @@ class DateModalViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "선택"
         label.font = .systemFont(ofSize: 17)
-        label.textColor = .setneworange
+        label.textColor = .yggg_orange2
         return label
     }()
     
@@ -159,7 +159,7 @@ extension DateModalViewController {
         self.navigationController?.pushViewController(nextView, animated: true)
         
         let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .setneworange  // 색상 변경
+        backBarButtonItem.tintColor = .yggg_orange2
         self.navigationItem.backBarButtonItem = backBarButtonItem
         
         viewModel.userCosmetic.kind = viewModel.selectedIndex ?? 0
@@ -182,7 +182,7 @@ extension DateModalViewController {
             buttonNext.backgroundColor = .systemGray6
         } else {
             buttonNext.isEnabled = true
-            buttonNext.backgroundColor = .setorange
+            buttonNext.backgroundColor = .yggg_orange
         }
     }
 }

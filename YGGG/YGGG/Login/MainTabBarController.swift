@@ -21,7 +21,7 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         
         let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .setneworange
+        backBarButtonItem.tintColor = .yggg_orange2
         self.navigationItem.backBarButtonItem = backBarButtonItem
         self.delegate = self
         
@@ -50,7 +50,7 @@ class MainTabBarController: UITabBarController {
             selectedImage: UIImage(systemName: "person.fill")
         )
         
-        tabBar.tintColor = .setgreen
+        tabBar.tintColor = .yggg_green
         tabBar.backgroundColor = .white
         let tabBarList = [followViewController, homeViewController, myViewController]
         viewControllers = tabBarList

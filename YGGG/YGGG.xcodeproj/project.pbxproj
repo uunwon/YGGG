@@ -41,7 +41,6 @@
 		418C23182C186A4900A90924 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 418C23172C186A4900A90924 /* FirebaseStorage */; };
 		418C231A2C186A7400A90924 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 418C23192C186A7400A90924 /* FirebaseFirestoreSwift */; };
 		418C232B2C18772200A90924 /* FireBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C231B2C18772100A90924 /* FireBase.swift */; };
-		418C232C2C18772200A90924 /* DoubleTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C231D2C18772200A90924 /* DoubleTitleView.swift */; };
 		418C23302C18772200A90924 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23212C18772200A90924 /* MainViewController.swift */; };
 		418C23312C18772200A90924 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23222C18772200A90924 /* CustomCollectionViewCell.swift */; };
 		418C23322C18772200A90924 /* CircleButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23232C18772200A90924 /* CircleButtonCell.swift */; };
@@ -86,7 +85,6 @@
 		418C23042C18692700A90924 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		418C23052C18692700A90924 /* SearchInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchInfoViewController.swift; sourceTree = "<group>"; };
 		418C231B2C18772100A90924 /* FireBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBase.swift; sourceTree = "<group>"; };
-		418C231D2C18772200A90924 /* DoubleTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleTitleView.swift; sourceTree = "<group>"; };
 		418C23212C18772200A90924 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		418C23222C18772200A90924 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		418C23232C18772200A90924 /* CircleButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleButtonCell.swift; sourceTree = "<group>"; };
@@ -147,12 +145,30 @@
 		414103FB2C16870A00381B7A /* MYProfile */ = {
 			isa = PBXGroup;
 			children = (
-				414103FE2C1688D000381B7A /* ProfileMainView.swift */,
 				418279E22C180DCC00704E89 /* ProfileView */,
 				418279E12C180DC200704E89 /* EditView */,
 				418279E52C180E5B00704E89 /* AccountViewController.swift */,
 			);
 			path = MYProfile;
+			sourceTree = "<group>";
+		};
+		414E85912C1AEC9E0053BD97 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				411646F12C1AAB0E008C3694 /* CustomNaviView.swift */,
+				414103FE2C1688D000381B7A /* ProfileMainView.swift */,
+				411646F32C1ADAF6008C3694 /* NaviDoubleButtonView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		414E85922C1B33E50053BD97 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				41CCE8652C0EC83300A09411 /* AppDelegate.swift */,
+				41CCE8672C0EC83300A09411 /* SceneDelegate.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 		4157B6D62C176ACF00B2CF2D /* Login */ = {
@@ -161,8 +177,6 @@
 				4157B6D32C176ACF00B2CF2D /* LoginViewController.swift */,
 				4157B6D42C176ACF00B2CF2D /* MainTabBarController.swift */,
 				4157B6D52C176ACF00B2CF2D /* SplashViewController.swift */,
-				418C231D2C18772200A90924 /* DoubleTitleView.swift */,
-				411646F32C1ADAF6008C3694 /* NaviDoubleButtonView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -249,16 +263,15 @@
 		41CCE8642C0EC83300A09411 /* YGGG */ = {
 			isa = PBXGroup;
 			children = (
-				411646F12C1AAB0E008C3694 /* CustomNaviView.swift */,
-				418C23062C18692700A90924 /* BookmarkTap */,
+				414E85922C1B33E50053BD97 /* App */,
+				414E85912C1AEC9E0053BD97 /* CustomView */,
 				4157B6D62C176ACF00B2CF2D /* Login */,
-				414103FB2C16870A00381B7A /* MYProfile */,
-				413C0F082C11E23F00BBFBD7 /* Extension */,
-				413C0F062C11E22100BBFBD7 /* Profile */,
+				418C23062C18692700A90924 /* BookmarkTap */,
 				5763B1C52C0EFC00007C0F57 /* Main */,
+				414103FB2C16870A00381B7A /* MYProfile */,
+				413C0F062C11E22100BBFBD7 /* Profile */,
+				413C0F082C11E23F00BBFBD7 /* Extension */,
 				41CCE8792C0EC9FD00A09411 /* GoogleService-Info.plist */,
-				41CCE8652C0EC83300A09411 /* AppDelegate.swift */,
-				41CCE8672C0EC83300A09411 /* SceneDelegate.swift */,
 				41CCE86E2C0EC83400A09411 /* Assets.xcassets */,
 				5330C2AB2C0EE54800136C4D /* Launch Screen.storyboard */,
 				41CCE8732C0EC83400A09411 /* Info.plist */,
@@ -392,7 +405,6 @@
 				413C0F102C11E25300BBFBD7 /* CosmeticsTVCell.swift in Sources */,
 				418279E42C180DE700704E89 /* Extension+UIImageView.swift in Sources */,
 				414104052C16EA6E00381B7A /* HashTagCVCell.swift in Sources */,
-				418C232C2C18772200A90924 /* DoubleTitleView.swift in Sources */,
 				418C23362C18772200A90924 /* ModalViewModel.swift in Sources */,
 				413C0F112C11E25300BBFBD7 /* ProfileViewModel.swift in Sources */,
 				414103FF2C1688D000381B7A /* ProfileMainView.swift in Sources */,
