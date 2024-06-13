@@ -29,6 +29,15 @@ class BookmarkTableViewController: UIViewController {
         return customSearchBar
     }()
     
+    private lazy var listEmptyLabel: UILabel = {
+        let listEmptyLabel = UILabel()
+        listEmptyLabel.numberOfLines = 10
+        listEmptyLabel.textAlignment = .center
+        listEmptyLabel.isHidden = true
+        listEmptyLabel.translatesAutoresizingMaskIntoConstraints = false
+        return listEmptyLabel
+    }()
+    
     private let bookmarkTableViewModel = BookmarkTableViewModel()
     
     override func viewDidLoad() {
@@ -36,23 +45,29 @@ class BookmarkTableViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        Task {
-            await bookmarkTableViewModel.loadBookmarkList()
-        }
-        
         setupCustomSearchBar()
         setupTableView()
         setupTapGesture()
         setupObserver()
+        setupListEmptyView()
         
         self.navigationController?.isNavigationBarHidden = true
         
-        bookmarkTableViewModel.onDataChanged = { [weak self] in
-            self?.tableView.reloadData()
-        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
+        Task {
+            if let searchText = customSearchBar.text, searchText.isEmpty {
+                await bookmarkTableViewModel.loadBookmarkList()
+                if bookmarkTableViewModel.datas.isEmpty, let showEmptyBookmarkText = bookmarkTableViewModel.showEmptyBookmarkText {
+                    showEmptyBookmarkText()
+                }
+            } else {
+                await bookmarkTableViewModel.loadFilteredList(searchText: customSearchBar.text!)
+            }
+        }
         
     }
     
@@ -94,6 +109,17 @@ class BookmarkTableViewController: UIViewController {
         tableView.register(BookmarkTableViewCell.self, forCellReuseIdentifier: "bookmarkCell")
         view.addSubview(tableView)
         
+        bookmarkTableViewModel.onDataChanged = { [weak self] in
+            self?.tableView.reloadData()
+        }
+        bookmarkTableViewModel.showEmptyBookmarkText = { [weak self] in
+            self?.listEmptyLabel.text = "북마크 목록이 비었습니다.\n\n이름으로 검색하여 북마크 목록을 추가하세요."
+            self?.listEmptyLabel.isHidden = false
+        }
+        bookmarkTableViewModel.hideListEmptyLabel = { [weak self] in
+            self?.listEmptyLabel.isHidden = true
+        }
+        
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: customSearchBar.bottomAnchor, constant: 10),
@@ -112,6 +138,19 @@ class BookmarkTableViewController: UIViewController {
     private func setupObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    private func setupListEmptyView() {
+        view.addSubview(listEmptyLabel)
+        
+        let safeArea = view.safeAreaLayoutGuide
+        
+        NSLayoutConstraint.activate([
+            listEmptyLabel.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            listEmptyLabel.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            listEmptyLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            listEmptyLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+        ])
     }
     
     @objc func dismissKeyboard() {
@@ -154,7 +193,6 @@ extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //이동
         let user = bookmarkTableViewModel.datas[indexPath.row]
         let viewMoel = ProfileViewModel(user: user)
         let vc = ProfileViewController(viewModel: viewMoel)
@@ -174,6 +212,18 @@ extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegat
                     await bookmarkTableViewModel.loadFilteredList(searchText: searchText)
                 }
             }
+        }
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        if let hideListEmptyLabel = bookmarkTableViewModel.hideListEmptyLabel {
+            hideListEmptyLabel()
+        }
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        if !self.search.isActive, let showEmptyBookmarkText = bookmarkTableViewModel.showEmptyBookmarkText, let searchText = searchBar.text, searchText.isEmpty, bookmarkTableViewModel.datas.isEmpty {
+            showEmptyBookmarkText()
         }
     }
     

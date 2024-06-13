@@ -157,6 +157,5 @@ class BookmarkTableViewCell: UITableViewCell {
             }
         }, for: .touchUpInside)
     }
-    
-  
+      
 }
