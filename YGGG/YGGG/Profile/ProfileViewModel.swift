@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseAuth
 
 struct TopCategory: Codable {
     let imageName: String
@@ -17,7 +18,7 @@ struct User: Codable {
     let userName: String
     let uid: String
     let userHashTag: String
-    let bookmarkList: [String]
+    var bookmarkList: [String]
     let snsRoot: String
     
     var refrigeratorCount: Int {
@@ -85,12 +86,12 @@ struct Cosmetics: Codable {
     enum CodingKeys: String, CodingKey {
         case imageName, title, purchaseDate, expirationDate, kind, category
     }
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         imageName = try container.decode(String.self, forKey: .imageName)
         title = try container.decode(String.self, forKey: .title)
-
+        
         // purchaseDate를 Timestamp로 디코딩 후 String으로 변환
         if let timestamp = try? container.decode(Timestamp.self, forKey: .purchaseDate) {
             let dateFormatter = DateFormatter()
@@ -99,7 +100,7 @@ struct Cosmetics: Codable {
         } else {
             purchaseDate = try container.decode(String.self, forKey: .purchaseDate)
         }
-
+        
         // expirationDate를 Timestamp로 디코딩 후 String으로 변환
         if let timestamp = try? container.decode(Timestamp.self, forKey: .expirationDate) {
             let dateFormatter = DateFormatter()
@@ -108,7 +109,7 @@ struct Cosmetics: Codable {
         } else {
             expirationDate = try container.decode(String.self, forKey: .expirationDate)
         }
-
+        
         kind = try container.decode(Int.self, forKey: .kind)
         category = try container.decode(String.self, forKey: .category)
     }
@@ -117,7 +118,7 @@ struct Cosmetics: Codable {
 class ProfileViewModel {
     
     let service: ProfileService = ProfileService()
-
+    
     private var user: User?
     
     init(user: User) {
@@ -139,7 +140,7 @@ class ProfileViewModel {
     func getCategoryItem(index: Int) -> TopCategory {
         return topCategorys[index]
     }
-
+    
     
     func loadData(completion: @escaping() -> Void) {
         guard let uid = user?.uid else { return }
@@ -212,5 +213,64 @@ class ProfileViewModel {
     func getUserUid() -> String {
         return user?.uid ?? ""
     }
-
+    
+    func getFavoriteState() -> Bool {
+        var returnBool: Bool = false
+        guard let otherUserUid = self.user?.uid else { return returnBool }
+        
+        if let uid = Auth.auth().currentUser?.uid {
+            COLLECTION_USERS.document(uid).getDocument { documnet, error in
+                
+                if let document = documnet, document.exists {
+                    if let bookmarkList = document.data()?["bookmarkList"] as? [String] {
+                        
+                        if bookmarkList.contains(otherUserUid) {
+                            returnBool = true
+                        } else{
+                            returnBool = false
+                        }
+                    }
+                }
+            }
+        }
+        return returnBool
+    }
+    
+    
+    func userFavorite(completion: @escaping(Bool) -> Void) {
+        var bookmark = [String]()
+        var returnBool: Bool?
+        guard let otherUserUid = self.user?.uid else { return }
+        
+        if let uid = Auth.auth().currentUser?.uid {
+            COLLECTION_USERS.document(uid).getDocument { documnet, error in
+                
+                if let document = documnet, document.exists {
+                    if let bookmarkList = document.data()?["bookmarkList"] as? [String] {
+                        bookmark = bookmarkList
+                        if bookmarkList.contains(otherUserUid) {
+                            bookmark.removeAll { $0 == otherUserUid }
+                            returnBool = false
+                        } else{
+                            bookmark.append(otherUserUid)
+                            returnBool = true
+                        }
+                    }
+                }
+                
+                
+                COLLECTION_USERS.document(uid).updateData(["bookmarkList": bookmark]) {_ in
+                    if let error = error {
+                        print("업데이트 에러")
+                    } else {
+                        
+                        guard let returnBool = returnBool else { return }
+                        completion(returnBool)
+                    }
+                }
+            }
+        }
+        
+    }
+    
 }

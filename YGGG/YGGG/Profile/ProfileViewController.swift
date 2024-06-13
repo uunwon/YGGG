@@ -53,10 +53,6 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        configureUI()
-//        configureDataSetup()
-        
-        
         categorySelectedIndex = IndexPath(row: 0, section: 0)
         categoryCV.selectItem(at: categorySelectedIndex, animated: false, scrollPosition: .left)
         view.backgroundColor = .white
@@ -64,7 +60,6 @@ class ProfileViewController: UIViewController {
             self.configureUI()
             self.configureDataSetup()
         }
-//        ProfileService.shared.getData(completion: <#T##(User) -> Void#>)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,8 +68,6 @@ class ProfileViewController: UIViewController {
     }
     
     private func configureUI() {
- 
-//        view.addSubview(mainProfileView)
         mainProfileView.translatesAutoresizingMaskIntoConstraints = false
         [mainProfileView, categoryCV, cosmeticsTV].forEach {
             view.addSubview($0)
@@ -85,10 +78,6 @@ class ProfileViewController: UIViewController {
             mainProfileView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mainProfileView.heightAnchor.constraint(equalToConstant: 130)
         ])
-        
-//        view.addSubview(profileView)
-        
-        
         
         //categoryCV Constraint Setting
         NSLayoutConstraint.activate([
@@ -106,8 +95,7 @@ class ProfileViewController: UIViewController {
             cosmeticsTV.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        
-        
+        mainProfileView.delegate = self
     }
     
     private func configureDataSetup() {
@@ -118,20 +106,9 @@ class ProfileViewController: UIViewController {
                                 refrigeratorCount: viewModel.getUserTombCount(), hashTag: viewModel.getUserHashTag(),
                                 isMyProfile: viewModel.getUserUid() == Auth.auth().currentUser?.uid)
 
-        favoriteButtonSetup()
-    }
+        mainProfileView.favoriteButtonSetup(isBookMark: !viewModel.getFavoriteState())
     
-    private func favoriteButtonSetup() {
-//        let favoriteImage = viewModel.userIsFavorite() ? "bookMark.fill" : "bookMark"
-//        favoriteButton.setImage(UIImage(named: favoriteImage), for: .normal)
-    }
-    
-    @objc private func favoriteTapped() {
-//        viewModel.changeFavorite { [weak self] in
-//            self?.favoriteButtonSetup()
-//        }
-    }
-
+    }    
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource  {
@@ -179,4 +156,19 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return UITableViewCell()
     }
+}
+
+extension ProfileViewController: ProfileMainViewDelegate {
+    func favoriteTapped() {
+        self.viewModel?.userFavorite() { isBookMark in
+            DispatchQueue.main.async {
+                self.mainProfileView.favoriteButtonSetup(isBookMark: isBookMark)
+            }
+        }
+    }
+    
+    func profileImageTapped() {
+    }
+    
+    
 }
