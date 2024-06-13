@@ -18,45 +18,35 @@ struct ProfileService {
     
     static let shared = ProfileService()
     
-    func getData(uid: String, completion: @escaping(User) -> Void) {
-        
+    func getData(uid: String, completion: @escaping (User) -> Void) {
         RED_USERS.document(uid).getDocument { (document, error) in
-            if let document = document, document.exists {
-                do {
-                    if var data = document.data() {
-                      
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "yyyy.MM.dd"
-                        
-                        if let userCosmetics = data["userCosmetics"] as? [[String: Any]] {
-                            var updatedUserCosmetics = [[String: Any]]()
-                            
-                            for var cosmetic in userCosmetics {
-                                if let expirationDate = cosmetic["expirationDate"] as? Timestamp {
-                                    cosmetic["expirationDate"] = dateFormatter.string(from: expirationDate.dateValue())
-                                }
-                                if let purchaseDate = cosmetic["purchaseDate"] as? Timestamp {
-                                    cosmetic["purchaseDate"] = dateFormatter.string(from: purchaseDate.dateValue())
-                                }
-                                updatedUserCosmetics.append(cosmetic)
-                            }
-                            data["userCosmetics"] = updatedUserCosmetics
-                        }
-                        
-                        let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
-                        let decoder = JSONDecoder()
-                        let user = try decoder.decode(User.self, from: jsonData)
-                        
-                        completion(user)
-                    }
-                } catch let error {
-                    print("Error converting document data to JSON: \(error)")
-                }
-            } else {
-                print("Document does not exist")
+            guard let document = document, document.exists, var data = document.data() else {
+                print("Document does not exist or error occurred")
+                return
             }
             
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy.MM.dd"
+            
+            if let userCosmetics = data["userCosmetics"] as? [[String: Any]] {
+                data["userCosmetics"] = userCosmetics.map { cosmetic in
+                    var updatedCosmetic = cosmetic
+                    ["expirationDate", "purchaseDate"].forEach { key in
+                        if let timestamp = updatedCosmetic[key] as? Timestamp {
+                            updatedCosmetic[key] = dateFormatter.string(from: timestamp.dateValue())
+                        }
+                    }
+                    return updatedCosmetic
+                }
+            }
+
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
+                let user = try JSONDecoder().decode(User.self, from: jsonData)
+                completion(user)
+            } catch {
+                print("Error converting document data to JSON: \(error.localizedDescription)")
+            }
         }
-        
     }
 }

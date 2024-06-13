@@ -108,7 +108,7 @@ extension MyProfileVIewController: UITableViewDelegate, UITableViewDataSource {
             case 1:
                 cell.settingCell(iconImageName: "settingUser", title: "계정")
             case 2:
-                cell.settingCell(iconImageName: "bell", title: "알림")
+                cell.settingCell(iconImageName: "bell", title: "알림(추후......)")
             case 3:
                 cell.settingCell(iconImageName: "question", title: "문의")
             case 4:

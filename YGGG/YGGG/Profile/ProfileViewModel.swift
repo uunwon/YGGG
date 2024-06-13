@@ -232,39 +232,30 @@ class ProfileViewModel {
     }
     
     func userFavorite(completion: @escaping(Bool) -> Void) {
-        var bookmark = [String]()
-        var returnBool: Bool?
-        guard let otherUserUid = self.user?.uid else { return }
-        
-        if let uid = Auth.auth().currentUser?.uid {
-            COLLECTION_USERS.document(uid).getDocument { documnet, error in
-                
-                if let document = documnet, document.exists {
-                    if let bookmarkList = document.data()?["bookmarkList"] as? [String] {
-                        bookmark = bookmarkList
-                        if bookmarkList.contains(otherUserUid) {
-                            bookmark.removeAll { $0 == otherUserUid }
-                            returnBool = false
-                        } else{
-                            bookmark.append(otherUserUid)
-                            returnBool = true
-                        }
-                    }
-                }
-                
-                
-                COLLECTION_USERS.document(uid).updateData(["bookmarkList": bookmark]) {_ in
-                    if let error = error {
-                        print("업데이트 에러")
-                    } else {
-                        
-                        guard let returnBool = returnBool else { return }
-                        completion(returnBool)
-                    }
+        guard let otherUserUid = self.user?.uid, let uid = Auth.auth().currentUser?.uid else { return }
+
+        COLLECTION_USERS.document(uid).getDocument { document, error in
+            guard let document = document, document.exists,
+                  var bookmarkList = document.data()?["bookmarkList"] as? [String] else {
+                print("Document does not exist or error occurred")
+                return
+            }
+            
+            let isFavorite = bookmarkList.contains(otherUserUid)
+            if isFavorite {
+                bookmarkList.removeAll { $0 == otherUserUid }
+            } else {
+                bookmarkList.append(otherUserUid)
+            }
+            
+            COLLECTION_USERS.document(uid).updateData(["bookmarkList": bookmarkList]) { error in
+                if let error = error {
+                    print("업데이트 에러, \(error.localizedDescription)")
+                } else {
+                    completion(!isFavorite)
                 }
             }
         }
-        
     }
     
 }

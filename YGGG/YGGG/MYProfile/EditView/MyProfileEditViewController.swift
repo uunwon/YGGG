@@ -171,20 +171,9 @@ class MyProfileEditViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    
-//    deinit {
-//        NotificationCenter.default.removeObserver(self,
-//                                                  name: UIResponder.keyboardWillShowNotification,
-//                                                  object: nil)
-//        NotificationCenter.default.removeObserver(self,
-//                                                  name: UIResponder.keyboardWillHideNotification,
-//                                                  object: nil)
-//    }
-    
+
     func setupUI() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-//        
+  
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self,
                                                                  action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -292,7 +281,6 @@ class MyProfileEditViewController: UIViewController {
     }
     
     @objc func imageViewTapped() {
-        // UIImagePickerController 생성
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         imagePickerController.sourceType = .photoLibrary
@@ -308,21 +296,6 @@ class MyProfileEditViewController: UIViewController {
             }
         }
     }
-
-//    @objc func keyboardWillShow(notification: NSNotification) {
-//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-//            if self.view.frame.origin.y == 0 {
-//                self.view.frame.origin.y -= 120
-//            }
-//        }
-//    }
-//    
-//    @objc func keyboardWillHide(notification: NSNotification) {
-//        if self.view.frame.origin.y != 0 {
-//            self.view.frame.origin.y = 0
-//        }
-//
-//    }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
