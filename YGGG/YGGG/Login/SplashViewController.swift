@@ -12,12 +12,12 @@ import FirebaseAuth
 
 class SplashViewController: UIViewController {
     let splashImageVIew: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.image = UIImage(named: "yggg_fridge")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
