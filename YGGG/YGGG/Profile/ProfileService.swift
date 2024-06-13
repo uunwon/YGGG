@@ -18,18 +18,19 @@ struct ProfileService {
     
     static let shared = ProfileService()
     
-    func getData(completion: @escaping(User) -> Void) {
+    func getData(uid: String, completion: @escaping(User) -> Void) {
         
-        RED_USERS.document("NuAyZbv5uPYZYCTJb6kqYHziFRq2").getDocument { (document, error) in
+        RED_USERS.document(uid).getDocument { (document, error) in
             if let document = document, document.exists {
                 do {
                     if var data = document.data() {
-                        // Convert FIRTimestamp to formatted date string
+                      
                         let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                        dateFormatter.dateFormat = "yyyy.MM.dd"
                         
                         if let userCosmetics = data["userCosmetics"] as? [[String: Any]] {
                             var updatedUserCosmetics = [[String: Any]]()
+                            
                             for var cosmetic in userCosmetics {
                                 if let expirationDate = cosmetic["expirationDate"] as? Timestamp {
                                     cosmetic["expirationDate"] = dateFormatter.string(from: expirationDate.dateValue())
@@ -44,13 +45,12 @@ struct ProfileService {
                         
                         let jsonData = try JSONSerialization.data(withJSONObject: data, options: [])
                         let decoder = JSONDecoder()
-                        decoder.dateDecodingStrategy = .iso8601
                         let user = try decoder.decode(User.self, from: jsonData)
                         
                         completion(user)
                     }
                 } catch let error {
-                    print("Error converting document data to JSON: \(error.localizedDescription)")
+                    print("Error converting document data to JSON: \(error)")
                 }
             } else {
                 print("Document does not exist")

@@ -7,31 +7,30 @@
 
 import Foundation
 import Firebase
-
-
-struct User: Codable {
-    let userImage: String
-    let userName: String
-    let uid: String
-    let userHashTag: String
-    let bookmarkList: [String]
-    let snsRoot: String
-    
-    var refrigeratorCount: Int {
-        return userCosmetics.filter { $0.expirationDateAsDate > Date() }.count
-    }
-    var tombCount: Int {
-        return userCosmetics.filter { $0.expirationDateAsDate < Date() }.count
-    }
-//    var isFavorite: Bool = false
-    let email: String
-    let userCosmetics: [Cosmetics]
-}
+import FirebaseAuth
 
 struct TopCategory: Codable {
     let imageName: String
     let title: String
 }
+struct User: Codable {
+    let userImage: String
+    let userName: String
+    let uid: String
+    let userHashTag: String
+    var bookmarkList: [String]
+    let snsRoot: String
+    
+    var refrigeratorCount: Int {
+        return userCosmetics.filter { $0.expirationDateAsDate < Date() }.count
+    }
+    var tombCount: Int {
+        return userCosmetics.filter { $0.expirationDateAsDate > Date() }.count
+    }
+    let email: String
+    let userCosmetics: [Cosmetics]
+}
+
 
 
 struct Cosmetics: Codable {
@@ -40,47 +39,91 @@ struct Cosmetics: Codable {
     let purchaseDate: String
     let expirationDate: String
     let kind: Int // 0: 냉동, 1: 냉장, 2: 실온
-
+    let category: String
+    
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
         return formatter
     }
     
-
+    
     private var inputDateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        formatter.dateFormat = "yyyy.MM.dd"
         
         return formatter
     }
     
     
     var isExpired: Bool {
-        guard let expirationDate = dateFormatter.date(from: expirationDate) else { return false }
-        return expirationDate < Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        
+        if let date = dateFormatter.date(from: expirationDate) {
+            return date < Date()
+        }
+        return false
     }
-
+    
     var purchaseString: String {
-        guard let purchaseDate = inputDateFormatter.date(from: purchaseDate) else { return "Invalid date" }
-        return dateFormatter.string(from: purchaseDate)
+        return purchaseDate
     }
-
+    
     var expirationString: String {
-        guard let expirationDate = inputDateFormatter.date(from: expirationDate) else { return "Invalid date" }
-        return dateFormatter.string(from: expirationDate)
+        return expirationDate
     }
-
+    
     var expirationDateAsDate: Date {
-        return dateFormatter.date(from: expirationDate) ?? Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        
+        if let date = dateFormatter.date(from: expirationDate) {
+            return date
+        }
+        return Date()
+    }
+    enum CodingKeys: String, CodingKey {
+        case imageName, title, purchaseDate, expirationDate, kind, category
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        imageName = try container.decode(String.self, forKey: .imageName)
+        title = try container.decode(String.self, forKey: .title)
+        
+        // purchaseDate를 Timestamp로 디코딩 후 String으로 변환
+        if let timestamp = try? container.decode(Timestamp.self, forKey: .purchaseDate) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy.MM.dd"
+            purchaseDate = dateFormatter.string(from: timestamp.dateValue())
+        } else {
+            purchaseDate = try container.decode(String.self, forKey: .purchaseDate)
+        }
+        
+        // expirationDate를 Timestamp로 디코딩 후 String으로 변환
+        if let timestamp = try? container.decode(Timestamp.self, forKey: .expirationDate) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy.MM.dd"
+            expirationDate = dateFormatter.string(from: timestamp.dateValue())
+        } else {
+            expirationDate = try container.decode(String.self, forKey: .expirationDate)
+        }
+        
+        kind = try container.decode(Int.self, forKey: .kind)
+        category = try container.decode(String.self, forKey: .category)
     }
 }
 
 class ProfileViewModel {
     
     let service: ProfileService = ProfileService()
+    
     private var user: User?
     
+    init(user: User) {
+        self.user = user
+    }
     ///MockUp Data
     private var topCategorys: [TopCategory] = [
         TopCategory(imageName: "allmenu", title: "전체"),
@@ -98,14 +141,16 @@ class ProfileViewModel {
         return topCategorys[index]
     }
     
+    
     func loadData(completion: @escaping() -> Void) {
-           self.service.getData { [weak self] user in
-               guard let self = self else { return }
-               self.user = user
-               self.selectedCosmeticList = user.userCosmetics
-               completion()
-           }
-       }
+        guard let uid = user?.uid else { return }
+        self.service.getData(uid: uid) { [weak self] user in
+            guard let self = self else { return }
+            self.user = user
+            self.selectedCosmeticList = user.userCosmetics
+            completion()
+        }
+    }
     
     
     private lazy var selectedCosmeticList: [Cosmetics] = []
@@ -131,14 +176,14 @@ class ProfileViewModel {
     
     func getSectionCosmetic(caseType: Int, completion: @escaping() -> Void ) {
         switch caseType {
-            case 1:
+        case 1:
             selectedCosmeticList = user?.userCosmetics.filter { $0.kind == 0 } ?? []
-            case 2:
-                selectedCosmeticList = user?.userCosmetics.filter { $0.kind == 1 } ?? []
-            case 3:
-                selectedCosmeticList = user?.userCosmetics.filter { $0.kind == 2 } ?? []
-            default:
-                selectedCosmeticList = user?.userCosmetics ?? []
+        case 2:
+            selectedCosmeticList = user?.userCosmetics.filter { $0.kind == 1 } ?? []
+        case 3:
+            selectedCosmeticList = user?.userCosmetics.filter { $0.kind == 2 } ?? []
+        default:
+            selectedCosmeticList = user?.userCosmetics ?? []
         }
         completion()
     }
@@ -155,7 +200,8 @@ class ProfileViewModel {
     func getUserName() -> String {
         return user?.userName ?? ""
     }
-
+    
+    //    func getUserHashTag() -> [String] {
     func getUserHashTag() -> String {
         return user?.userHashTag ?? ""
     }
@@ -163,5 +209,68 @@ class ProfileViewModel {
     func getUserImage() -> String {
         return user?.userImage ?? ""
     }
-
+    
+    func getUserUid() -> String {
+        return user?.uid ?? ""
+    }
+    
+    func getFavoriteState() -> Bool {
+        var returnBool: Bool = false
+        guard let otherUserUid = self.user?.uid else { return returnBool }
+        
+        if let uid = Auth.auth().currentUser?.uid {
+            COLLECTION_USERS.document(uid).getDocument { documnet, error in
+                
+                if let document = documnet, document.exists {
+                    if let bookmarkList = document.data()?["bookmarkList"] as? [String] {
+                        
+                        if bookmarkList.contains(otherUserUid) {
+                            returnBool = true
+                        } else{
+                            returnBool = false
+                        }
+                    }
+                }
+            }
+        }
+        return returnBool
+    }
+    
+    
+    func userFavorite(completion: @escaping(Bool) -> Void) {
+        var bookmark = [String]()
+        var returnBool: Bool?
+        guard let otherUserUid = self.user?.uid else { return }
+        
+        if let uid = Auth.auth().currentUser?.uid {
+            COLLECTION_USERS.document(uid).getDocument { documnet, error in
+                
+                if let document = documnet, document.exists {
+                    if let bookmarkList = document.data()?["bookmarkList"] as? [String] {
+                        bookmark = bookmarkList
+                        if bookmarkList.contains(otherUserUid) {
+                            bookmark.removeAll { $0 == otherUserUid }
+                            returnBool = false
+                        } else{
+                            bookmark.append(otherUserUid)
+                            returnBool = true
+                        }
+                    }
+                }
+                
+                
+                COLLECTION_USERS.document(uid).updateData(["bookmarkList": bookmark]) {_ in
+                    if let error = error {
+                        print("업데이트 에러")
+                    } else {
+                        
+                        guard let returnBool = returnBool else { return }
+                        completion(returnBool)
+                    }
+                }
+            }
+        }
+        
+    }
+    
 }

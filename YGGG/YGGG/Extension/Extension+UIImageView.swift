@@ -11,7 +11,7 @@ import UIKit
 extension UIImageView {
     func loadImage(from urlString: String) {
         guard let url = URL(string: urlString) else {
-            print("Invalid URL")
+            print("loadImage2   Invalid URL")
             return
         }
         

@@ -35,6 +35,7 @@ class MyProfileVIewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        setupData()
     }
     
     private func setupUI() {
@@ -68,8 +69,8 @@ class MyProfileVIewController: UIViewController{
     private func setupData()  {
         viewModel.getData { user in
             self.mainProfileView.setupUI(userImage: user.userImage, userName: user.userName,
-                                         tombCount: user.tombCount, 
-                                         refrigeratorCount: user.refrigeratorCount,
+                                         tombCount: user.refrigeratorCount,
+                                         refrigeratorCount: user.tombCount,
                                          hashTag: user.email, isMyProfile: true)
             
         }
