@@ -38,7 +38,7 @@ class BookmarkTableViewCell: UITableViewCell {
     private lazy var userHashTagLabel: UILabel = {
         let userHashTagLabel = UILabel()
         userHashTagLabel.font = UIFont.systemFont(ofSize: 12)
-        userHashTagLabel.textColor = UIColor(red: 0.73, green: 0.73, blue: 0.73, alpha: 1)
+        userHashTagLabel.textColor = .gray
         userHashTagLabel.translatesAutoresizingMaskIntoConstraints = false
         return userHashTagLabel
     }()
@@ -63,7 +63,7 @@ class BookmarkTableViewCell: UITableViewCell {
         refrigeratorLabel.font = UIFont.systemFont(ofSize: 12)
         
         let graveLabel = UILabel()
-        graveLabel.text = "무덤"
+        graveLabel.text = "만료"
         graveLabel.font = UIFont.systemFont(ofSize: 12)
         
         let userItemCountStackView = UIStackView(arrangedSubviews: [refrigeratorLabel, refrigeratorCountLabel, graveLabel, graveCountLabel])
