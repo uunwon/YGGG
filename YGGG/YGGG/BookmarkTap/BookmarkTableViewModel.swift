@@ -35,8 +35,6 @@ class BookmarkTableViewModel {
             let activeUserDocRef = db.collection("users").document(myID)
             let activeUserData = try await activeUserDocRef.getDocument(as: User.self)
         
-            //bookmarkList가 필요없지 않은지..?
-            //toogleBookmark함수에서 위에 세 줄 다시 안쓰려고 bookmarkList에 담아놨어요
             bookmarkList = activeUserData.bookmarkList
             
             if !(activeUserData.bookmarkList.isEmpty) {
@@ -49,11 +47,11 @@ class BookmarkTableViewModel {
                 }
                 
                 self.datas = loadedDatas
-                DispatchQueue.main.async {
-                    self.onDataChanged?()
-                }
             } else {
                 self.datas = []
+            }
+            DispatchQueue.main.async {
+                self.onDataChanged?()
             }
         } catch {
             print("Error getting documents: \(error)")

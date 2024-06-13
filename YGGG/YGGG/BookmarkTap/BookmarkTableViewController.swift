@@ -36,10 +36,6 @@ class BookmarkTableViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        Task {
-            await bookmarkTableViewModel.loadBookmarkList()
-        }
-        
         setupCustomSearchBar()
         setupTableView()
         setupTapGesture()
@@ -54,7 +50,14 @@ class BookmarkTableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-
+        Task {
+            if let searchText = customSearchBar.text, searchText.isEmpty {
+                await bookmarkTableViewModel.loadBookmarkList()
+            } else {
+                await bookmarkTableViewModel.loadFilteredList(searchText: customSearchBar.text!)
+            }
+            tableView.reloadData()
+        }
     }
     
     private func setupCustomSearchBar() {
@@ -155,7 +158,6 @@ extension BookmarkTableViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //이동
         let user = bookmarkTableViewModel.datas[indexPath.row]
         let viewMoel = ProfileViewModel(user: user)
         let vc = ProfileViewController(viewModel: viewMoel)
