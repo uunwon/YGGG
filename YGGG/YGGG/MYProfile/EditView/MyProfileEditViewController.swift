@@ -159,7 +159,7 @@ class MyProfileEditViewController: UIViewController {
         super.viewDidLoad()
         
         let backBarButtonItem = UIBarButtonItem(title: "뒤로가기", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .appPrimary
+        backBarButtonItem.tintColor = .setneworange
         self.navigationItem.backBarButtonItem = backBarButtonItem
         
         setupUI()
@@ -183,7 +183,7 @@ class MyProfileEditViewController: UIViewController {
         
         let rightBarButtonItem = UIBarButtonItem(title: "확인", style: .plain,
                                                  target: self, action: #selector(saveButtonTapped))
-        rightBarButtonItem.tintColor = .appPrimary
+        rightBarButtonItem.tintColor = .setneworange
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
         self.navigationController?.navigationBar.backgroundColor = .white
 
