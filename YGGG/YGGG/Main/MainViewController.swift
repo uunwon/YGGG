@@ -65,8 +65,6 @@ class MainViewController: UIViewController {
         return stackView
     }()
     
-//    let doubleTitleView = DoubleTitleView()
-    
     let plusButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)
@@ -142,19 +140,6 @@ class MainViewController: UIViewController {
 extension MainViewController {
     func setupNavigationBar() {
         self.navigationItem.largeTitleDisplayMode = .never
-//        
-//        doubleTitleView.leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
-//        doubleTitleView.rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
-//        
-//        navigationItem.leftBarButtonItems = [
-//            UIBarButtonItem(customView: doubleTitleView.leftButton),
-//            UIBarButtonItem(customView: doubleTitleView.rightButton)
-//        ]
-//        
-//        plusButton.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
-//        
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: plusButton)
-        
     }
     
     func setupCollectionView() {

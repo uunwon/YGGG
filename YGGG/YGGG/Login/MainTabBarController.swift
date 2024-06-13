@@ -8,9 +8,7 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-    
-    let doubleTitleView = DoubleTitleView()
-    
+        
     let plusButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)

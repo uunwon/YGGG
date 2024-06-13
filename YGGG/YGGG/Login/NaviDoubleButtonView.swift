@@ -15,6 +15,7 @@ protocol CustomNavigationViewDelegate: AnyObject {
 class NaviDoubleButtonView: UIView {
     
     weak var delegate: CustomNavigationViewDelegate?
+    var selectedButton: UIButton
     
     let leftButton: UIButton = {
         let button = UIButton(type: .system)
@@ -77,9 +78,7 @@ class NaviDoubleButtonView: UIView {
             rightButton.widthAnchor.constraint(equalToConstant: 44)
         ])
         
-        // 저장할 제약조건 설정
         underLineViewLeadingConstraint = underLineView.leadingAnchor.constraint(equalTo: leftButton.leadingAnchor)
-        
         
         NSLayoutConstraint.activate([
             underLineViewLeadingConstraint!,
@@ -89,27 +88,28 @@ class NaviDoubleButtonView: UIView {
         leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
         rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
         
-        // 초기 레이아웃 설정
-        updateUnderLineView(button: leftButton)
+        updateUnderLineView(button: leftButton, animated: false)
         selectedButton = leftButton
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        updateUnderLineView(button: selectedButton)
+        updateUnderLineView(button: selectedButton, animated: false)
     }
     
-    
-    var selectedButton: UIButton
-    
-    private func updateUnderLineView(button: UIButton) {
+    private func updateUnderLineView(button: UIButton, animated: Bool = true) {
         selectedButton = button
-        UIView.animate(withDuration: 0.3) {
+        if animated {
+            UIView.animate(withDuration: 0.3) {
+                self.underLineViewLeadingConstraint?.constant = button.frame.origin.x
+                self.layoutIfNeeded()
+            }
+        } else {
             self.underLineViewLeadingConstraint?.constant = button.frame.origin.x
             self.layoutIfNeeded()
         }
-        
     }
+    
     
     @objc private func leftButtonTapped() {
         delegate?.leftButtonTapped()
