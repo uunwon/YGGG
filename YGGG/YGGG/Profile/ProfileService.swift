@@ -13,7 +13,6 @@ let DB_RED = Firestore.firestore()
 let RED_USERS = DB_RED.collection("users")
 
 
-
 struct ProfileService {
     
     static let shared = ProfileService()
@@ -52,7 +51,7 @@ struct ProfileService {
     
     
     func fetchDocumentData(uid: String, completion: @escaping ([String]?) -> Void) {
-        COLLECTION_USERS.document(uid).getDocument { document, error in
+        RED_USERS.document(uid).getDocument { document, error in
             guard let document = document, document.exists,
                   let bookmarkList = document.data()?["bookmarkList"] as? [String] else {
                 print("Document does not exist or error occurred: \(error?.localizedDescription ?? "Unknown error")")
@@ -70,7 +69,7 @@ struct ProfileService {
     }
     
     func updateBookmarkList(uid: String, bookmarkList: [String], completion: @escaping (Bool) -> Void) {
-        COLLECTION_USERS.document(uid).updateData(["bookmarkList": bookmarkList]) { error in
+        RED_USERS.document(uid).updateData(["bookmarkList": bookmarkList]) { error in
             if let error = error {
                 print("업데이트 에러, \(error.localizedDescription)")
                 completion(false)

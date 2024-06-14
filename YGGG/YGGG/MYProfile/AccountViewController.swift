@@ -75,7 +75,7 @@ class AccountViewController: UIViewController {
         }
         
         
-        COLLECTION_USERS.document(user.uid).delete { error in
+        RED_USERS.document(user.uid).delete { error in
             //유저데이터 삭제
             if let error = error {
                 print("사용자 데이터 삭제 중 오류 발생 : \(error.localizedDescription)")

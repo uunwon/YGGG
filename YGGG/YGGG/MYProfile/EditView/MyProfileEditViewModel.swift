@@ -57,7 +57,7 @@ class MyProfileEditViewModel {
     func updateUserHashTags(hashTags: [String]) {
         let hashTagsString = hashTags.joined(separator: " ")
         if let uid = Auth.auth().currentUser?.uid {
-            COLLECTION_USERS.document(uid).updateData(["userHashTag": hashTagsString]) { error in
+            RED_USERS.document(uid).updateData(["userHashTag": hashTagsString]) { error in
                 if let error = error {
                     print("Error updating user image URL: \(error)")
                 } else {
@@ -69,7 +69,7 @@ class MyProfileEditViewModel {
     
     func updateUserName(newUserName: String) {
         if let uid = Auth.auth().currentUser?.uid {
-            COLLECTION_USERS.document(uid).updateData(["userName": newUserName]) { error in
+            RED_USERS.document(uid).updateData(["userName": newUserName]) { error in
                 if let error = error {
                     print("Error updating user image URL: \(error)")
                 } else {
@@ -110,7 +110,7 @@ class MyProfileEditViewModel {
         // Firestore 문서의 UID
         if let uid = Auth.auth().currentUser?.uid {
             // Firestore 문서 업데이트
-            COLLECTION_USERS.document(uid).updateData(["userImage": url]) { error in
+            RED_USERS.document(uid).updateData(["userImage": url]) { error in
                 if let error = error {
                     print("Error updating user image URL: \(error)")
                 } else {

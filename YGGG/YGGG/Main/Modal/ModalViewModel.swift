@@ -19,7 +19,7 @@ class ModalViewModel {
     
     private var userRef: DocumentReference? {
         if let userUUID = Auth.auth().currentUser?.uid {
-            return Firestore.firestore().collection("users").document(userUUID)
+            return RED_USERS.document(userUUID)
         }
         return nil
     }

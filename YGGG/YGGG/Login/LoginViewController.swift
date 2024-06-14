@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import GoogleSignIn
 
-let COLLECTION_USERS = Firestore.firestore().collection("users")
+
 
 class LoginViewController: UIViewController {
     let loginLabel: UILabel = {
@@ -133,7 +133,7 @@ class LoginViewController: UIViewController {
             Auth.auth().signIn(with: credential) { result, error in
                 guard let user = result?.user else { return }
        
-                let userRef = COLLECTION_USERS.document(user.uid)
+                let userRef = RED_USERS.document(user.uid)
                 userRef.getDocument { document, error in
                     if let document = document, document.exists {
                         self.moveToMain()
