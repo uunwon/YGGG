@@ -20,6 +20,7 @@
 		414104012C1693AC00381B7A /* MyProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414104002C1693AC00381B7A /* MyProfileTableViewCell.swift */; };
 		414104032C16BC9700381B7A /* MyProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414104022C16BC9700381B7A /* MyProfileEditViewController.swift */; };
 		414104052C16EA6E00381B7A /* HashTagCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414104042C16EA6E00381B7A /* HashTagCVCell.swift */; };
+		414E85E42C1C02760053BD97 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E85E32C1C02760053BD97 /* ProfileViewModel.swift */; };
 		4157B6D72C176ACF00B2CF2D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4157B6D32C176ACF00B2CF2D /* LoginViewController.swift */; };
 		4157B6D82C176ACF00B2CF2D /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4157B6D42C176ACF00B2CF2D /* MainTabBarController.swift */; };
 		4157B6D92C176ACF00B2CF2D /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4157B6D52C176ACF00B2CF2D /* SplashViewController.swift */; };
@@ -71,6 +72,7 @@
 		414104002C1693AC00381B7A /* MyProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileTableViewCell.swift; sourceTree = "<group>"; };
 		414104022C16BC9700381B7A /* MyProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileEditViewController.swift; sourceTree = "<group>"; };
 		414104042C16EA6E00381B7A /* HashTagCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCVCell.swift; sourceTree = "<group>"; };
+		414E85E32C1C02760053BD97 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		4157B6D32C176ACF00B2CF2D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4157B6D42C176ACF00B2CF2D /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		4157B6D52C176ACF00B2CF2D /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				413C0F0C2C11E25300BBFBD7 /* CosmeticsTVCell.swift */,
 				413C0F0A2C11E25300BBFBD7 /* ProfileViewController.swift */,
 				4122721C2C1422DB00E7ED9C /* ProfileService.swift */,
+				414E85E32C1C02760053BD97 /* ProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				414103FF2C1688D000381B7A /* ProfileMainView.swift in Sources */,
 				418C23092C18692700A90924 /* BookmarkTableViewController.swift in Sources */,
 				418279E62C180E5B00704E89 /* AccountViewController.swift in Sources */,
+				414E85E42C1C02760053BD97 /* ProfileViewModel.swift in Sources */,
 				4122721D2C1422DB00E7ED9C /* ProfileService.swift in Sources */,
 				418C23352C18772200A90924 /* KindModalViewController.swift in Sources */,
 			);
