@@ -28,12 +28,12 @@ class MainTabBarController: UITabBarController {
         
         view.backgroundColor = .white
         
-        let followViewController = BookmarkTableViewController()
+        let bookMarkViewController = BookmarkTableViewController()
         let homeViewController = MainViewController()
         let myViewController = MyProfileVIewController()
         
-        followViewController.tabBarItem = UITabBarItem(
-            title: "Follow",
+        bookMarkViewController.tabBarItem = UITabBarItem(
+            title: "BookMark",
             image: UIImage(systemName: "heart"),
             selectedImage: UIImage(systemName: "heart.fill")
         )
@@ -52,7 +52,7 @@ class MainTabBarController: UITabBarController {
         
         tabBar.tintColor = .yggg_green
         tabBar.backgroundColor = .white
-        let tabBarList = [followViewController, homeViewController, myViewController]
+        let tabBarList = [bookMarkViewController, homeViewController, myViewController]
         viewControllers = tabBarList
         selectedIndex = 1
         setupNavigationBar(viewController: homeViewController)
