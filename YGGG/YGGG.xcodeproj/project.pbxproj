@@ -53,7 +53,7 @@
 		41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8652C0EC83300A09411 /* AppDelegate.swift */; };
 		41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8672C0EC83300A09411 /* SceneDelegate.swift */; };
 		41CCE86F2C0EC83400A09411 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41CCE86E2C0EC83400A09411 /* Assets.xcassets */; };
-		41CCE87A2C0EC9FD00A09411 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41CCE8792C0EC9FD00A09411 /* GoogleService-Info.plist */; };
+		5325E3902C1BD9C900F4784B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5325E38F2C1BD9C900F4784B /* GoogleService-Info.plist */; };
 		5330C2AC2C0EE54800136C4D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5330C2AB2C0EE54800136C4D /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -99,7 +99,7 @@
 		41CCE8672C0EC83300A09411 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		41CCE86E2C0EC83400A09411 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41CCE8732C0EC83400A09411 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		41CCE8792C0EC9FD00A09411 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		5325E38F2C1BD9C900F4784B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5330C2AB2C0EE54800136C4D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -272,8 +272,8 @@
 				413C0F062C11E22100BBFBD7 /* Profile */,
 				414E85932C1B3C610053BD97 /* Model */,
 				413C0F082C11E23F00BBFBD7 /* Extension */,
-				41CCE8792C0EC9FD00A09411 /* GoogleService-Info.plist */,
 				41CCE86E2C0EC83400A09411 /* Assets.xcassets */,
+				5325E38F2C1BD9C900F4784B /* GoogleService-Info.plist */,
 				5330C2AB2C0EE54800136C4D /* Launch Screen.storyboard */,
 				41CCE8732C0EC83400A09411 /* Info.plist */,
 			);
@@ -363,7 +363,7 @@
 			files = (
 				41CCE86F2C0EC83400A09411 /* Assets.xcassets in Resources */,
 				5330C2AC2C0EE54800136C4D /* Launch Screen.storyboard in Resources */,
-				41CCE87A2C0EC9FD00A09411 /* GoogleService-Info.plist in Resources */,
+				5325E3902C1BD9C900F4784B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

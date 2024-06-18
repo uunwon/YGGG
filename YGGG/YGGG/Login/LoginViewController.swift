@@ -14,31 +14,39 @@ import GoogleSignIn
 
 
 class LoginViewController: UIViewController {
-    let loginLabel: UILabel = {
-       let label = UILabel()
-        label.text = "로그인"
-        label.font = .systemFont(ofSize: 35, weight: .black)
+
+    let logoLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.textColor = .yggg_app_primary
+        
+        let logoImage = NSTextAttachment()
+        logoImage.image = UIImage(named: "AppIcon")
+        logoImage.bounds = CGRect(x: 0, y: -3, width: 20, height: 20)
+        
+        let attributedString = NSMutableAttributedString(attachment: logoImage)
+        let logoText = NSMutableAttributedString(string: "  연지곤지")
+        attributedString.append(logoText)
+        
+        label.attributedText = attributedString
         label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let descriptionLabel: UILabel = {
-       let label = UILabel()
-        label.text = "소셜 로그인을 통해 간편하게 가입할 수 있습니다."
-        label.font = .systemFont(ofSize: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        
         return label
     }()
     
     lazy var googleLoginButton: UIButton = {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .white
+        
         let button = UIButton()
         
         button.layer.borderWidth = 0.5
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderColor = UIColor.lightGray.cgColor
         
-        config.title = "Google로 시작하기"
+        var titleContainer = AttributeContainer() // Button Custom
+        titleContainer.font = UIFont.systemFont(ofSize: 16, weight: .light)
+        config.attributedTitle = AttributedString("Google로 시작하기", attributes: titleContainer)
+        
         config.image = UIImage(named: "Google Logo")
         config.imagePadding = 10
         config.imagePlacement = .leading
@@ -47,7 +55,7 @@ class LoginViewController: UIViewController {
         button.configuration = config
         
         button.layer.masksToBounds = true // button rounding
-        button.layer.cornerRadius = 7
+        button.layer.cornerRadius = 6
         
         let action = UIAction { [weak self] _ in
             self?.handleSignInButton()
@@ -59,25 +67,17 @@ class LoginViewController: UIViewController {
         return button
     }()
     
-    private lazy var titleLabelConstraints: [NSLayoutConstraint] = {
+    private lazy var logoLabelConstraints: [NSLayoutConstraint] = {
         let safeArea = view.safeAreaLayoutGuide
         return [
-            loginLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 40),
-            loginLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 30)
-        ]
-    }()
-    
-    private lazy var descriptionLabelConstraints: [NSLayoutConstraint] = {
-        let safeArea = view.safeAreaLayoutGuide
-        return [
-            descriptionLabel.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 15),
-            descriptionLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 30)
+            logoLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 40),
+            logoLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 30)
         ]
     }()
     
     private lazy var googleLoginButtonConstraints: [NSLayoutConstraint] = {
         return [
-            googleLoginButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 80),
+            googleLoginButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             googleLoginButton.heightAnchor.constraint(equalToConstant: 53),
             googleLoginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             googleLoginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
@@ -89,8 +89,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
 
-        view.addSubview(loginLabel)
-        view.addSubview(descriptionLabel)
+        view.addSubview(logoLabel)
         view.addSubview(googleLoginButton)
     }
     
@@ -101,7 +100,7 @@ class LoginViewController: UIViewController {
     
     // MARK: - Methods
     func updateLayout() {
-        NSLayoutConstraint.activate(titleLabelConstraints + descriptionLabelConstraints + googleLoginButtonConstraints)
+        NSLayoutConstraint.activate(logoLabelConstraints + googleLoginButtonConstraints)
     }
     
     // 로그인 성공 시 메인 화면으로 전환
@@ -161,5 +160,4 @@ class LoginViewController: UIViewController {
         }
         
     }
-    
 }
