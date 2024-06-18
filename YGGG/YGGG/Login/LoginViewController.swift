@@ -34,6 +34,18 @@ class LoginViewController: UIViewController {
         return label
     }()
     
+    let loginPageControl: UIPageControl = {
+       let pageControl = UIPageControl()
+        pageControl.numberOfPages = 3
+        pageControl.currentPage = 0
+        pageControl.pageIndicatorTintColor = .lightGray
+        pageControl.currentPageIndicatorTintColor = .yggg_orange2
+        
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        
+        return pageControl
+    }()
+    
     lazy var googleLoginButton: UIButton = {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .white
@@ -75,13 +87,20 @@ class LoginViewController: UIViewController {
         ]
     }()
     
+    private lazy var loginPageControlConstraints: [NSLayoutConstraint] = {
+       return [
+            loginPageControl.bottomAnchor.constraint(equalTo: googleLoginButton.topAnchor, constant: -110),
+            loginPageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+       ]
+    }()
+    
     private lazy var googleLoginButtonConstraints: [NSLayoutConstraint] = {
         return [
             googleLoginButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             googleLoginButton.heightAnchor.constraint(equalToConstant: 53),
+            googleLoginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             googleLoginButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            googleLoginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            googleLoginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            googleLoginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24)
         ]
     }()
 
@@ -90,17 +109,19 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .white
 
         view.addSubview(logoLabel)
+        view.addSubview(loginPageControl)
         view.addSubview(googleLoginButton)
     }
     
     override func viewIsAppearing(_ animated: Bool) {
         super.viewIsAppearing(animated)
         updateLayout()
+        setLoginPageViewController()
     }
     
     // MARK: - Methods
     func updateLayout() {
-        NSLayoutConstraint.activate(logoLabelConstraints + googleLoginButtonConstraints)
+        NSLayoutConstraint.activate(logoLabelConstraints + loginPageControlConstraints + googleLoginButtonConstraints)
     }
     
     // 로그인 성공 시 메인 화면으로 전환
@@ -159,5 +180,22 @@ class LoginViewController: UIViewController {
             }
         }
         
+    }
+    
+    func setLoginPageViewController() {
+        let pageViewController = loginPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+        addChild(pageViewController)
+        pageViewController.didMove(toParent: self)
+        
+        view.addSubview(pageViewController.view)
+        pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            pageViewController.view.topAnchor.constraint(equalTo: logoLabel.bottomAnchor, constant: 30),
+            pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            pageViewController.view.bottomAnchor.constraint(equalTo: loginPageControl.topAnchor, constant: -20)
+        ])
+        
+        pageViewController.pageControl = loginPageControl
     }
 }

@@ -55,6 +55,7 @@
 		41CCE86F2C0EC83400A09411 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41CCE86E2C0EC83400A09411 /* Assets.xcassets */; };
 		5325E3902C1BD9C900F4784B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5325E38F2C1BD9C900F4784B /* GoogleService-Info.plist */; };
 		5330C2AC2C0EE54800136C4D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5330C2AB2C0EE54800136C4D /* Launch Screen.storyboard */; };
+		53C4ACE22C21B8A500BC1966 /* loginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C4ACE12C21B8A500BC1966 /* loginPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +102,7 @@
 		41CCE8732C0EC83400A09411 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5325E38F2C1BD9C900F4784B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5330C2AB2C0EE54800136C4D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		53C4ACE12C21B8A500BC1966 /* loginPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginPageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 				4157B6D32C176ACF00B2CF2D /* LoginViewController.swift */,
 				4157B6D42C176ACF00B2CF2D /* MainTabBarController.swift */,
 				4157B6D52C176ACF00B2CF2D /* SplashViewController.swift */,
+				53C4ACE12C21B8A500BC1966 /* loginPageViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				414103FF2C1688D000381B7A /* ProfileMainView.swift in Sources */,
 				418C23092C18692700A90924 /* BookmarkTableViewController.swift in Sources */,
 				418279E62C180E5B00704E89 /* AccountViewController.swift in Sources */,
+				53C4ACE22C21B8A500BC1966 /* loginPageViewController.swift in Sources */,
 				4122721D2C1422DB00E7ED9C /* ProfileService.swift in Sources */,
 				418C23352C18772200A90924 /* KindModalViewController.swift in Sources */,
 			);
