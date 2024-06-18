@@ -58,16 +58,16 @@ class LoginViewController: UIViewController {
         var titleContainer = AttributeContainer() // Button Custom
         titleContainer.font = UIFont.systemFont(ofSize: 16, weight: .light)
         config.attributedTitle = AttributedString("Google로 시작하기", attributes: titleContainer)
-        
-        config.image = UIImage(named: "Google Logo")
-        config.imagePadding = 10
-        config.imagePlacement = .leading
         config.baseForegroundColor = .black
         
         button.configuration = config
         
         button.layer.masksToBounds = true // button rounding
         button.layer.cornerRadius = 6
+        
+        let leftImage = UIImage(named: "Google Logo")
+        let rightImage = UIImage(systemName: "arrow.right")
+        button.setImages(leftImage: leftImage, rightImage: rightImage, for: .normal)
         
         let action = UIAction { [weak self] _ in
             self?.handleSignInButton()
