@@ -51,11 +51,13 @@
 		418C23362C18772200A90924 /* ModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23272C18772200A90924 /* ModalViewModel.swift */; };
 		418C23372C18772200A90924 /* NameModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23282C18772200A90924 /* NameModalViewController.swift */; };
 		418C23382C18772200A90924 /* OptionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418C23292C18772200A90924 /* OptionTableViewController.swift */; };
+		41BCB43A2C22912E00E817E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41BCB4392C22912D00E817E6 /* GoogleService-Info.plist */; };
 		41CCE8662C0EC83300A09411 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8652C0EC83300A09411 /* AppDelegate.swift */; };
 		41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41CCE8672C0EC83300A09411 /* SceneDelegate.swift */; };
 		41CCE86F2C0EC83400A09411 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41CCE86E2C0EC83400A09411 /* Assets.xcassets */; };
-		41CCE87A2C0EC9FD00A09411 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41CCE8792C0EC9FD00A09411 /* GoogleService-Info.plist */; };
 		5330C2AC2C0EE54800136C4D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5330C2AB2C0EE54800136C4D /* Launch Screen.storyboard */; };
+		53C4ACE22C21B8A500BC1966 /* loginPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C4ACE12C21B8A500BC1966 /* loginPageViewController.swift */; };
+		53C4ACE62C21DA1D00BC1966 /* Extension+UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C4ACE52C21DA1D00BC1966 /* Extension+UIButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,13 +98,15 @@
 		418C23272C18772200A90924 /* ModalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewModel.swift; sourceTree = "<group>"; };
 		418C23282C18772200A90924 /* NameModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameModalViewController.swift; sourceTree = "<group>"; };
 		418C23292C18772200A90924 /* OptionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionTableViewController.swift; sourceTree = "<group>"; };
+		41BCB4392C22912D00E817E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		41CCE8622C0EC83300A09411 /* YGGG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YGGG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41CCE8652C0EC83300A09411 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41CCE8672C0EC83300A09411 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		41CCE86E2C0EC83400A09411 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41CCE8732C0EC83400A09411 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		41CCE8792C0EC9FD00A09411 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		5330C2AB2C0EE54800136C4D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		53C4ACE12C21B8A500BC1966 /* loginPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginPageViewController.swift; sourceTree = "<group>"; };
+		53C4ACE52C21DA1D00BC1966 /* Extension+UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIButton.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +144,7 @@
 			children = (
 				413C0F072C11E23F00BBFBD7 /* Extension+UIColor.swift */,
 				418279E32C180DE700704E89 /* Extension+UIImageView.swift */,
+				53C4ACE52C21DA1D00BC1966 /* Extension+UIButton.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -189,6 +194,7 @@
 				4157B6D32C176ACF00B2CF2D /* LoginViewController.swift */,
 				4157B6D42C176ACF00B2CF2D /* MainTabBarController.swift */,
 				4157B6D52C176ACF00B2CF2D /* SplashViewController.swift */,
+				53C4ACE12C21B8A500BC1966 /* loginPageViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -275,8 +281,8 @@
 				413C0F062C11E22100BBFBD7 /* Profile */,
 				414E85932C1B3C610053BD97 /* Model */,
 				413C0F082C11E23F00BBFBD7 /* Extension */,
-				41CCE8792C0EC9FD00A09411 /* GoogleService-Info.plist */,
 				41CCE86E2C0EC83400A09411 /* Assets.xcassets */,
+				41BCB4392C22912D00E817E6 /* GoogleService-Info.plist */,
 				5330C2AB2C0EE54800136C4D /* Launch Screen.storyboard */,
 				41CCE8732C0EC83400A09411 /* Info.plist */,
 			);
@@ -365,8 +371,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				41CCE86F2C0EC83400A09411 /* Assets.xcassets in Resources */,
+				41BCB43A2C22912E00E817E6 /* GoogleService-Info.plist in Resources */,
 				5330C2AC2C0EE54800136C4D /* Launch Screen.storyboard in Resources */,
-				41CCE87A2C0EC9FD00A09411 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +412,7 @@
 				413C0F092C11E23F00BBFBD7 /* Extension+UIColor.swift in Sources */,
 				41CCE8682C0EC83300A09411 /* SceneDelegate.swift in Sources */,
 				413C0F102C11E25300BBFBD7 /* CosmeticsTVCell.swift in Sources */,
+				53C4ACE62C21DA1D00BC1966 /* Extension+UIButton.swift in Sources */,
 				418279E42C180DE700704E89 /* Extension+UIImageView.swift in Sources */,
 				414104052C16EA6E00381B7A /* HashTagCVCell.swift in Sources */,
 				418C23362C18772200A90924 /* ModalViewModel.swift in Sources */,
@@ -414,6 +421,7 @@
 				418C23092C18692700A90924 /* BookmarkTableViewController.swift in Sources */,
 				418279E62C180E5B00704E89 /* AccountViewController.swift in Sources */,
 				414E85E42C1C02760053BD97 /* ProfileViewModel.swift in Sources */,
+				53C4ACE22C21B8A500BC1966 /* loginPageViewController.swift in Sources */,
 				4122721D2C1422DB00E7ED9C /* ProfileService.swift in Sources */,
 				418C23352C18772200A90924 /* KindModalViewController.swift in Sources */,
 			);
