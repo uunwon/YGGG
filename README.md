@@ -58,7 +58,7 @@
 
   
 <details open>
-<summary>김송 - [@ksiomng0929](https://github.com/ksiomng0929) </summary>
+<summary>김송 - [@ksiomng0929](https://github.com/ksiomng) </summary>
   
   - 담당: 기획, 디자인
   - 개발: CosmeticListView
@@ -114,7 +114,7 @@
 </details> 
 
 <details>
-<summary>김송 - [@ksiomng0929](https://github.com/ksiomng0929) </summary>
+<summary>김송 - [@ksiomng](https://github.com/ksiomng) </summary>
   
 ### Keep
 - 기획 단계에서 필요한 기능들을 명확하게 정리하고 분배한 덕분에, 각 팀원이 책임감을 가지고 맡은 기능을 성공적으로 완수하였습니다.
